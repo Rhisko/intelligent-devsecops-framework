@@ -2,12 +2,12 @@
 services:
   jenkins:
     build:
-      # context: ./infrastructure
-      dockerfile: Dockerfile
+      # context: ..
+      dockerfile: jenkins/Dockerfile
       platforms: 
       - linux/amd64
       - linux/arm64
-    image: riskoregistry77/jenkins-custom:v1.0.0
+    image: riskoregistry77/jenkins-custom:v1.0.0                               
     container_name: jenkins
     user: "1000:1000"
     ports:
