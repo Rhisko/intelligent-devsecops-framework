@@ -3,3 +3,4 @@ docs/Draft-Thesis
 docs/Ebooks
 docs/Proposal
 *.env
+.DS_Store
