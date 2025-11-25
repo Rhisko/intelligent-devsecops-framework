@@ -204,7 +204,6 @@ pipeline {
                 echo "[POST] Archiving debug reports"
                 currentBuild.displayName = "DEBUGGED-${env.BUILD_STATUS ?: 'UNKNOWN'}-${env.BUILD_NUMBER}"
             }
-            archiveArtifacts artifacts: "debug-reports/**", onlyIfSuccessful: false
             
         }
     }
