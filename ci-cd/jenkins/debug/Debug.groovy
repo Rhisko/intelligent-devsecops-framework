@@ -27,10 +27,6 @@ pipeline {
             }
         }
 
-        /* ============================================================
-           PLATFORM DEBUG
-           ============================================================ */
-
         stage('DEBUG: Agent Environment') {
             steps {
                 script {
@@ -44,8 +40,6 @@ pipeline {
                     echo "----- Disk Space -----"
                     df -h
 
-                    echo "----- Network Check -----"
-                    ping -c 2 google.com || echo "Ping failed (OK for offline env)"
                 '''
             }
         }
