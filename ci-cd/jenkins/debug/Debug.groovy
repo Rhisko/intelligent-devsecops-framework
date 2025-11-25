@@ -207,6 +207,7 @@ pipeline {
     post {
         always {
             echo "[POST] Debug pipeline finished. Check artifacts & logs for details."
+            currentBuild.result = 'DEBUGGED-${BUILD_STATUS}-${BUILD_NUMBER}'
         }
     }
 }
