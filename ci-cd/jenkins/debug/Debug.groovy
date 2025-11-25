@@ -207,7 +207,8 @@ pipeline {
     post {
         always {
             echo "[POST] Debug pipeline finished. Check artifacts & logs for details."
-            currentBuild.result = 'DEBUGGED-${BUILD_STATUS}-${BUILD_NUMBER}'
+            // Use env.* and double quotes for interpolation; provide a fallback for BUILD_STATUS
+            currentBuild.result = "DEBUGGED-${env.BUILD_STATUS ?: 'UNKNOWN'}-${env.BUILD_NUMBER}"
         }
     }
 }
