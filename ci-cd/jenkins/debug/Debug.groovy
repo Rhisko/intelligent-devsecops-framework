@@ -201,8 +201,8 @@ pipeline {
     post {
         always {
             script {
-                echo "[POST] Archiving debug reports"
-                currentBuild.displayName = "DEBUGGED-${env.BUILD_STATUS ?: 'UNKNOWN'}-${env.BUILD_NUMBER}"
+                def status = currentBuild.currentResult ?: 'UNKNOWN'
+                currentBuild.displayName = "DEBUGGED-${status}-${env.BUILD_NUMBER}"
             }
             
         }
