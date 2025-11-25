@@ -1,0 +1,179 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.0.3">
+  <diagram name="Page-1" id="t1yUPXVgwX4c_B28KL4k">
+    <mxGraphModel dx="2177" dy="1540" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3vETicvla-XjMbYX95iE-61" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="192" y="59" width="790" height="1550" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Times New Roman;dashed=1;strokeWidth=2;" parent="1" source="3vETicvla-XjMbYX95iE-1" target="3vETicvla-XjMbYX95iE-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-1" value="Mulai" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Times New Roman;labelBackgroundColor=default;" parent="1" vertex="1">
+          <mxGeometry x="525" y="69" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;dashed=1;strokeWidth=2;" parent="1" source="3vETicvla-XjMbYX95iE-2" target="3vETicvla-XjMbYX95iE-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-2" value="Identifikasi Masalah" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="525" y="209" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" parent="1" source="3vETicvla-XjMbYX95iE-6" target="3vETicvla-XjMbYX95iE-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-6" value="&lt;font&gt;Rumusan Masalah&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="525" y="343" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;" parent="1" source="3vETicvla-XjMbYX95iE-8" target="3vETicvla-XjMbYX95iE-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-8" value="&lt;font&gt;Study Pustaka&lt;br&gt;&lt;div&gt;(DevSecOps, CI/CD, SAST, SCA, PaC, AI/LLM,&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;SonarQube, Jenkins, n8n, OPA/Conftest)&lt;/span&gt;&lt;/div&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="470" y="499" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-13" value="Identifikasi Masalah" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="273" width="260" height="200" as="geometry">
+            <mxRectangle x="220" y="214" width="150" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-3" value="&lt;div style=&quot;line-height: 20%;&quot;&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 20%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal; line-height: 20%;&quot;&gt;• Tools keamanan berjalan terpisah (silo)&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 20%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal; line-height: 20%;&quot;&gt;• Banyak VA (vulnerability assessment) lolos&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 20%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal; line-height: 20%;&quot;&gt;• Kompleksitas teknis dan integrasi tinggi&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 20%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal; line-height: 20%;&quot;&gt;• SDM terbatas, tim security kecil&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 20%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal; line-height: 20%;&quot;&gt;• Developer resist karena laporan sulit dipahami&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 20%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal; line-height: 20%;&quot;&gt;• Belum ada AI-driven security advisory&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 20%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal; line-height: 20%;&quot;&gt;• Policy-as-Code belum diterapkan secara efektif&lt;/span&gt;&lt;/h1&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;labelBackgroundColor=light-dark(#FFFFFF,#005D5D);" parent="3vETicvla-XjMbYX95iE-13" vertex="1">
+          <mxGeometry x="10" y="23" width="240" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.465;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="3vETicvla-XjMbYX95iE-2" target="3vETicvla-XjMbYX95iE-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-15" value="Rumusan Masalah" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="690" y="273" width="260" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-10" value="&lt;div style=&quot;line-height: 20%;&quot;&gt;&lt;h1 style=&quot;margin-top: 0px; line-height: 170%;&quot;&gt;&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 170%;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;• Bagaimana mengintegrasikan multi-tool&amp;nbsp;&lt;/font&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 170%;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;keamanan ke dalam satu quality gate?&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 170%;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;• Bagaimana menambahkan policy-as-code&amp;nbsp;&lt;/font&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 170%;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;&amp;nbsp; &amp;nbsp;untuk&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;validasi konfigurasi deployment?&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 170%;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;• Bagaimana menyediakan advisory otomatis&amp;nbsp;&lt;/font&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 170%;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;berbasis AI yang mudah dipahami developer?&lt;/span&gt;&lt;/p&gt;&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-weight: 400; font-stretch: normal; font-size: 12px; line-height: 170%;&quot;&gt;&lt;font face=&quot;Times New Roman&quot;&gt;• Bagaimana mengevaluasi efektivitas framework&amp;nbsp;&lt;/font&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;DevSecOps cerdas yang diusulkan?&lt;/span&gt;&lt;/p&gt;&lt;/h1&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;" parent="3vETicvla-XjMbYX95iE-15" vertex="1">
+          <mxGeometry x="10" y="20" width="240" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.462;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="3vETicvla-XjMbYX95iE-6" target="3vETicvla-XjMbYX95iE-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;dashed=1;" parent="1" source="3vETicvla-XjMbYX95iE-18" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="585" y="729" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-18" value="&lt;font&gt;Tahap Integrasi dan Automasi DevSecOps&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="525" y="619" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-20" value="&lt;font&gt;[ 1 ] Integrasi Security Tools&lt;br&gt;( Horusec , Trivy , Linter Tools )&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="220" y="729" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-27" value="Integrasi Security Tools" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="799" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-28" value="&lt;div style=&quot;line-height: 80%;&quot;&gt;&lt;p style=&quot;margin-top: 0px; line-height: 150%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal;&quot;&gt;• Mengurangi Kompleksitas Teknis, Semua &lt;i&gt;Tools Trigger By Jenkins &lt;/i&gt;secara otomasi&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal;&quot;&gt;• Mengurangi pekerjaan secara manual Tim Security&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;labelBackgroundColor=light-dark(#FFFFFF,#005D5D);" parent="3vETicvla-XjMbYX95iE-27" vertex="1">
+          <mxGeometry x="5" y="20" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-39" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="300" y="699" width="650" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;strokeWidth=2;" parent="3vETicvla-XjMbYX95iE-39" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="30" as="targetPoint" />
+            <mxPoint y="30" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint />
+              <mxPoint x="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-31" value="&lt;font&gt;[ 2 ] Vulnerability Gate&lt;br&gt;( Sonarqube )&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="3vETicvla-XjMbYX95iE-39" vertex="1">
+          <mxGeometry x="195" y="30" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-32" value="Vulnerability Gate" style="swimlane;whiteSpace=wrap;html=1;" parent="3vETicvla-XjMbYX95iE-39" vertex="1">
+          <mxGeometry x="195" y="100" width="180" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-33" value="&lt;div style=&quot;line-height: 70%;&quot;&gt;&lt;p style=&quot;margin-top: 0px; line-height: 140%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal;&quot;&gt;•&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); font-size: 12px; font-weight: 400;&quot;&gt;SonarQube sebagai&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); font-size: 12px; font-weight: 400;&quot;&gt;&amp;nbsp;&lt;i&gt;single source of truth .&lt;br&gt;&lt;/i&gt;&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93));&quot;&gt;•&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93));&quot;&gt;Menerima hasil scan&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93));&quot;&gt;dari Horusec, Trivy,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93));&quot;&gt;Linter (via integrasi&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93));&quot;&gt;/ konversi format)&amp;nbsp;&lt;br&gt;&lt;/span&gt;• Menentukan Quality Gate : PASS / FAILED&lt;br&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Mengurangi VA yang lolos karena semua Terkonsolidasi.&lt;/span&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;labelBackgroundColor=light-dark(#FFFFFF,#005D5D);" parent="3vETicvla-XjMbYX95iE-32" vertex="1">
+          <mxGeometry x="5" y="20" width="170" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-35" value="&lt;font&gt;[ 3 ] Configuration Policy&amp;nbsp; Gate&lt;br&gt;( Conftest / OPA )&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="3vETicvla-XjMbYX95iE-39" vertex="1">
+          <mxGeometry x="470" y="30" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-36" value="Configuration Policy Gate" style="swimlane;whiteSpace=wrap;html=1;" parent="3vETicvla-XjMbYX95iE-39" vertex="1">
+          <mxGeometry x="470" y="100" width="180" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-37" value="&lt;div style=&quot;line-height: 70%;&quot;&gt;&lt;p style=&quot;margin-top: 0px; line-height: 140%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal;&quot;&gt;• Validasi Helm Chart / Kuztomize , YAML, dll.&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93));&quot;&gt;• Cek Kepatuhan terhadap kebijakan internal.&lt;br&gt;&lt;/span&gt;• &lt;i&gt;Configuration&lt;/i&gt; tidak sesuai policy FAILED.&lt;br&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93));&quot;&gt;Mengurangi resiko &lt;i&gt;misconfiguration&lt;/i&gt; ( config salah tetap ter-deploy )&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;labelBackgroundColor=light-dark(#FFFFFF,#005D5D);" parent="3vETicvla-XjMbYX95iE-36" vertex="1">
+          <mxGeometry x="5" y="20" width="170" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;startFill=0;strokeWidth=2;endArrow=none;endFill=0;" parent="3vETicvla-XjMbYX95iE-39" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="290" as="targetPoint" />
+            <mxPoint x="2" y="230" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="2" y="320" />
+              <mxPoint x="567" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="3vETicvla-XjMbYX95iE-40" target="3vETicvla-XjMbYX95iE-43" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="669.9999999999998" y="1074" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="660" y="1077" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-48" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;" parent="1" source="3vETicvla-XjMbYX95iE-40" target="3vETicvla-XjMbYX95iE-46" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-40" value="&lt;font&gt;Jenkins Pipeline&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1049" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeWidth=2;" parent="1" target="3vETicvla-XjMbYX95iE-40" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="1019" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-43" value="Jenkins Pipeline" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="690" y="1049" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-44" value="&lt;div style=&quot;line-height: 80%;&quot;&gt;&lt;p style=&quot;margin-top: 0px; line-height: 150%;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal;&quot;&gt;• Menjalankan seluruh tahapan build,scan ,evaluasi&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;Mengintegrasikan Sonarqube dan Conftest secara Otomatis.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;labelBackgroundColor=light-dark(#FFFFFF,#005D5D);" parent="3vETicvla-XjMbYX95iE-43" vertex="1">
+          <mxGeometry x="5" y="20" width="170" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-50" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;" parent="1" source="3vETicvla-XjMbYX95iE-46" target="3vETicvla-XjMbYX95iE-49" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-46" value="&lt;p&gt;Hasil Pemindaian&amp;nbsp;&lt;br&gt;(Report terintegrasi dari SonarQube + status Policy Gate dari Conftest)&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="490" y="1149" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3vETicvla-XjMbYX95iE-49" target="3vETicvla-XjMbYX95iE-52" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-55" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;" parent="1" source="3vETicvla-XjMbYX95iE-49" target="3vETicvla-XjMbYX95iE-54" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-49" value="&lt;p&gt;&amp;nbsp;Workflow n8n&lt;br&gt;AI-driven Security Advisory&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(LLM membaca hasil scan&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;amp; memberikan saran)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;(Mengirim advisory ke Telegram)&lt;/span&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="490" y="1259" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-51" value="Workflow N8N" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="270" y="1169" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-52" value="&lt;div style=&quot;line-height: 80%;&quot;&gt;&lt;p style=&quot;margin-top: 0px; line-height: 150%;&quot;&gt;• AI/LLM meringkas temuan,&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;memberi penjelasan risiko, dan&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;rekomendasi mitigasi.&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Mengurangi beban kognitif&lt;br&gt;&lt;/span&gt;developer (resistensi menurun)&lt;/p&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;labelBackgroundColor=light-dark(#FFFFFF,#005D5D);" parent="3vETicvla-XjMbYX95iE-51" vertex="1">
+          <mxGeometry x="5" y="20" width="170" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-58" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="3vETicvla-XjMbYX95iE-54" target="3vETicvla-XjMbYX95iE-57" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-60" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;" parent="1" source="3vETicvla-XjMbYX95iE-54" target="3vETicvla-XjMbYX95iE-59" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-54" value="&lt;p&gt;Intelligent DevSecOps Framework&lt;/p&gt;&lt;p&gt;Output&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+          <mxGeometry x="490" y="1419" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-56" value="Output" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="730" y="1189" width="180" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-57" value="&lt;div style=&quot;line-height: 80%;&quot;&gt;&lt;p style=&quot;margin-top: 0px; line-height: 150%;&quot;&gt;• Quality Gate via SonarQube&amp;nbsp;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(semua hasil Horusec/Trivy/Linter terkonsolidasi)&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Configuration Policy Gate via Conftest/OPA&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(config deployment tidak sesuai policy → gagal)&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Advisory Otomatis berbasis AI/LLM&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(developer langsung tahu apa yang diperbaiki)&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Konsolidasi Temuan lintas alat&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(mengurangi risiko VA lolos)&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Continuous Feedback ke developer&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(mempercepat perbaikan dan respons keamanan)&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;pengurangan kompleksitas teknis&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(0, 93, 93)); color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;peningkatan kualitas keamanan aplikasi)&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Times New Roman;labelBackgroundColor=light-dark(#FFFFFF,#005D5D);" parent="3vETicvla-XjMbYX95iE-56" vertex="1">
+          <mxGeometry x="5" y="20" width="170" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="3vETicvla-XjMbYX95iE-59" value="Penutup" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Times New Roman;labelBackgroundColor=default;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1519" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,191 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.0.3">
+  <diagram name="Page-1" id="-cHconRjMXa4npi7bwWZ">
+    <mxGraphModel dx="1866" dy="1320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lp3iz_u56yTIppmHESsl-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-1" target="lp3iz_u56yTIppmHESsl-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-1" value="Mulai" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="10" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-2" target="lp3iz_u56yTIppmHESsl-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-2" value="Analisis" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" edge="1" parent="1" target="lp3iz_u56yTIppmHESsl-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="505.9" as="sourcePoint" />
+            <mxPoint x="420" y="555.9" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="414" y="506" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-3" value="Studi Literarur dan Tinjauan Pustaka &lt;i&gt;Devsecops Tools&lt;/i&gt; serta Teknologi Pendukung" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="311" y="220" width="206" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;startArrow=classic;startFill=1;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-4" target="lp3iz_u56yTIppmHESsl-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="200" />
+              <mxPoint x="680" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-4" value="&lt;font&gt;Identifikasi Masalah&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="80" y="220" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-5" value="Analisis Kebutuhan sistem dan tantangan integrasi serta automasi" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="600" y="220" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;startArrow=none;startFill=0;endArrow=none;endFill=0;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160" y="285" as="sourcePoint" />
+            <mxPoint x="680" y="285" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="160" y="314.95" />
+              <mxPoint x="680" y="314.95" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;fontFamily=Times New Roman;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-10" target="lp3iz_u56yTIppmHESsl-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-10" value="Evaluasi" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="817" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;fontFamily=Times New Roman;" edge="1" parent="1" target="lp3iz_u56yTIppmHESsl-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="414" y="1030" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-11" value="&lt;font&gt;Pengujian Efektifitas&amp;nbsp;&lt;i style=&quot;text-align: start;&quot;&gt;&lt;span style=&quot;line-height: 24px;&quot;&gt;&lt;font&gt;Intelligent DevSecOps Automation Framework&lt;font&gt;&amp;nbsp;&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/i&gt;&lt;/font&gt;&lt;span style=&quot;text-align: start; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Dan &lt;/span&gt;&lt;i style=&quot;text-align: start; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Feedback ke Developer&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="311" y="909.95" width="206" height="90.05" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;startArrow=classic;startFill=1;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-13" target="lp3iz_u56yTIppmHESsl-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="154" y="889.95" />
+              <mxPoint x="674" y="889.95" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-13" value="Eksperimen dengan kode dan &lt;i&gt;Configuration&lt;/i&gt; yang bermasalah" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="74" y="909.95" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-14" value="Validasi Kualitas &lt;i&gt;Advisory AI&lt;/i&gt;&amp;nbsp;Oleh user &lt;i&gt;(Dev/Sec)&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="594" y="909.95" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;startArrow=none;startFill=0;endArrow=none;endFill=0;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="154" y="995.95" as="sourcePoint" />
+            <mxPoint x="674" y="995.95" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="154" y="1025.9" />
+              <mxPoint x="674" y="1025.9" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;fontFamily=Times New Roman;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-18" target="lp3iz_u56yTIppmHESsl-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-18" value="Pelaporan" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="1050" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;fontFamily=Times New Roman;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-19" target="lp3iz_u56yTIppmHESsl-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-19" value="&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;Dokumentasi hasil dan&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;penyusunan kesimpulan dan saran&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="301" y="1130" width="226" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-22" value="Selesai" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="1220" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;fontFamily=Times New Roman;" edge="1" parent="1" target="lp3iz_u56yTIppmHESsl-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="414" y="300" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;fontFamily=Times New Roman;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-27" target="lp3iz_u56yTIppmHESsl-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-27" value="Desain" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-28" value="Pemilihan Tools dan Teknologi: Jenkins, Sonarqube , &lt;i&gt;Linter Tools&lt;/i&gt; , Trivy ,Horusec , Conftest , N8N , AI/LLM" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="311" y="439.95000000000005" width="206" height="90.05" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;startArrow=classic;startFill=1;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-30" target="lp3iz_u56yTIppmHESsl-31">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="154" y="419.95000000000005" />
+              <mxPoint x="674" y="419.95000000000005" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-30" value="Perancangan Arsitektur &lt;i&gt;Pipeline DevSecOps&amp;nbsp; ( Quality gate, Policy Gate ,Advisory&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="74" y="439.95" width="160" height="70.05" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-31" value="Perancangan Integrasi Skema Integrasi &lt;i&gt;Multiple Tools&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="594" y="439.95000000000005" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;startArrow=none;startFill=0;endArrow=none;endFill=0;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="154" y="525.95" as="sourcePoint" />
+            <mxPoint x="674" y="525.95" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="154" y="555.9000000000001" />
+              <mxPoint x="674" y="555.9000000000001" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;strokeWidth=2;fontFamily=Times New Roman;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="lp3iz_u56yTIppmHESsl-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="410" y="770" as="sourcePoint" />
+            <mxPoint x="420" y="800.9" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="414" y="770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;fontFamily=Times New Roman;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-35" target="lp3iz_u56yTIppmHESsl-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-35" value="Implementasi" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="354" y="585" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-36" value="Integrasi Tools: Jenkins, Sonarqube , &lt;i&gt;Linter Tools&lt;/i&gt; , Trivy ,Horusec , Conftest , N8N , AI/LLM" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="311" y="684.95" width="206" height="75.05" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;startArrow=classic;startFill=1;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1" source="lp3iz_u56yTIppmHESsl-38" target="lp3iz_u56yTIppmHESsl-39">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="154" y="664.95" />
+              <mxPoint x="674" y="664.95" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-38" value="Implementasi Pipeline Otomatis di jenkin &lt;i&gt;(Pipeline as code)&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="74" y="684.95" width="160" height="70.05" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-39" value="Penyiapan LLM Dan N8N Notifikasi ke Telegram" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="594" y="684.95" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lp3iz_u56yTIppmHESsl-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;startArrow=none;startFill=0;endArrow=none;endFill=0;fontFamily=Times New Roman;fontSize=14;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="154" y="770.95" as="sourcePoint" />
+            <mxPoint x="674" y="770.95" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="154" y="800.9000000000001" />
+              <mxPoint x="674" y="800.9000000000001" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
