@@ -206,9 +206,14 @@ pipeline {
 
     post {
         always {
-            echo "[POST] Debug pipeline finished. Check artifacts & logs for details."
-            // Use env.* and double quotes for interpolation; provide a fallback for BUILD_STATUS
-            currentBuild.result = "DEBUGGED-${env.BUILD_STATUS ?: 'UNKNOWN'}-${env.BUILD_NUMBER}"
+            steps {
+                script {
+                    echo "[POST] Archiving debug reports"
+                    currentBuild.result = "DEBUGGED-${env.BUILD_STATUS ?: 'UNKNOWN'}-${env.BUILD_NUMBER}"
+                }
+                archiveArtifacts artifacts: "debug-reports/**", onlyIfSuccessful: false
+            }
+            
         }
     }
 }
