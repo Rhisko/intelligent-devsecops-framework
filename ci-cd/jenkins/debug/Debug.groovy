@@ -202,7 +202,7 @@ pipeline {
         always {
             script {
                 echo "[POST] Archiving debug reports"
-                currentBuild.result = "DEBUGGED-${env.BUILD_NUMBER}"
+                currentBuild.displayName = "DEBUGGED-${env.BUILD_STATUS ?: 'UNKNOWN'}-${env.BUILD_NUMBER}"
             }
             archiveArtifacts artifacts: "debug-reports/**", onlyIfSuccessful: false
             
