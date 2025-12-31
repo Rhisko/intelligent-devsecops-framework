@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+venv/
+.env/
+.envrc
+*.env
+
+# VS Code
+.vscode/
+
+# PyInstaller
+*.spec
+dist/
+build/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs and outputs
+*.log
+outputs/
+samples/stego/
+__output__/
+
+# Test coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# macOS/Linux/Windows system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# MyPy, Pylint, etc.
+.mypy_cache/
+.pylint.d/
+
+# IDE configs
+.idea/
+*.iml
+
+# Secret files
+secrets.json
+config.yaml

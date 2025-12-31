@@ -1,0 +1,10 @@
+sla:
+  critical: 7d
+  high: 14d
+  medium: 30d
+  low: 90d
+  info: 180d
+
+enforcement:
+  block_pipeline: false
+  notify_on_breach: true

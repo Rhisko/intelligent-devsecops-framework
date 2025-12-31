@@ -1,0 +1,9 @@
+pipeline:
+  parallel_scans: true
+  fail_fast: true
+  timeout_minutes: 30
+
+execution:
+  in_memory: true
+  concurrent_safe: true
+  debug_snapshot: false   # true hanya saat troubleshooting

@@ -1,0 +1,17 @@
+tools:
+  linter:
+    enabled: true
+    authority_domain: code_style
+    min_severity: low
+
+  horusec:
+    enabled: true
+    authority_domain: sast
+    min_severity: low
+
+  trivy:
+    enabled: true
+    authority_domain: cve
+    scan_targets:
+      - image
+    min_severity: low

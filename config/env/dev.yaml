@@ -1,0 +1,15 @@
+sonar:
+  project_key: devsecops-framework
+  quality_gate_name: devsecops-gate
+
+  external_issues:
+    enabled: true
+    include_severity:
+      - critical
+      - high
+      - medium
+      - low
+
+  analysis:
+    single_execution: true
+    wait_quality_gate: true

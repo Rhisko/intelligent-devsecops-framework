@@ -1,0 +1,11 @@
+quality_gate:
+  scope: new_code
+
+  block_on:
+    - critical
+    - high
+
+  allow_on:
+    - medium
+    - low
+    - info

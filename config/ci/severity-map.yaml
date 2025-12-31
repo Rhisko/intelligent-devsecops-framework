@@ -1,0 +1,19 @@
+severity_map:
+  trivy:
+    CRITICAL: critical
+    HIGH: high
+    MEDIUM: medium
+    LOW: low
+    UNKNOWN: info
+
+  horusec:
+    CRITICAL: critical
+    HIGH: high
+    MEDIUM: medium
+    LOW: low
+    INFO: info
+
+  linter:
+    ERROR: high
+    WARNING: medium
+    INFO: low
