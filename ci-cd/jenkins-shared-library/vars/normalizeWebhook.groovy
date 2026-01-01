@@ -12,7 +12,7 @@ def call(Map envVars) {
 
     // Git refs
     ctx.ref     = envVars.REF
-    ctx.baseRef = envVars.BASE_REF.replace('refs/heads/', '')
+    ctx.baseRef = envVars.BASE_REF ? envVars.BASE_REF.replace('refs/heads/', '') : ''
 
     // Commit
     ctx.commitHashBefore = envVars.COMMIT_HASH_BEFORE
