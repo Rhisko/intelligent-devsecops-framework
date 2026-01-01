@@ -1,0 +1,20 @@
+routes:
+  Rhisko/payment-service:
+    job: DevSecOps/services/payment-service
+    owner: payments-team
+    criticality: high
+
+  Rhisko/product-service:
+    job: DevSecOps/services/product-service
+    owner: product-team
+    criticality: medium
+
+  Rhisko/transaction-service:
+    job: DevSecOps/services/transaction-service
+    owner: core-platform
+    criticality: critical
+
+  Rhisko/portal-dashboard:
+    job: DevSecOps/services/portal-dashboard
+    owner: frontend-team
+    criticality: low
