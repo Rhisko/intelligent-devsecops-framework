@@ -58,57 +58,18 @@ pipeline {
                 }
             }
         }
-        stage('Normalize Webhook Context') {
+÷        stage('Route to Downstream Pipeline') {
             steps {
                 script {
                     // Get all environment variables as a map
                     def envMap = env.getEnvironment()
                     // Normalize the webhook context
-                    webhookCtx = normalizeWebhook(envMap)
+                    def webhookCtx = normalizeWebhook(envMap)
                     echo webhookCtx.toString()
-    
+                    routeToDownstream(webhookCtx)
                 }
             }
         }
-
-        // stage('Route to Downstream Pipeline') {
-        //     steps {
-        //         script {
-
-        //         // === hasil parsing webhook sebelumnya ===
-        //         def repo   = ctx.repo        // contoh: Rhisko/payment-service
-        //         def branch = ctx.branch      // contoh: main
-        //         def commit = ctx.after       // contoh: abc123
-        //         def event  = ctx.eventType   // contoh: push
-
-        //         // === routing table (sementara hardcoded, nanti bisa YAML) ===
-        //         def routing = [
-        //             'Rhisko/payment-service'     : 'DevSecOps/services/payment-service',
-        //             'Rhisko/product-service'     : 'DevSecOps/services/product-service',
-        //             'Rhisko/transaction-service' : 'DevSecOps/services/transaction-service',
-        //             'Rhisko/portal-dashboard'    : 'DevSecOps/services/portal-dashboard'
-        //         ]
-
-        //         def downstreamJob = routing[repo]
-
-        //         if (!downstreamJob) {
-        //             echo "No downstream pipeline defined for ${repo}. Event ignored."
-        //             return
-        //         }
-
-        //         echo "Triggering downstream pipeline: ${downstreamJob}"
-
-        //         build job: downstreamJob,
-        //                 wait: false,        // async (recommended)
-        //                 parameters: [
-        //                 string(name: 'REPO_FULL_NAME', value: repo),
-        //                 string(name: 'BRANCH', value: branch),
-        //                 string(name: 'COMMIT_SHA', value: commit),
-        //                 string(name: 'EVENT_TYPE', value: event)
-        //                 ]
-        //         }
-        //     }
-        // }
     }
     post {
         success {
