@@ -50,9 +50,10 @@ Event      : ${params.EVENT_TYPE}
         script {
           retry(5) {
             sleep(1)
+            def branchRef = params.BASE_REF ? params.BASE_REF : "main"
             checkout([
               $class: 'GitSCM',
-              branches: [[name: "refs/tags/${params.TAG_NAME}"]],
+              branches: [[name: branchRef]],
               userRemoteConfigs: [[
                 url: 'git@github.com:Rhisko/payment-service.git',
                 credentialsId: 'creds-github-ssh-access'
