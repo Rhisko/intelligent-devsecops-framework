@@ -29,7 +29,6 @@ pipeline {
             token:'GITHUB-WEBHOOK-TOKEN-DEVSECOPS',
             regexpFilterText: '$REF',
             regexpFilterExpression: '^refs/tags/.*$',
-            // tokenCredentialId: 'creds-github-webhook'
         )
     }
 
