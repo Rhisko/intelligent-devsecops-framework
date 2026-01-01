@@ -46,15 +46,21 @@ Event      : ${params.EVENT_TYPE}
       }
     }
     stage("Checkout from github repository") {
-        steps {
-            script {
-                    retry (5) {
-                        sleep 1
-                        sh 'git config --global http.sslVerify false'
-                        git branch: 'main', credentialsId: 'creds-github-ssh-access', url: 'git@github.com:Rhisko/payment-service.git'
-                    }
-                }
-            }
+      steps {
+        script {
+          retry(5) {
+            sleep(1)
+            checkout([
+              $class: 'GitSCM',
+              branches: [[name: '${params.REF}']],
+              userRemoteConfigs: [[
+                url: 'git@github.com:Rhisko/payment-service.git',
+                credentialsId: 'creds-github-ssh-access'
+              ]]
+            ])
+          }
         }
+      }
+    }
     }
 }
