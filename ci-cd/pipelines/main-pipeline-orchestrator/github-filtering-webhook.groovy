@@ -61,7 +61,9 @@ pipeline {
         stage('Normalize Webhook Context') {
             steps {
                 script {
+                    // Get all environment variables as a map
                     def envMap = env.getEnvironment()
+                    // Normalize the webhook context
                     webhookCtx = normalizeWebhook(envMap)
                     echo webhookCtx.toString()
     
