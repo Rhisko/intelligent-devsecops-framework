@@ -52,7 +52,7 @@ Event      : ${params.EVENT_TYPE}
             sleep(1)
             checkout([
               $class: 'GitSCM',
-              branches: [[name: '${params.REF}']],
+              branches: [[name: 'refs/tags/${params.TAG_NAME}']],
               userRemoteConfigs: [[
                 url: 'git@github.com:Rhisko/payment-service.git',
                 credentialsId: 'creds-github-ssh-access'
