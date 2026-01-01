@@ -61,8 +61,13 @@ pipeline {
         stage('Normalize Webhook Context') {
             steps {
                 script {
-                    webhookCtx = normalizeWebhook(env)
-                    echo webhookCtx.toString()
+                    // Ubah env -> Map
+                    def envMap = env.getEnvironment()
+                    println("=== ENV VARS AS MAP ===")
+                    envMap.each { k, v -> println("${k} : ${v}") }
+                    // webhookCtx = normalizeWebhook(envMap)
+                    // echo webhookCtx.toString()
+    
                 }
             }
         }
