@@ -1,3 +1,5 @@
+@Library('devsecops-pipeline-library') _
+
 pipeline {
     agent none
     triggers {
@@ -24,11 +26,9 @@ pipeline {
             printContributedVariables: false,
             printPostContent: true,
             silentResponse: false,
-            regexpFilterText: '',
             token:'GITHUB-WEBHOOK-TOKEN-DEVSECOPS',
             regexpFilterText: '$REF',
             regexpFilterExpression: '^refs/tags/.*$',
-            regexpFilterExpression: '',
             // tokenCredentialId: 'creds-github-webhook'
         )
     }
