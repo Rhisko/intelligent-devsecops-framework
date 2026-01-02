@@ -3,7 +3,9 @@ package devsecops
 class DockerRunner implements Serializable {
 
     def steps
-
+ // === KONSTANTA BASE PATH (ABSOLUTE) ===
+    static final String BASE_HOST_PATH =
+        "/Users/risko/Data/tools/jenkins_data"
     DockerRunner(steps) {
         this.steps = steps
     }
@@ -21,17 +23,17 @@ class DockerRunner implements Serializable {
         String image,
         String command,
         Map<String, String> env = [:],
-        List<String> volumes = [],
+        List<String> volumes = []
    
     ) {
-
         def envArgs = env.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def volArgs = volumes.collect { v -> "-v ${v}" }.join(' ')
-        def workingdir = "/Users/risko/Data/tools/jenkins_data/${workDir}"
+        def hostDir = "${BASE_HOST_PATH}/${workDir}"}"
+
         return steps.sh(
             script: """
               docker run --rm \
-                -v "${workingdir}:/ci-workspace:ro" \
+                -v "${hostDir}:/ci-workspace:ro" \
                 ${volArgs} \
                 ${envArgs} \
                 -w /ci-workspace \
