@@ -18,6 +18,7 @@ services:
       - JAVA_OPTS=-Xms256m -Xmx1024m
       - TZ=${TZ}
     volumes:
+      - ci-workspace:/workspace
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     group_add:
@@ -111,6 +112,7 @@ services:
     restart: unless-stopped
 
 volumes:
+  ci-workspace:
   jenkins_home:
   sonar_db_data:
   sonar_data:
