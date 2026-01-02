@@ -21,7 +21,7 @@ def call(Map config = [:]) {
     def image   = toolMeta.image
     def command = toolMeta.command.replace('{target}', target)
 
-    def workDir = "../devsecops/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_.-]', '_')
+    def workDir = "../devsecops/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
 
     sh "mkdir -p ${workDir}"
 
