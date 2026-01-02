@@ -26,7 +26,7 @@ def call(Map config = [:]) {
     println "[DEBUG] Ruff final command = ${command}"
 
 
-    def workDir = "../devsecops/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
+    def workDir = "/workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
 
     sh "mkdir -p ${workDir}"
 
@@ -45,7 +45,7 @@ def call(Map config = [:]) {
         echo sh(script: "cat ${workDir}/ruff.json", returnStdout: true)
     }
 
-    sh "rm -rf ${workDir}"
+    // sh "rm -rf ${workDir}"
 
     return findings
 }
