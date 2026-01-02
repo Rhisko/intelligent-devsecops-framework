@@ -92,7 +92,7 @@ Event      : ${params.EVENT_TYPE}
         always {
             script {
                 def status = currentBuild.currentResult ?: 'UNKNOWN'
-                currentBuild.displayName = "${status} - ${REPOSITORY_NAME.toUpperCase()}-${TAG_NAME}-${BUILD_NUMBER}"
+                currentBuild.displayName = "${status} - ${REPOSITORY_NAME.toUpperCase()}-${TAG_NAME}-BUILD_NUMBER-${BUILD_NUMBER}"
  
             }        
         }
