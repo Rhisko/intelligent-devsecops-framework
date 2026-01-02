@@ -20,7 +20,7 @@ class DockerRunner implements Serializable {
         String image,
         String command,
         Map<String, String> env = [:],
-        List<String> volumes = []
+        List<String> volumes = [],
         boolean verify = false
     ) {
 
