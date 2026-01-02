@@ -1,0 +1,18 @@
+ruff:
+  image: ghcr.io/astral-sh/ruff:0.5.0
+  command: "check {target} --format json"
+  output: json
+  category: linter
+  language: python
+
+horusec:
+  image: horuszup/horusec-cli:2.8.0
+  command: "start -p {target} -o json"
+  output: json
+  category: sast
+
+trivy:
+  image: aquasec/trivy:0.50.0
+  command: "image --format json {image}"
+  output: json
+  category: image_scan

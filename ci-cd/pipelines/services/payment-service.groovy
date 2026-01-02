@@ -57,11 +57,26 @@ Event      : ${params.EVENT_TYPE}
               userRemoteConfigs: [[
                 url: 'git@github.com:Rhisko/payment-service.git',
                 credentialsId: 'creds-github-ssh-access'
-              ]]
-            ])
+                ]]
+              ])
+            }
           }
         }
       }
     }
+    post {
+        success {
+            echo "[PIPELINE] SUCCESS for issue ${REPOSITORY_NAME.toUpperCase()} (${COMMIT_HASH_AFTER})"
+        }
+        failure {
+            echo "[PIPELINE] FAILED for issue ${REPOSITORY_NAME.toUpperCase()} (${COMMIT_HASH_AFTER})"
+        }
+        always {
+            script {
+                def status = currentBuild.currentResult ?: 'UNKNOWN'
+                currentBuild.displayName = "${status} - ${REPOSITORY_NAME.toUpperCase()}-${TAG_NAME}-${BUILD_NUMBER}"
+ 
+            }        
+        }
     }
 }
