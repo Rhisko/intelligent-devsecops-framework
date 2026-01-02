@@ -12,6 +12,7 @@
 def call(Map config = [:]) {
 
     def target = config.path ?: '.'
+    pringtln("[runRuff] Running Ruff scan on target: ${target}")
 
     // Load tool metadata from resources
     def toolMeta = readYaml(
