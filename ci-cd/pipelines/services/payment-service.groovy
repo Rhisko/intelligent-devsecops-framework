@@ -57,7 +57,7 @@ Event      : ${params.EVENT_TYPE}
               $class: 'GitSCM',
               branches: [[name: branchRef]],
               userRemoteConfigs: [[
-                url: 'git@github.com:Rhisko/payment-service.git',
+                url: "git@github.com:${params.REPOSITORY_FULL_NAME}.git",
                 credentialsId: 'creds-github-ssh-access'
                 ]]
               ])
@@ -73,7 +73,7 @@ Event      : ${params.EVENT_TYPE}
         script {
           echo "[PIPELINE] Running Ruff lint via shared library"
 
-          def ruffFindings = runRuff(
+          ruffFindings = runRuff(
             path: '.',            // scan root repo
           )
 
@@ -94,7 +94,7 @@ Event      : ${params.EVENT_TYPE}
             script {
                 def status = currentBuild.currentResult ?: 'UNKNOWN'
                 currentBuild.displayName = "${status} - ${REPOSITORY_NAME.toUpperCase()}-${TAG_NAME}-BUILD_NUMBER-${BUILD_NUMBER}"
-                cleanWs()
+                // cleanWs()
             }        
         }
     }

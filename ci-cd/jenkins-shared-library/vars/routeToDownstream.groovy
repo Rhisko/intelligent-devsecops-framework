@@ -1,29 +1,49 @@
 import devsecops.WebhookContext
-import org.yaml.snakeyaml.Yaml
+import devsecops.ConfigLoader
 
 def call(WebhookContext ctx) {
 
-    // Load routing config from resources
-    def routingConfig = loadRoutingConfig()
+    // === LOAD ROUTING CONFIG VIA CONFIGLOADER ===
+    def cfgLoader = new ConfigLoader(this)
+    def routingConfig = cfgLoader.load("routing")
 
-    def route = routingConfig.routes[ctx.repositoryFullName]
+    def route = routingConfig?.routes?.get(ctx.repositoryFullName)
 
     if (!route) {
         echo "[ROUTER] No routing defined for ${ctx.repositoryFullName}. Event ignored."
         return
     }
-
-
-
+    println "[ROUTER] Routing to job '${route.job}' for repository '${ctx.repositoryFullName}'"
     build job: route.job,
           wait: false,
           parameters: buildParams(ctx)
+
 }
 
-def loadRoutingConfig() {
-    def yamlText = libraryResource('routing.yaml')
-    return new Yaml().load(yamlText)
-}
+
+// def call(WebhookContext ctx) {
+
+//     // Load routing config from resources
+//     def routingConfig = loadRoutingConfig()
+
+//     def route = routingConfig.routes[ctx.repositoryFullName]
+
+//     if (!route) {
+//         echo "[ROUTER] No routing defined for ${ctx.repositoryFullName}. Event ignored."
+//         return
+//     }
+
+
+
+//     build job: route.job,
+//           wait: false,
+//           parameters: buildParams(ctx)
+// }
+
+// def loadRoutingConfig() {
+//     def yamlText = libraryResource('routing.yaml')
+//     return new Yaml().load(yamlText)
+// }
 
 def buildParams(WebhookContext ctx) {
     return [
