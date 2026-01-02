@@ -34,6 +34,7 @@ def call(Map config = [:]) {
     
 
     runner.run(
+        workDir,
         image,
         "${command} > ${workDir}/ruff.json || true"
     )
