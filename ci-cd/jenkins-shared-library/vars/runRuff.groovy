@@ -17,7 +17,7 @@ def call(Map config = [:]) {
     def toolMeta = readYaml(
         text: libraryResource('tool-metadata.yaml')
     ).ruff
-    sh"ls -la && pwd"
+    // sh"ls -la && pwd"
     def image   = toolMeta.image
     def command = toolMeta.command.replace('{target}', target)
 
