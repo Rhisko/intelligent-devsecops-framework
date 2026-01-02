@@ -3,11 +3,24 @@ package devsecops
 class DockerRunner implements Serializable {
 
     def steps
- // === KONSTANTA BASE PATH (ABSOLUTE) ===
-    static final String BASE_HOST_PATH =
-        "/Users/risko/Data/tools/jenkins_data"
+    def baseHostPath
+    
+//  // === KONSTANTA BASE PATH (ABSOLUTE) ===
+//     static final String BASE_HOST_PATH =
+//         "/Users/risko/Data/tools/jenkins_data"
     DockerRunner(steps) {
         this.steps = steps
+
+        // Load config from resources
+        def cfg = steps.readYaml(
+            text: steps.libraryResource('docker-config.yaml')
+        )
+
+        this.baseHostPath = cfg?.docker?.base_host_path
+
+        if (!this.baseHostPath || !this.baseHostPath.startsWith('/')) {
+            steps.error("docker.base_host_path must be an absolute path")
+        }
     }
 
     /**
@@ -28,7 +41,7 @@ class DockerRunner implements Serializable {
     ) {
         def envArgs = env.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def volArgs = volumes.collect { v -> "-v ${v}" }.join(' ')
-        def hostDir = "${BASE_HOST_PATH}/${workDir}"
+        def hostDir = "${baseHostPath}/${workDir}"
 
         return steps.sh(
             script: """

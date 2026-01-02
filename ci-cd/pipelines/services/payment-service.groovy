@@ -74,7 +74,7 @@ Event      : ${params.EVENT_TYPE}
           echo "[PIPELINE] Running Ruff lint via shared library"
 
           ruffFindings = runRuff(
-            path: '.',            // scan entire repo
+            path: '.',            // scan root repo
           )
 
           echo "[PIPELINE] Ruff findings count: ${ruffFindings.size()}"
