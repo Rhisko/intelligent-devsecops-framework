@@ -36,6 +36,8 @@ def call(Map config = [:]) {
     def findings = []
     if (fileExists("${workDir}/ruff.json")) {
         findings = readJSON file: "${workDir}/ruff.json"
+        echo "[runRuff] Reading Ruff findings from ${workDir}/ruff.json"
+        echo sh(script: "cat ${workDir}/ruff.json", returnStdout: true)
     }
 
     sh "rm -rf ${workDir}"
