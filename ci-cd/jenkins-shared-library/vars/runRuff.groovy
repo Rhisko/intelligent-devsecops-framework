@@ -7,10 +7,7 @@
  * - No dependency on workspace lifecycle
  */
 
-def loadToolMetadataConfig() {
-    def yamlText = libraryResource('tool-metadata.yaml')
-    return new Yaml().load(yamlText)
-}
+
 
 def call(Map config = [:]) {
 
