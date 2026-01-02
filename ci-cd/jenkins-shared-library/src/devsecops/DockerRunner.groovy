@@ -108,7 +108,6 @@ class DockerRunner implements Serializable {
 
         return steps.sh(
             script: """
-              mkdir -p "${hostDir}" && \
               docker run --rm \
                 -v "${hostDir}:${containerPath}:${mountMode}" \
                 ${volArgs} \
