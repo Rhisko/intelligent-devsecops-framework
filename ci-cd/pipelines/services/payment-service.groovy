@@ -1,4 +1,4 @@
-@Library('jenkins-shared-library') _
+@Library('devsecops-pipeline-library') _
 
 pipeline {
   agent any
