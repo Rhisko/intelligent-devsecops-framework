@@ -1,0 +1,2 @@
+docker:
+  base_host_path: /Users/risko/Data/tools/jenkins_data
