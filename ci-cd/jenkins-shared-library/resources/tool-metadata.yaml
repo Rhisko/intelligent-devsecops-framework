@@ -1,6 +1,6 @@
 ruff:
   image: ghcr.io/astral-sh/ruff:0.5.0
-  command: "check {target} --format json"
+  command: "check {target} --output-format json"
   output: json
   category: linter
   language: python
