@@ -28,7 +28,7 @@ class DockerRunner implements Serializable {
     ) {
         def envArgs = env.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def volArgs = volumes.collect { v -> "-v ${v}" }.join(' ')
-        def hostDir = "${BASE_HOST_PATH}/${workDir}"}"
+        def hostDir = "${BASE_HOST_PATH}/${workDir}"
 
         return steps.sh(
             script: """
