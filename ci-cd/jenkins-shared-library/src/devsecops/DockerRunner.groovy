@@ -29,7 +29,7 @@ class DockerRunner implements Serializable {
         return steps.sh(
             script: """
               docker run --rm \
-                -v "\${WORKSPACE}:/workspace:ro" \
+                -v "\${WORKSPACE}:ro" \
                 ${volArgs} \
                 ${envArgs} \
                 -w /workspace \
