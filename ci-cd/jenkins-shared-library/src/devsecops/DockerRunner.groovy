@@ -20,21 +20,12 @@ class DockerRunner implements Serializable {
         String image,
         String command,
         Map<String, String> env = [:],
-        List<String> volumes = [],
-        boolean verify = false
+        List<String> volumes = []
     ) {
 
         def envArgs = env.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def volArgs = volumes.collect { v -> "-v ${v}" }.join(' ')
-        // Optional verification block (make sure mount is correct)
-        def verifyCmd = verify ? """
-          echo "[VERIFY] PWD: \$(pwd)";
-          echo "[VERIFY] Listing:";
-          ls -la;
-          echo "[VERIFY] Python files:";
-          find . -name '*.py' -print || true;
-        """ : ""
-
+        
 
         return steps.sh(
             script: """
@@ -43,8 +34,7 @@ class DockerRunner implements Serializable {
                 ${volArgs} \
                 ${envArgs} \
                 -w /workspace \
-                ${image} \
-                sh -c '${verifyCmd}'
+                ${image} ${command}
             """.stripIndent(),
             returnStatus: true
         )
