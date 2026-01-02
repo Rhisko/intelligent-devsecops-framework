@@ -25,15 +25,25 @@ class DockerRunner implements Serializable {
 
         def envArgs = env.collect { k, v -> "-e ${k}=${v}" }.join(' ')
         def volArgs = volumes.collect { v -> "-v ${v}" }.join(' ')
+        // Optional verification block (make sure mount is correct)
+        def verifyCmd = verify ? """
+          echo "[VERIFY] PWD: \$(pwd)";
+          echo "[VERIFY] Listing:";
+          ls -la;
+          echo "[VERIFY] Python files:";
+          find . -name '*.py' -print || true;
+        """ : ""
+
 
         return steps.sh(
             script: """
               docker run --rm \
-                -v "\${WORKSPACE}:ro" \
+                -v "\${WORKSPACE}:/workspace:ro" \
                 ${volArgs} \
                 ${envArgs} \
                 -w /workspace \
-                ${image} ${command}
+                ${image} \
+                sh -c '${verifyCmd} ${command}'
             """.stripIndent(),
             returnStatus: true
         )
