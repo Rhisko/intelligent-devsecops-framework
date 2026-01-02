@@ -1,3 +1,5 @@
+@Library('jenkins-shared-library') _
+
 pipeline {
   agent any
 
@@ -63,6 +65,22 @@ Event      : ${params.EVENT_TYPE}
           }
         }
       }
+    stage('Lint - Ruff') {
+      when {
+        expression { params.LANGUAGE?.toLowerCase() == 'python' }
+      }
+      steps {
+        script {
+          echo "[PIPELINE] Running Ruff lint via shared library"
+
+          ruffFindings = runRuff(
+            path: '.',            // scan entire repo
+          )
+
+          echo "[PIPELINE] Ruff findings count: ${ruffFindings.size()}"
+        }
+      }
+    }
     }
     post {
         success {
