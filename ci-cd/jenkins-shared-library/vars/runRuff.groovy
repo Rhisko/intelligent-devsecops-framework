@@ -26,9 +26,9 @@ def call(Map config = [:]) {
     println "[DEBUG] Ruff final command = ${command}"
 
 
-    def workDir = "/workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
+    def workDir = "/ci-workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
 
-    sh "mkdir -p ${workDir}"
+    sh "mkdir -p ${workDir} && cp -r * ${workDir}/"
 
     def runner = new devsecops.DockerRunner(this)
     

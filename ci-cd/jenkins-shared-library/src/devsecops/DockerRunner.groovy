@@ -20,7 +20,8 @@ class DockerRunner implements Serializable {
         String image,
         String command,
         Map<String, String> env = [:],
-        List<String> volumes = []
+        List<String> volumes = [],
+        String workingDir
     ) {
 
         def envArgs = env.collect { k, v -> "-e ${k}=${v}" }.join(' ')
@@ -30,7 +31,7 @@ class DockerRunner implements Serializable {
         return steps.sh(
             script: """
               docker run --rm \
-                -v "\${WORKSPACE}:/workspace:ro" \
+                -v "/Users/risko/Data/tools/jenkins_data/${workingDir}:/workspace:ro" \
                 ${volArgs} \
                 ${envArgs} \
                 -w /workspace \
