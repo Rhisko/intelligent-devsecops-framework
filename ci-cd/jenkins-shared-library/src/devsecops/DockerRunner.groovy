@@ -21,6 +21,7 @@ class DockerRunner implements Serializable {
         String command,
         Map<String, String> env = [:],
         List<String> volumes = []
+        boolean verify = false
     ) {
 
         def envArgs = env.collect { k, v -> "-e ${k}=${v}" }.join(' ')
