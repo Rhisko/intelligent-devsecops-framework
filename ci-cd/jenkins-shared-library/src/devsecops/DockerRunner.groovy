@@ -44,7 +44,7 @@ class DockerRunner implements Serializable {
                 ${envArgs} \
                 -w /workspace \
                 ${image} \
-                sh -c '${verifyCmd} ${command}'
+                sh -c '${verifyCmd}'
             """.stripIndent(),
             returnStatus: true
         )
