@@ -13,10 +13,20 @@ def call(Map config = [:]) {
 
     def target = config.path ?: '.'
 
+    def cfgLoader = new devsecops.ConfigLoader(this)
+
+    // Load tool metadata dynamically
+    def toolMetaAll = cfgLoader.load("tool-metadata")
+    def toolMeta = toolMetaAll.ruff
+
+    if (!toolMeta?.image || !toolMeta?.command) {
+        error("tool-metadata.yaml missing ruff.image or ruff.command")
+    }
+
     // Load tool metadata from resources
-    def toolMeta = readYaml(
-        text: libraryResource('tool-metadata.yaml')
-    ).ruff
+    // def toolMeta = readYaml(
+    //     text: libraryResource('tool-metadata.yaml')
+    // ).ruff
 
     def image   = toolMeta.image
     def command = toolMeta.command.replace('{target}', target)
@@ -28,7 +38,11 @@ def call(Map config = [:]) {
 
     def workDir = "/ci-workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
 
-    sh "mkdir -p ${workDir} && cp -r * ${workDir}/"
+    // Prepare isolated source snapshot
+    sh """
+    mkdir -p "${workDir}" && \
+    cp -r . "${workDir}/"
+    """
 
     def runner = new devsecops.DockerRunner(this)
     
