@@ -12,7 +12,6 @@
 def call(Map config = [:]) {
 
     def target = config.path ?: '.'
-    println("[runRuff] Running Ruff scan on target: ${target}")
 
     // Load tool metadata from resources
     def toolMeta = readYaml(
@@ -21,6 +20,11 @@ def call(Map config = [:]) {
     // sh"ls -la && pwd"
     def image   = toolMeta.image
     def command = toolMeta.command.replace('{target}', target)
+
+    println "[DEBUG] Ruff toolMeta.command = ${toolMeta.command}"
+    println "[DEBUG] Ruff target resolved = ${target}"
+    println "[DEBUG] Ruff final command = ${command}"
+
 
     def workDir = "../devsecops/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
 

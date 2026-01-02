@@ -65,7 +65,7 @@ Event      : ${params.EVENT_TYPE}
           }
         }
       }
-    stage('Lint - Ruff') {
+    stage('Linter - Ruff for Python') {
       when {
         expression { params.LANGUAGE?.toLowerCase() == 'python' }
       }
