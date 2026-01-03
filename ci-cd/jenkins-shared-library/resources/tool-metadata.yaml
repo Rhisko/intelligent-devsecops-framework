@@ -16,6 +16,13 @@ semgrep:
   command: >
     semgrep scan
     --config auto
+    --exclude '.git'
+    --exclude '.git/*'
+    --exclude '*/node_modules/*'
+    --exclude '*/vendor/*'
+    --exclude '*/.venv/*'
+    --exclude '*.sample'
+    --exclude 'hooks/'
     {target}
     --json
   output: json
