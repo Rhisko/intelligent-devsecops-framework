@@ -29,6 +29,7 @@ def call(Map config = [:]) {
     // ).ruff
 
     def image   = toolMeta.image
+    def command = toolMeta.command.replace('{target}', target)
     
 
     // println "[DEBUG] Ruff toolMeta.command = ${toolMeta.command}"
@@ -37,7 +38,7 @@ def call(Map config = [:]) {
 
 
     def workDir = "/ci-workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
-    def command = toolMeta.command.replace('{target}', "ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_'))
+    // def command = toolMeta.command.replace('{target}', "ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_'))
     // Prepare isolated source snapshot
     sh """
     mkdir -p "${workDir}" && \
