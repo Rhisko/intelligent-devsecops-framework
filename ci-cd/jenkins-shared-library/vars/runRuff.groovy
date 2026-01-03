@@ -60,7 +60,7 @@ def call(Map config = [:]) {
     }
 
     // sh "rm -rf ${workDir}"
-    println "[runRuff] Findings collected: ${findings} issues found."
+
 
     return findings
 }
