@@ -96,7 +96,7 @@ Event      : ${params.EVENT_TYPE}
     //         }
     //       }
     //     }
-    stage('Semgrep [ SAST ] Scan') {
+    stage('Semgrep [SAST] Scan') {
       steps {
         script {
           echo "[PIPELINE] Running semgrep SAST scan via shared library"
