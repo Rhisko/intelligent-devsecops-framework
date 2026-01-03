@@ -56,21 +56,21 @@ and n8n triggers the **AI Advisory Engine (LLM)**.
                                                        │ Webhook
                                         ┌──────────────▼─────────────┐
                                         │        Jenkins CI/CD       │
-                                        │   Multibranch Pipelines    │
+                                        │          Pipelines         │
                                         └───────┬─────────┬──────────┘
                                                 │         │
                            ┌────────────────────┘         └──────────────────────┐
                            │                                                    │
                   ┌────────▼──────────┐                            ┌────────────▼──────────┐
-                  │     Horusec       │                            │        Trivy          │
-                  │ (SAST Analysis)   │                            │ Vulnerability Scanner │
+                  │     Semgrep       │                            │      Linter Tools     │
+                  │ (SAST Analysis)   │                            │ Standard Code Format  │
                   └────────▲──────────┘                            └────────────▲──────────┘
                            │                                                    │
                            └──────────────────────┬─────────────────────────────┘
                                                   │
                                      ┌────────────▼───────────────┐
-                                     │         Linter Tools        │
-                                     │ (Standard Code Formatting)  │
+                                     │     Build Image Container  │
+                                     │     (Trivy Scanning VA)    |
                                      └────────────▲───────────────┘
                                                   │ Aggregated Output
                                                   ▼

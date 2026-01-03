@@ -57,7 +57,6 @@ def call(Map config = [:]) {
     def outputFile = "${workDir}/semgrep.json"
 
     // Run semgrep. We redirect output at the Jenkins side for simplicity.
-    // If you later refactor DockerRunner to accept outputFile, move redirect there.
     runner.run(
         workDir,
         image,
