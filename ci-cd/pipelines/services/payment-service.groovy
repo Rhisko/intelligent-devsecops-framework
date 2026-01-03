@@ -33,7 +33,7 @@ pipeline {
   }
 
   stages {
-    stage('Init Context') {
+    stage('Initialize Pipeline Context') {
       steps {
         script {
           echo """
@@ -47,7 +47,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
-    stage("Checkout from github repository") {
+    stage("Checkout Source Code from GitHub") {
       steps {
         script {
           retry(5) {
@@ -65,7 +65,7 @@ Event      : ${params.EVENT_TYPE}
           }
         }
       }
-    stage('Linter - Ruff for Python') {
+    stage('Python Linting [Ruff]') {
       when {
         expression { params.LANGUAGE?.toLowerCase() == 'python' }
       }
@@ -96,7 +96,7 @@ Event      : ${params.EVENT_TYPE}
     //         }
     //       }
     //     }
-    stage('Semgrep [SAST] Scan') {
+    stage('Static Application Security Testing [Semgrep]') {
       steps {
         script {
           echo "[PIPELINE] Running semgrep SAST scan via shared library"
@@ -112,7 +112,7 @@ Event      : ${params.EVENT_TYPE}
         }
       
     
-    stage('Build and Push Container Image') {
+    stage('Build and Push Container Image [Docker Build]') {
       steps {
         script {
           echo "[PIPELINE] Building and pushing container image"
@@ -120,7 +120,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('Container Security Scan (Trivy)') {
+    stage('Container Security Scan [Trivy]') {
       steps {
         script {
           echo "[PIPELINE] Scanning container image for vulnerabilities using Trivy"
@@ -128,7 +128,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('Code Quality Analysis (SonarQube)') {
+    stage('Code Quality Analysis [SonarQube]') {
       steps {
         script {
           echo "[PIPELINE] Performing code quality analysis using SonarQube"
@@ -136,7 +136,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('Policy-as-Code Security Gate (Conftest)') {
+    stage('Policy-as-Code Security Gate [Conftest]') {
       steps {
         script {
           echo "[PIPELINE] Evaluating security policies using Conftest"
@@ -144,7 +144,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('AI-Driven Security Advisory (n8n)') {
+    stage('AI-Driven Security Advisory [n8n]') {
       steps {
         script {
           echo "[PIPELINE] Generating AI-driven security advisory via n8n"
@@ -152,7 +152,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('Deploy to Kubernetes Production Cluster') {
+    stage('Deploy to Kubernetes Production Cluster [GKE]') {
       steps {
         script {
           echo "[PIPELINE] Deploying application to Kubernetes production cluster"
@@ -160,7 +160,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('Publish Security Report and Notifications') {
+    stage('Publish Security Report and Notifications [Confluence & Telegram]') {
       steps {
         script {
           echo "[PIPELINE] Publishing security report to Confluence and sending notifications"
