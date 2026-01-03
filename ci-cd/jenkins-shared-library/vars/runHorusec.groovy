@@ -25,8 +25,7 @@ def call(Map config = [:]) {
     def command = toolMeta.command.replace('{target}', target)
 
     // === RELATIVE WORKDIR (UNDER base_host_path) ===
-    def workDir = "ci-workspace/horusec/${env.JOB_NAME}-${env.BUILD_NUMBER}"
-        .replaceAll('[^a-zA-Z0-9_./-]', '_')
+    def workDir = "ci-workspace/horusec/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
 
     // Prepare isolated snapshot
     sh """
