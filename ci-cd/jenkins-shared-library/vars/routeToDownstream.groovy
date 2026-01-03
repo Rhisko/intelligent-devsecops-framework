@@ -21,29 +21,7 @@ def call(WebhookContext ctx) {
 }
 
 
-// def call(WebhookContext ctx) {
 
-//     // Load routing config from resources
-//     def routingConfig = loadRoutingConfig()
-
-//     def route = routingConfig.routes[ctx.repositoryFullName]
-
-//     if (!route) {
-//         echo "[ROUTER] No routing defined for ${ctx.repositoryFullName}. Event ignored."
-//         return
-//     }
-
-
-
-//     build job: route.job,
-//           wait: false,
-//           parameters: buildParams(ctx)
-// }
-
-// def loadRoutingConfig() {
-//     def yamlText = libraryResource('routing.yaml')
-//     return new Yaml().load(yamlText)
-// }
 
 def buildParams(WebhookContext ctx) {
     return [
@@ -74,3 +52,28 @@ def buildParams(WebhookContext ctx) {
         string(name: 'EVENT_TYPE', value: ctx.eventType)
     ]
 }
+
+
+// def call(WebhookContext ctx) {
+
+//     // Load routing config from resources
+//     def routingConfig = loadRoutingConfig()
+
+//     def route = routingConfig.routes[ctx.repositoryFullName]
+
+//     if (!route) {
+//         echo "[ROUTER] No routing defined for ${ctx.repositoryFullName}. Event ignored."
+//         return
+//     }
+
+
+
+//     build job: route.job,
+//           wait: false,
+//           parameters: buildParams(ctx)
+// }
+
+// def loadRoutingConfig() {
+//     def yamlText = libraryResource('routing.yaml')
+//     return new Yaml().load(yamlText)
+// }
