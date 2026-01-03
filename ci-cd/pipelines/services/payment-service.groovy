@@ -109,7 +109,7 @@ Event      : ${params.EVENT_TYPE}
             script {
                 def status = currentBuild.currentResult ?: 'UNKNOWN'
                 currentBuild.displayName = "${status} - ${REPOSITORY_NAME.toUpperCase()}-${TAG_NAME}-BUILD_NUMBER-${BUILD_NUMBER}"
-                // cleanWs()
+                cleanWs()
             }        
         }
     }
