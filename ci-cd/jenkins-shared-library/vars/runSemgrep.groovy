@@ -61,7 +61,7 @@ def call(Map config = [:]) {
     runner.run(
         workDir,
         image,
-        "${command} --output ${outputFile} || true",
+        "${command} --output semgrep.json || true",
         [:],  // env
         []    // extra volumes
     )
