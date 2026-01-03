@@ -18,7 +18,7 @@ The **Intelligent DevSecOps Automation Framework** is a fully automated, securit
 The framework is developed as part of a research thesis titled:
 
 **"INTELLIGENT DEVSECOPS AUTOMATION FRAMEWORK:
-INTEGRATING SONARQUBE, HORUSEC, TRIVY, LINTERS, AND CONFTEST POLICY-AS-CODE
+INTEGRATING SONARQUBE, SEMGRAP, TRIVY, LINTERS, AND CONFTEST POLICY-AS-CODE
 WITH AI-DRIVEN SECURITY DETECTION & AUTOMATED ADVISORY
 IN A JENKINS PIPELINE ORCHESTRATED BY n8n."**
 
@@ -30,7 +30,7 @@ IN A JENKINS PIPELINE ORCHESTRATED BY n8n."**
 
 | Tool                     | Function                                                                |
 | ------------------------ | ----------------------------------------------------------------------- |
-| **Horusec**        | SAST scanner for multi-language vulnerabilities                         |
+| **Semgrap**        | SAST scanner for multi-language vulnerabilities                         |
 | **Trivy**          | Filesystem, container, IaC, and config scanner                          |
 | **Linter Tools**   | Coding conventions enforcement                                          |
 | **SonarQube**      | Centralized static analysis, vulnerability aggregation & quality gate   |
@@ -44,7 +44,7 @@ IN A JENKINS PIPELINE ORCHESTRATED BY n8n."**
 
 ### **Security Data Flow — UPDATED**
 
-Horusec, Trivy, and Linter results **are consolidated into SonarQube**,
+Semgrap, Trivy, and Linter results **are consolidated into SonarQube**,
 then SonarQube dispatches analysis results to **n8n**,
 and n8n triggers the **AI Advisory Engine (LLM)**.
 
