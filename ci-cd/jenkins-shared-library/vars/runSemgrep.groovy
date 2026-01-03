@@ -45,18 +45,11 @@ def call(Map config = [:]) {
     def workDir = "/ci-workspace/semgrep/${env.JOB_NAME}-${env.BUILD_NUMBER}"
         .replaceAll('[^a-zA-Z0-9_./-]', '_')
 
-    // === SNAPSHOT USING cp (NO rsync/tar) & AVOID SELF-COPY ===
-    // IMPORTANT: we copy entries under "." except the target workDir itself
+    // Prepare isolated source snapshot
     sh """
         mkdir -p "${workDir}" && \
-        cp -r . "${workDir}/"
+        cp -R . "${workDir}/"
     """
-    // sh """
-    //   mkdir -p "${workDir}" && \
-    //   find . -mindepth 1 \
-    //     ! -path "./${workDir}*" \
-    //     -exec cp -R {} "${workDir}/" \\;
-    // """
 
     def runner = new devsecops.DockerRunner(this)
 
@@ -68,7 +61,7 @@ def call(Map config = [:]) {
     runner.run(
         workDir,
         image,
-        "${command} > ${outputFile} || true",
+        "${command} --output ${outputFile} || true",
         [:],  // env
         []    // extra volumes
     )
