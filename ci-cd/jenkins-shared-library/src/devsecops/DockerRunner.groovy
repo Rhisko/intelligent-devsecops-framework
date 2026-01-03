@@ -49,7 +49,7 @@ class DockerRunner implements Serializable {
         ensureDockerConfigLoaded()
 
         // === HOST PATH (ABSOLUTE) ===
-        def hostDir = "${dockerConfig.base_host_path}/${workDir}"
+        def hostDir = "${dockerConfig.base_host_path}${workDir}"
 
         // === CONTAINER PATH ===
         def containerPath = dockerConfig.workspace_mount.container_path
