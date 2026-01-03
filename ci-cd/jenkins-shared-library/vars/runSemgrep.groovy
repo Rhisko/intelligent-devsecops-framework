@@ -48,11 +48,15 @@ def call(Map config = [:]) {
     // === SNAPSHOT USING cp (NO rsync/tar) & AVOID SELF-COPY ===
     // IMPORTANT: we copy entries under "." except the target workDir itself
     sh """
-      mkdir -p "${workDir}" && \
-      find . -mindepth 1 \
-        ! -path "./${workDir}*" \
-        -exec cp -R {} "${workDir}/" \\;
+        mkdir -p "${workDir}" && \
+        cp -r . "${workDir}/"
     """
+    // sh """
+    //   mkdir -p "${workDir}" && \
+    //   find . -mindepth 1 \
+    //     ! -path "./${workDir}*" \
+    //     -exec cp -R {} "${workDir}/" \\;
+    // """
 
     def runner = new devsecops.DockerRunner(this)
 
