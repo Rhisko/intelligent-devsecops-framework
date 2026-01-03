@@ -1,5 +1,5 @@
 ruff:
-  image: ghcr.io/astral-sh/ruff:0.5.0
+  image: ghcr.io/astral-sh/ruff:0.14.8
   command: "check {target} --no-cache --output-format json"
   output: json
   category: linter
