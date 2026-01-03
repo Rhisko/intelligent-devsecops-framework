@@ -54,7 +54,7 @@ def call(Map config = [:]) {
     }
 
     // Cleanup isolated workspace
-    sh "rm -rf ${workDir}"
+    // sh "rm -rf ${workDir}"
 
     return findings
 }
