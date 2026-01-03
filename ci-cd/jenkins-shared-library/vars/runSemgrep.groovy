@@ -42,7 +42,7 @@ def call(Map config = [:]) {
         .replace('{extraArgs}', extraArgs)
 
     // === RELATIVE WORKDIR UNDER base_host_path ===
-    def workDir = "ci-workspace/semgrep/${env.JOB_NAME}-${env.BUILD_NUMBER}"
+    def workDir = "/ci-workspace/semgrep/${env.JOB_NAME}-${env.BUILD_NUMBER}"
         .replaceAll('[^a-zA-Z0-9_./-]', '_')
 
     // === SNAPSHOT USING cp (NO rsync/tar) & AVOID SELF-COPY ===
@@ -75,7 +75,7 @@ def call(Map config = [:]) {
     }
 
     // Cleanup
-    sh "rm -rf ${workDir}"
+    // sh "rm -rf ${workDir}"
 
     return findings
 }
