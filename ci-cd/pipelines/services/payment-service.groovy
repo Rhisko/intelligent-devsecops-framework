@@ -82,17 +82,31 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
-    stage('Horusec [SAST] Scan') {
+    // stage('Horusec [SAST] Scan') {
+    //   steps {
+    //     script {
+    //       echo "[PIPELINE] Running Horusec SAST scan via shared library"
+
+    //       horusecFindings = runHorusec(
+    //         path: '.',            // scan root repo
+    //       )
+
+    //       echo "[PIPELINE] Horusec findings count: ${horusecFindings.size()}"
+    //       echo "[PIPELINE] Horusec findings as String : ${horusecFindings}"
+    //         }
+    //       }
+    //     }
+    stage('Semgrep [ SAST ] Scan') {
       steps {
         script {
-          echo "[PIPELINE] Running Horusec SAST scan via shared library"
+          echo "[PIPELINE] Running semgrep SAST scan via shared library"
 
-          horusecFindings = runHorusec(
+          semgrepFindings = runSemgrep(
             path: '.',            // scan root repo
           )
 
-          echo "[PIPELINE] Horusec findings count: ${horusecFindings.size()}"
-          echo "[PIPELINE] Horusec findings as String : ${horusecFindings}"
+          echo "[PIPELINE] semgrep findings count: ${semgrepFindings.size()}"
+          echo "[PIPELINE] semgrep findings as String : ${semgrepFindings}"
             }
           }
         }
