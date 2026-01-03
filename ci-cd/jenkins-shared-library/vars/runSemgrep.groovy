@@ -61,7 +61,7 @@ def call(Map config = [:]) {
     runner.run(
         workDir,
         image,
-        "${command} || true",
+        "${command}",
         [:],  // env
         []    // extra volumes
     )
