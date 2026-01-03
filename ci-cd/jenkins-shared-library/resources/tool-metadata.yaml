@@ -14,17 +14,17 @@ horusec:
 semgrep:
   image: semgrep/semgrep:1.146.0
   command: >
-    semgrep scan
-    --config auto
-    --exclude '.git'
-    --exclude '.git/*'
-    --exclude '*/node_modules/*'
-    --exclude '*/vendor/*'
-    --exclude '*/.venv/*'
-    --exclude '*.sample'
-    --exclude 'hooks/'
-    {target}
-    --json
+    semgrep scan \
+    --config auto \
+    --exclude '.git' \
+    --exclude 'node_modules' \
+    --exclude 'vendor' \
+    --exclude '.venv' \
+    --exclude '*.sample' \
+    --exclude 'hooks' \
+    {target} \
+    --json \
+    --output semgrep.json
   output: json
   category: sast
 
