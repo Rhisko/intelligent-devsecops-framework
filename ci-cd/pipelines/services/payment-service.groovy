@@ -82,20 +82,20 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
-    // stage('Horusec [SAST] Scan') {
-    //   steps {
-    //     script {
-    //       echo "[PIPELINE] Running Horusec SAST scan via shared library"
+    stage('Horusec [SAST] Scan') {
+      steps {
+        script {
+          echo "[PIPELINE] Running Horusec SAST scan via shared library"
 
-    //       horusecFindings = runHorusec(
-    //         path: '.',            // scan root repo
-    //       )
+          horusecFindings = runHorusec(
+            path: '.',            // scan root repo
+          )
 
-    //       echo "[PIPELINE] Horusec findings count: ${horusecFindings.size()}"
-    //       echo "[PIPELINE] Horusec findings as String : ${horusecFindings}"
-    //         }
-    //       }
-    //     }
+          echo "[PIPELINE] Horusec findings count: ${horusecFindings.size()}"
+          echo "[PIPELINE] Horusec findings as String : ${horusecFindings}"
+            }
+          }
+        }
       
     }
     post {
