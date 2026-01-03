@@ -75,7 +75,7 @@ def call(Map config = [:]) {
     }
 
     // Cleanup
-    // sh "rm -rf ${workDir}"
+    sh "rm -rf ${workDir}"
 
     return findings
 }
