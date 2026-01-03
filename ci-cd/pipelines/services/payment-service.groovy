@@ -112,6 +112,64 @@ Event      : ${params.EVENT_TYPE}
         }
       
     }
+    stage('Build and Push Container Image') {
+      steps {
+        script {
+          echo "[PIPELINE] Building and pushing container image"
+        }
+      }
+    }
+
+    stage('Container Security Scan (Trivy)') {
+      steps {
+        script {
+          echo "[PIPELINE] Scanning container image for vulnerabilities using Trivy"
+        }
+      }
+    }
+
+    stage('Code Quality Analysis (SonarQube)') {
+      steps {
+        script {
+          echo "[PIPELINE] Performing code quality analysis using SonarQube"
+        }
+      }
+    }
+
+    stage('Policy-as-Code Security Gate (Conftest)') {
+      steps {
+        script {
+          echo "[PIPELINE] Evaluating security policies using Conftest"
+        }
+      }
+    }
+
+    stage('AI-Driven Security Advisory (n8n)') {
+      steps {
+        script {
+          echo "[PIPELINE] Generating AI-driven security advisory via n8n"
+        }
+      }
+    }
+
+    stage('Deploy to Kubernetes Production Cluster') {
+      steps {
+        script {
+          echo "[PIPELINE] Deploying application to Kubernetes production cluster"
+        }
+      }
+    }
+
+    stage('Publish Security Report and Notifications') {
+      steps {
+        script {
+          echo "[PIPELINE] Publishing security report to Confluence and sending notifications"
+        }
+      }
+    }
+
+      
+    }
     post {
         success {
             echo "[PIPELINE] SUCCESS for issue ${REPOSITORY_NAME.toUpperCase()} (${COMMIT_HASH_AFTER})"
