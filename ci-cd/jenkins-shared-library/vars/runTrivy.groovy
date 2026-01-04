@@ -92,7 +92,8 @@ def call(Map config = [:]) {
     }
 
     // Cleanup 
-    // sh "rm -rf ${workDir}"
+    sh "rm -rf ${workDir} && docker rmi ${image} || true"
+    println "[DEBUG] Removed workDir ${workDir} and image ${image} findings data loaded ${findings}"
 
     return findings
 }

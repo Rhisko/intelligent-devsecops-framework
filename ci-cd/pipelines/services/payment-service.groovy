@@ -136,11 +136,39 @@ Event      : ${params.EVENT_TYPE}
     stage('Container Security Scan [Trivy]') {
       steps {
         script {
+
+          def localImage = "${params.REPOSITORY_NAME}:${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.take(7)}"
+
           echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
-          echo "[PIPELINE] Scanning container image for vulnerabilities using Trivy"
+          echo "[INFO] Local image     : ${localImage}"
+          echo "[PIPELINE] Running Trivy container image security scan ......"
+
+          def trivyResult = runTrivy(
+            scanType: 'image',
+            target: localImage,
+            severity: 'HIGH,CRITICAL'
+          )
+
+          // Optional: log summary (do NOT parse deeply here)
+          if (trivyResult?.Results) {
+            echo "[INFO] Trivy scan completed with ${trivyResult.Results.size()} result blocks"
+          } else {
+            echo "[INFO] Trivy scan completed (no results or empty)"
           }
+
+          // Send raw result to aggregator
+          securityAggregator.collect(
+            tool: 'trivy',
+            data: trivyResult,
+            metadata: [
+              image: localImage,
+              scope: 'local'
+            ]
+          )
         }
       }
+    }
+
 
     stage('Code Quality Analysis [SonarQube]') {
       steps {
