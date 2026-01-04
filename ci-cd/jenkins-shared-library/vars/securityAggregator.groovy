@@ -92,7 +92,7 @@ def handleTrivy(def trivyResult, Map metadata) {
 
             // === WHERE it comes from ===
             artifact            : metadata.image,
-            source              : result?.Target,   // e.g. debian:12, alpine:3.19
+            source              : r?.Target,   // e.g. debian:12, alpine:3.19
             scan_scope          : metadata.scan_scope ?: 'local',
 
             // === HOW to fix (RECOMMENDATION) ===
