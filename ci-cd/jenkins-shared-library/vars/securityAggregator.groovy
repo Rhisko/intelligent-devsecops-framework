@@ -1,11 +1,9 @@
 /**
  * securityAggregator
  *
- * - Collect security scan result (tool-agnostic)
- * - Extract severity summary + detailed findings
- * - Return as variable (NO FILE OUTPUT)
+ * Entry point (DSL step)
  */
-def collect(Map config = [:]) {
+def call(Map config = [:]) {
 
     if (!config.tool) {
         error "[securityAggregator] 'tool' is required"
@@ -15,17 +13,17 @@ def collect(Map config = [:]) {
     }
 
     def tool     = config.tool
-    def data     = config.data
+    def data     = config.data      // net.sf.json.JSONObject OK
     def metadata = config.metadata ?: [:]
 
     echo "[securityAggregator] Tool     : ${tool}"
     echo "[securityAggregator] Metadata : ${metadata}"
 
     if (tool == 'trivy') {
-        return handleTrivy(data, metadata)
+        // IMPORTANT: helper dipanggil via this.
+        return this.handleTrivy(data, metadata)
     }
 
-    // default return for other tools
     return [
         summary  : [:],
         findings : []
