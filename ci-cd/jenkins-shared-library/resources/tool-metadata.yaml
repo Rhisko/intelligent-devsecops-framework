@@ -32,10 +32,11 @@ semgrep:
 trivy:
   image: aquasec/trivy:0.68.2
   command: >
-    trivy {scanType} {target}
+    trivy {scanType}
     --severity {severity}
     --format json
     --output {output}
     {extraArgs}
+    {target}
   output: json
   category: image_scan
