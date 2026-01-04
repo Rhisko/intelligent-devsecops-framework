@@ -125,7 +125,8 @@ Event      : ${params.EVENT_TYPE}
               "org.opencontainers.image.version" : version,
               "org.opencontainers.image.created" : new Date()
                 .format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
-            ]
+            ],
+            registry: "dockerhub"  // specify registry defined in docker-build.yaml
           )
         }
       }
@@ -155,7 +156,7 @@ Event      : ${params.EVENT_TYPE}
           }
         }
       }
-      
+
     stage('Policy-as-Code Security Gate [Conftest]') {
       steps {
         script {

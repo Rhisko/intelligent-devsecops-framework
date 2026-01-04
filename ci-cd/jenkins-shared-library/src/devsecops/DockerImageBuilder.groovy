@@ -12,21 +12,33 @@ class DockerImageBuilder implements Serializable {
         this.dockerCfg = cfgLoader.load("docker-build").docker
     }
 
+    /**
+     * buildAndPush
+     * - Registry-agnostic
+     * - No hardcoded registry URL
+     * - Uses access token via Jenkins credentials
+     */
     void buildAndPush(Map cfg = [:]) {
 
         if (!cfg.image) {
-            steps.error("buildAndPush requires 'image' (e.g. org/service)")
+            steps.error("buildAndPush requires 'image' (e.g. payment-service)")
         }
 
-        // === Registry ===
+        // === Resolve registry ===
         def registryKey = cfg.registry ?: dockerCfg.registry.default
         def registryCfg = dockerCfg.registry[registryKey]
+
         if (!registryCfg) {
             steps.error("Registry '${registryKey}' not defined in docker-build.yaml")
         }
+        if (!registryCfg.server || !registryCfg.image_prefix || !registryCfg.credential_id) {
+            steps.error("Registry '${registryKey}' config incomplete (server, image_prefix, credential_id required)")
+        }
 
-        def tag = cfg.tag ?: "latest"
-        def fullImage = "${registryCfg.url}/${cfg.image}:${tag}"
+        // === Image naming ===
+        def tag        = cfg.tag ?: "latest"
+        def imagePath  = registryCfg.image_prefix.replace('{image}', cfg.image)
+        def fullImage  = "${registryCfg.server}/${imagePath}:${tag}"
 
         // === Build options (override > default) ===
         def context    = cfg.context    ?: dockerCfg.defaults.context
@@ -40,10 +52,26 @@ class DockerImageBuilder implements Serializable {
         def targetStr   = target ? "--target ${target}" : ""
         def labelStr    = labels.collect { k, v -> "--label ${k}=${v}" }.join(' ')
 
+        steps.echo "[BUILD] Registry   : ${registryKey}"
         steps.echo "[BUILD] Image      : ${fullImage}"
         steps.echo "[BUILD] Context    : ${context}"
         steps.echo "[BUILD] Dockerfile : ${dockerfile}"
 
+        // === Login (registry-agnostic) ===
+        steps.withCredentials([
+            steps.usernamePassword(
+                credentialsId: registryCfg.credential_id,
+                usernameVariable: 'REG_USER',
+                passwordVariable: 'REG_TOKEN'
+            )
+        ]) {
+            steps.sh """
+              echo "\$REG_TOKEN" | docker login ${registryCfg.server} \
+                -u "\$REG_USER" --password-stdin
+            """
+        }
+
+        // === Build ===
         steps.sh """
           docker build \
             -f ${dockerfile} \
@@ -55,23 +83,11 @@ class DockerImageBuilder implements Serializable {
         """
 
         // === Push ===
-        steps.withCredentials([
-            steps.usernamePassword(
-                credentialsId: registryCfg.credential_id,
-                usernameVariable: 'REG_USER',
-                passwordVariable: 'REG_PASS'
-            )
-        ]) {
-            steps.sh """
-              echo \$REG_PASS | docker login ${registryCfg.url} \
-                -u \$REG_USER --password-stdin
-              docker push ${fullImage}
-            """
-        }
+        steps.sh "docker push ${fullImage}"
 
         steps.echo "[BUILD] Image pushed successfully: ${fullImage}"
 
-        // === Optional: return reference ===
+        // === Export reference ===
         steps.env.PUBLISHED_IMAGE = fullImage
     }
 }
