@@ -80,7 +80,7 @@ class DockerImageBuilder implements Serializable {
 
         // === Build & Push ===
         steps.sh """
-          docker build \
+          docker buildx build \
             -f ${dockerfile} \
             ${targetStr} \
             ${buildArgStr} \
