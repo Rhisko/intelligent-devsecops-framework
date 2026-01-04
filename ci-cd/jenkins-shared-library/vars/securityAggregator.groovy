@@ -80,15 +80,40 @@ def handleTrivy(def trivyResult, Map metadata) {
             inc(summary, sev)
 
             findings << [
-                tool       : 'trivy',
-                severity   : sev,
-                rule_id    : v?.VulnerabilityID,
-                message    : v?.Title ?: v?.Description,
-                component  : v?.PkgName,
-                artifact   : metadata.image,
-                scan_scope : metadata.scan_scope ?: 'local',
-                reference  : v?.PrimaryURL
+            tool               : 'trivy',
+            severity           : sev,
+            rule_id            : v?.VulnerabilityID,
+            message            : v?.Title ?: v?.Description,
+
+            // === WHAT to fix ===
+            component           : v?.PkgName,
+            installed_version   : v?.InstalledVersion,
+            fixed_version       : v?.FixedVersion ?: 'N/A',
+
+            // === WHERE it comes from ===
+            artifact            : metadata.image,
+            source              : result?.Target,   // e.g. debian:12, alpine:3.19
+            scan_scope          : metadata.scan_scope ?: 'local',
+
+            // === HOW to fix (RECOMMENDATION) ===
+            recommendation      : v?.FixedVersion
+                ? "Upgrade ${v.PkgName} to version ${v.FixedVersion} or later"
+                : "No fixed version available. Consider upgrading base image, replacing dependency, or applying mitigation",
+
+            // === EVIDENCE ===
+            reference           : v?.PrimaryURL
             ]
+
+            // findings << [
+            //     tool       : 'trivy',
+            //     severity   : sev,
+            //     rule_id    : v?.VulnerabilityID,
+            //     message    : v?.Title ?: v?.Description,
+            //     component  : v?.PkgName,
+            //     artifact   : metadata.image,
+            //     scan_scope : metadata.scan_scope ?: 'local',
+            //     reference  : v?.PrimaryURL
+            // ]
         }
     }
 
