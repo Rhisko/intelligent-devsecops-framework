@@ -44,12 +44,12 @@ class DockerImageBuilder implements Serializable {
         }
 
         def tag = cfg.tag ?: "latest"
-        def imagePath = registryCfg.image_prefix
-            .replace('{image}', cfg.image)
-            .replace('{username}', steps.env.DOCKERHUB_USER ?: '')
-            .replace('{owner}', steps.env.GITHUB_OWNER ?: '')
+        // def imagePath = registryCfg.image_prefix
+        //     .replace('{image}', cfg.image)
+        //     .replace('{username}', steps.env.DOCKERHUB_USER ?: '')
+        //     .replace('{owner}', steps.env.GITHUB_OWNER ?: '')
 
-        def fullImage = "${registryCfg.server}/${imagePath}:${tag}"
+        def fullImage = "${registryCfg.server}/${registryCfg.image_prefix}/${cfg.image}:${tag}"
 
         // === Build options ===
         def context    = cfg.context    ?: dockerCfg.defaults.context
