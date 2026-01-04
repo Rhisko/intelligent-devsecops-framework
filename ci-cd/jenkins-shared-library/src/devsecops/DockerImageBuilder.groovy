@@ -50,6 +50,7 @@ class DockerImageBuilder implements Serializable {
         //     .replace('{owner}', steps.env.GITHUB_OWNER ?: '')
 
         def fullImage = "${registryCfg.server}/${registryCfg.image_prefix}/${cfg.image}:${tag}"
+        def localImage = "${registryCfg.image_prefix}/${cfg.image}:${tag}"
 
         // === Build options ===
         def context    = cfg.context    ?: dockerCfg.defaults.context
@@ -92,5 +93,6 @@ class DockerImageBuilder implements Serializable {
         """
 
         steps.env.PUBLISHED_IMAGE = fullImage
+        steps.env.LOCAL_IMAGE = localImage
     }
 }

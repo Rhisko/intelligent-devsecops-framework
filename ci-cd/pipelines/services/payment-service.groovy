@@ -137,7 +137,7 @@ Event      : ${params.EVENT_TYPE}
       steps {
         script {
 
-          def localImage = "${params.REPOSITORY_NAME}:${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.take(7)}"
+          def localImage = env.LOCAL_IMAGE
 
           echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
           echo "[INFO] Local image     : ${localImage}"
