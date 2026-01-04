@@ -36,6 +36,7 @@ pipeline {
     stage('Initialize Pipeline Context') {
       steps {
         script {
+          workspaceBaseline = workspaceIntegrity.capture()
           echo """
 ========== DOWNSTREAM CONTEXT ==========
 Repository : ${params.REPOSITORY_FULL_NAME}
@@ -100,6 +101,7 @@ Event      : ${params.EVENT_TYPE}
     stage('Build and Push Container Image') {
       steps {
         script {
+          workspaceIntegrity.assertUnchanged(workspaceBaseline)
           def shortSha = params.COMMIT_HASH_AFTER.take(7)
           def version  = "${params.TAG_NAME}-${shortSha}"
 
