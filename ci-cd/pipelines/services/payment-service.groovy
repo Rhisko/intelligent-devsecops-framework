@@ -96,30 +96,34 @@ Event      : ${params.EVENT_TYPE}
             }
           }
         }
-      
-    
-    stage('Build and Push Container Image [Docker Build]') {
+         
+    stage('Build and Push Container Image') {
       steps {
         script {
-            buildAndPushImage(
-              image: "${params.REPOSITORY_NAME}",
-              context: ".",
-              dockerfile: "Dockerfile",
-              buildArgs: [
-                APP_ENV: "production",
-                VERSION: "${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.substring(0,7)}"
-              ],
-              tag: "${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.substring(0,7)}",
-              labels: [
-                "org.opencontainers.image.source"   : env.GIT_URL,
-                "org.opencontainers.image.revision" : env.GIT_COMMIT,
-                "org.opencontainers.image.version"  : env.BUILD_NUMBER,
-                "org.opencontainers.image.created"  : new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
-              ]
-            )
-          }
+          def shortSha = params.COMMIT_HASH_AFTER.take(7)
+          def version  = "${params.TAG_NAME}-${shortSha}"
+
+          buildAndPushImage(
+            image: params.REPOSITORY_NAME,
+            context: ".",
+            dockerfile: "Dockerfile",
+            buildArgs: [
+              APP_ENV: "production",
+              VERSION: version
+            ],
+            tag: version,
+            labels: [
+              "org.opencontainers.image.source"  : env.GIT_URL,
+              "org.opencontainers.image.revision": env.GIT_COMMIT,
+              "org.opencontainers.image.version" : version,
+              "org.opencontainers.image.created" : new Date()
+                .format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
+            ]
+          )
         }
       }
+    }
+
 
     stage('Container Security Scan [Trivy]') {
       steps {
