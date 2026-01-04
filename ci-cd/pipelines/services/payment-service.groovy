@@ -157,7 +157,7 @@ Event      : ${params.EVENT_TYPE}
           }
 
           // Send raw result to aggregator
-          securityAggregator.collect(
+          securityAggregator.call(
             tool: 'trivy',
             data: trivyResult,
             metadata: [
