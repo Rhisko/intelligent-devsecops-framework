@@ -44,6 +44,7 @@ def call(Map config = [:]) {
     //   {scanType}, {target}, {severity}, {extraArgs}, {output}
     def command = toolMeta.command
         .replace('{scanType}', scanType)
+        .replace('{imageName}', scanType)
         .replace('{target}', target)
         .replace('{severity}', severity)
         .replace('{extraArgs}', extraArgs)
