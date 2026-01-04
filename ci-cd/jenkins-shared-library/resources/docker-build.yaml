@@ -7,13 +7,13 @@ docker:
     labels:
       org.opencontainers.image.source: "${GIT_URL}"
       org.opencontainers.image.revision: "${GIT_COMMIT}"
-registry:
-    default: dockerhub   # <-- default registry to use
-    dockerhub:
-      server: docker.io
-      image_prefix: "{username}"
-      credential_id: dockerhub-token
-    ghcr:
-      server: ghcr.io
-      image_prefix: "{owner}"
-      credential_id: ghcr-token
+  registry:
+      default: dockerhub   # <-- default registry to use
+      dockerhub:
+        server: docker.io
+        image_prefix: "{username}"
+        credential_id: dockerhub-token
+      ghcr:
+        server: ghcr.io
+        image_prefix: "{owner}"
+        credential_id: ghcr-token
