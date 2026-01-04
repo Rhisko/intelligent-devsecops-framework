@@ -25,4 +25,7 @@ The following changes were introduced during CI execution:
 ${afterState}
 """)
     }
+    else {
+        echo "[WORKSPACE INTEGRITY] No changes detected in workspace."
+    }
 }

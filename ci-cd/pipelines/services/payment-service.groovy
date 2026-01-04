@@ -97,11 +97,16 @@ Event      : ${params.EVENT_TYPE}
             }
           }
         }
-         
-    stage('Build and Push Container Image') {
+    stage("Workspace Integrity Verification") {
       steps {
         script {
           workspaceIntegrity.assertUnchanged(workspaceBaseline)
+        }
+      }
+    }
+    stage('Build and Push Container Image') {
+      steps {
+        script {
           def shortSha = params.COMMIT_HASH_AFTER.take(7)
           def version  = "${params.TAG_NAME}-${shortSha}"
 
