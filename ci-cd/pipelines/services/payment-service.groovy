@@ -36,7 +36,6 @@ pipeline {
     stage('Initialize Pipeline Context') {
       steps {
         script {
-          workspaceBaseline = workspaceIntegrity.capture()
           echo """
 ========== DOWNSTREAM CONTEXT ==========
 Repository : ${params.REPOSITORY_FULL_NAME}
@@ -48,7 +47,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
-    stage("Checkout Source Code from GitHub") {
+    stage("Checkout Source Code from GitHub & Capture Workspace Baseline") {
       steps {
         script {
           retry(5) {
@@ -63,6 +62,7 @@ Event      : ${params.EVENT_TYPE}
                 ]]
               ])
             }
+            workspaceBaseline = workspaceIntegrity.capture()
           }
         }
       }
