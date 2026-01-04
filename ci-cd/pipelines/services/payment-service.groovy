@@ -100,6 +100,9 @@ Event      : ${params.EVENT_TYPE}
     stage("Workspace Integrity Verification") {
       steps {
         script {
+          sh"""
+          touch testfile.txt
+          """
           workspaceIntegrity.assertUnchanged(workspaceBaseline)
         }
       }
