@@ -1,0 +1,14 @@
+docker:
+  defaults:
+    context: .
+    dockerfile: Dockerfile
+    target: null
+    build_args: {}
+    labels:
+      org.opencontainers.image.source: "${GIT_URL}"
+      org.opencontainers.image.revision: "${GIT_COMMIT}"
+  registry:
+    default: ghcr
+    ghcr:
+      url: ghcr.io
+      credential_id: ghcr-credentials

@@ -1,0 +1,204 @@
+{
+	"version": "1.146.0",
+	"results": [{
+		"check_id": "dockerfile.security.missing-user.missing-user",
+		"path": "Dockerfile",
+		"start": {
+			"line": 13,
+			"col": 1,
+			"offset": 173
+		},
+		"end": {
+			"line": 13,
+			"col": 71,
+			"offset": 243
+		},
+		"extra": {
+			"message": "By not specifying a USER, a program in the container may run as 'root'. This is a security hazard. If an attacker can control a process running as root, they may have control over the container. Ensure that the last USER in a Dockerfile is a USER other than 'root'.",
+			"fix": "USER non-root\nCMD [\"uvicorn\", \"app.main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]",
+			"metadata": {
+				"cwe": ["CWE-250: Execution with Unnecessary Privileges"],
+				"category": "security",
+				"technology": ["dockerfile"],
+				"confidence": "MEDIUM",
+				"owasp": ["A04:2021 - Insecure Design"],
+				"references": ["https://owasp.org/Top10/A04_2021-Insecure_Design"],
+				"subcategory": ["audit"],
+				"likelihood": "LOW",
+				"impact": "MEDIUM",
+				"license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+				"vulnerability_class": ["Improper Authorization"],
+				"source": "https://semgrep.dev/r/dockerfile.security.missing-user.missing-user",
+				"shortlink": "https://sg.run/Gbvn"
+			},
+			"severity": "ERROR",
+			"fingerprint": "requires login",
+			"lines": "requires login",
+			"validation_state": "NO_VALIDATOR",
+			"engine_kind": "OSS"
+		}
+	}, {
+		"check_id": "python.lang.security.audit.eval-detected.eval-detected",
+		"path": "app/payment.py",
+		"start": {
+			"line": 3,
+			"col": 13,
+			"offset": 90
+		},
+		"end": {
+			"line": 3,
+			"col": 25,
+			"offset": 102
+		},
+		"extra": {
+			"message": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+			"metadata": {
+				"source-rule-url": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b307-eval",
+				"cwe": ["CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"],
+				"owasp": ["A03:2021 - Injection"],
+				"asvs": {
+					"control_id": "5.2.4 Dyanmic Code Execution Features",
+					"control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+					"section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+					"version": "4"
+				},
+				"category": "security",
+				"technology": ["python"],
+				"references": ["https://owasp.org/Top10/A03_2021-Injection"],
+				"subcategory": ["audit"],
+				"likelihood": "LOW",
+				"impact": "HIGH",
+				"confidence": "LOW",
+				"license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+				"vulnerability_class": ["Code Injection"],
+				"source": "https://semgrep.dev/r/python.lang.security.audit.eval-detected.eval-detected",
+				"shortlink": "https://sg.run/ZvrD"
+			},
+			"severity": "WARNING",
+			"fingerprint": "requires login",
+			"lines": "requires login",
+			"validation_state": "NO_VALIDATOR",
+			"engine_kind": "OSS"
+		}
+	}, {
+		"check_id": "python.lang.security.audit.eval-detected.eval-detected",
+		"path": "payment.py",
+		"start": {
+			"line": 3,
+			"col": 13,
+			"offset": 90
+		},
+		"end": {
+			"line": 3,
+			"col": 25,
+			"offset": 102
+		},
+		"extra": {
+			"message": "Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.",
+			"metadata": {
+				"source-rule-url": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b307-eval",
+				"cwe": ["CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"],
+				"owasp": ["A03:2021 - Injection"],
+				"asvs": {
+					"control_id": "5.2.4 Dyanmic Code Execution Features",
+					"control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x13-V5-Validation-Sanitization-Encoding.md#v52-sanitization-and-sandboxing-requirements",
+					"section": "V5: Validation, Sanitization and Encoding Verification Requirements",
+					"version": "4"
+				},
+				"category": "security",
+				"technology": ["python"],
+				"references": ["https://owasp.org/Top10/A03_2021-Injection"],
+				"subcategory": ["audit"],
+				"likelihood": "LOW",
+				"impact": "HIGH",
+				"confidence": "LOW",
+				"license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+				"vulnerability_class": ["Code Injection"],
+				"source": "https://semgrep.dev/r/python.lang.security.audit.eval-detected.eval-detected",
+				"shortlink": "https://sg.run/ZvrD"
+			},
+			"severity": "WARNING",
+			"fingerprint": "requires login",
+			"lines": "requires login",
+			"validation_state": "NO_VALIDATOR",
+			"engine_kind": "OSS"
+		}
+	}],
+	"errors": [],
+	"paths": {
+		"scanned": [".Dockerignore", ".gitignore", "01b3312e315ca0354dbb83969be07a8f405128", "0e/58fbdb1550f6bd4c42b113e77537e8901801a3", "11ff4c87d4b2dafced86edaff171172c36528c", "179603f2092859aebf57cf9c141652c2496f8f", "2c06eb4f74ac30ae011e8c57d3ea2be280b751", "40/2c06eb4f74ac30ae011e8c57d3ea2be280b751", "4c/56da5fc45d4546a899cf1c642e3ee53585d95c", "4f8238b78502d219ee2edf048e7f8604a3ece3", "504b2219c3a7b3e0630fc164565cf317e841e3", "56da5fc45d4546a899cf1c642e3ee53585d95c", "58fbdb1550f6bd4c42b113e77537e8901801a3", "5a/7ab8defdf9d5a960841b8e939402f378a5d845", "5ab8fbdb5f9b410cba904145f975593182dced", "66/c035e009f3abef4dd7c39fe2278e9515f354c3", "6e/01b3312e315ca0354dbb83969be07a8f405128", "7ab8defdf9d5a960841b8e939402f378a5d845", "7e506bfb5b90acdd3cae99ec1004ab28b71392", "8b/8d7ff29e742d95ff0fc29287ed56aebe3116c1", "8d7ff29e742d95ff0fc29287ed56aebe3116c1", "8f5e624a61d0ac418925cc76dba5ca11abe8ad", "8fa92704b2e26f606916e789286ef449bad627", "92/4f8238b78502d219ee2edf048e7f8604a3ece3", "95/179603f2092859aebf57cf9c141652c2496f8f", "96/e310ab14cddb4555a23093e2dbd7039106e3c7", "9d/504b2219c3a7b3e0630fc164565cf317e841e3", "9e/bc5059da562d8b9ef8af21a2fd6bf242f48eb3", "Dockerfile", "FETCH_HEAD", "HEAD", "Readme.MD", "Triggring-webhook.txt", "a1/f35bf1899b80cbfb1075b70f8742b29255f46e", "ac/5ab8fbdb5f9b410cba904145f975593182dced", "ac/e6f721db9d186a763b221df03dcbad1147a26b", "ae/8f5e624a61d0ac418925cc76dba5ca11abe8ad", "app/config.py", "app/main.py", "app/payment.py", "app/routes.py", "b07c9efea0e17f7e001cf149a30897a256c2ef", "b982b937ecab988e263c4f77f231f3c9a7ce6e", "bc5059da562d8b9ef8af21a2fd6bf242f48eb3", "bd/d2bc14863cce30f3e760df794f210f5e63f1f7", "c035e009f3abef4dd7c39fe2278e9515f354c3", "c7/b07c9efea0e17f7e001cf149a30897a256c2ef", "ca/e9e756d86e016100ea696bc6e12fda4ec2c2a3", "cc/ee973603e6e98c78ba3067cbb7d689b765e94c", "config", "config.py", "d1/7e506bfb5b90acdd3cae99ec1004ab28b71392", "d2bc14863cce30f3e760df794f210f5e63f1f7", "d7/f0c64ca1e35ab2a7994e6c06436489176be24b", "description", "e310ab14cddb4555a23093e2dbd7039106e3c7", "e4/11ff4c87d4b2dafced86edaff171172c36528c", "e6f721db9d186a763b221df03dcbad1147a26b", "e8/8fa92704b2e26f606916e789286ef449bad627", "e9e756d86e016100ea696bc6e12fda4ec2c2a3", "ee973603e6e98c78ba3067cbb7d689b765e94c", "exclude", "f0c64ca1e35ab2a7994e6c06436489176be24b", "f35bf1899b80cbfb1075b70f8742b29255f46e", "f4/b982b937ecab988e263c4f77f231f3c9a7ce6e", "index", "info/exclude", "logs/HEAD", "logs/refs/remotes/origin/main", "main", "main.py", "objects/0e/58fbdb1550f6bd4c42b113e77537e8901801a3", "objects/40/2c06eb4f74ac30ae011e8c57d3ea2be280b751", "objects/4c/56da5fc45d4546a899cf1c642e3ee53585d95c", "objects/5a/7ab8defdf9d5a960841b8e939402f378a5d845", "objects/66/c035e009f3abef4dd7c39fe2278e9515f354c3", "objects/6e/01b3312e315ca0354dbb83969be07a8f405128", "objects/8b/8d7ff29e742d95ff0fc29287ed56aebe3116c1", "objects/92/4f8238b78502d219ee2edf048e7f8604a3ece3", "objects/95/179603f2092859aebf57cf9c141652c2496f8f", "objects/96/e310ab14cddb4555a23093e2dbd7039106e3c7", "objects/9d/504b2219c3a7b3e0630fc164565cf317e841e3", "objects/9e/bc5059da562d8b9ef8af21a2fd6bf242f48eb3", "objects/a1/f35bf1899b80cbfb1075b70f8742b29255f46e", "objects/ac/5ab8fbdb5f9b410cba904145f975593182dced", "objects/ac/e6f721db9d186a763b221df03dcbad1147a26b", "objects/ae/8f5e624a61d0ac418925cc76dba5ca11abe8ad", "objects/bd/d2bc14863cce30f3e760df794f210f5e63f1f7", "objects/c7/b07c9efea0e17f7e001cf149a30897a256c2ef", "objects/ca/e9e756d86e016100ea696bc6e12fda4ec2c2a3", "objects/cc/ee973603e6e98c78ba3067cbb7d689b765e94c", "objects/d1/7e506bfb5b90acdd3cae99ec1004ab28b71392", "objects/d7/f0c64ca1e35ab2a7994e6c06436489176be24b", "objects/e4/11ff4c87d4b2dafced86edaff171172c36528c", "objects/e8/8fa92704b2e26f606916e789286ef449bad627", "objects/f4/b982b937ecab988e263c4f77f231f3c9a7ce6e", "objects/pack/pack-a50d9cd8db3be47eac4cc63f5715e7a506405192.idx", "objects/pack/pack-a50d9cd8db3be47eac4cc63f5715e7a506405192.rev", "origin/main", "pack/pack-a50d9cd8db3be47eac4cc63f5715e7a506405192.idx", "pack/pack-a50d9cd8db3be47eac4cc63f5715e7a506405192.rev", "pack-a50d9cd8db3be47eac4cc63f5715e7a506405192.idx", "pack-a50d9cd8db3be47eac4cc63f5715e7a506405192.rev", "payment.py", "refs/remotes/origin/main", "refs/tags/v1.0.0", "refs/tags/v1.0.1", "remotes/origin/main", "requirements.txt", "routes.py", "tags/v1.0.0", "tags/v1.0.1", "v1.0.0", "v1.0.1"]
+	},
+	"time": {
+		"rules": [],
+		"rules_parse_time": 1.3379781246185303,
+		"profiling_times": {
+			"config_time": 2.6977896690368652,
+			"core_time": 2.2231369018554688,
+			"ignores_time": 0.0014047622680664062,
+			"total_time": 4.925683975219727
+		},
+		"parsing_time": {
+			"total_time": 0.0,
+			"per_file_time": {
+				"mean": 0.0,
+				"std_dev": 0.0
+			},
+			"very_slow_stats": {
+				"time_ratio": 0.0,
+				"count_ratio": 0.0
+			},
+			"very_slow_files": []
+		},
+		"scanning_time": {
+			"total_time": 1.379227876663208,
+			"per_file_time": {
+				"mean": 0.005819526905751934,
+				"std_dev": 0.00011054596709779028
+			},
+			"very_slow_stats": {
+				"time_ratio": 0.0,
+				"count_ratio": 0.0
+			},
+			"very_slow_files": []
+		},
+		"matching_time": {
+			"total_time": 0.0,
+			"per_file_and_rule_time": {
+				"mean": 0.0,
+				"std_dev": 0.0
+			},
+			"very_slow_stats": {
+				"time_ratio": 0.0,
+				"count_ratio": 0.0
+			},
+			"very_slow_rules_on_files": []
+		},
+		"tainting_time": {
+			"total_time": 0.0,
+			"per_def_and_rule_time": {
+				"mean": 0.0,
+				"std_dev": 0.0
+			},
+			"very_slow_stats": {
+				"time_ratio": 0.0,
+				"count_ratio": 0.0
+			},
+			"very_slow_rules_on_defs": []
+		},
+		"fixpoint_timeouts": [],
+		"prefiltering": {
+			"project_level_time": 0.0,
+			"file_level_time": 0.0,
+			"rules_with_project_prefilters_ratio": 0.0,
+			"rules_with_file_prefilters_ratio": 0.9967663702506063,
+			"rules_selected_ratio": 0.5382646187011587,
+			"rules_matched_ratio": 0.5382646187011587
+		},
+		"targets": [],
+		"total_bytes": 0,
+		"max_memory_bytes": 1273377344
+	},
+	"engine_requested": "OSS",
+	"skipped_rules": [],
+	"profiling_results": []
+}

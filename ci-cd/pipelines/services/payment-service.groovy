@@ -71,7 +71,7 @@ Event      : ${params.EVENT_TYPE}
       }
       steps {
         script {
-          echo "[PIPELINE] Running Ruff lint via shared library"
+          echo "[PIPELINE] Running Ruff Linting ......"
 
           ruffFindings = runRuff(
             path: '.',            // scan root repo
@@ -82,24 +82,10 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
-    // stage('Horusec [SAST] Scan') {
-    //   steps {
-    //     script {
-    //       echo "[PIPELINE] Running Horusec SAST scan via shared library"
-
-    //       horusecFindings = runHorusec(
-    //         path: '.',            // scan root repo
-    //       )
-
-    //       echo "[PIPELINE] Horusec findings count: ${horusecFindings.size()}"
-    //       echo "[PIPELINE] Horusec findings as String : ${horusecFindings}"
-    //         }
-    //       }
-    //     }
     stage('Static Application Security Testing [Semgrep]') {
       steps {
         script {
-          echo "[PIPELINE] Running semgrep SAST scan via shared library"
+          echo "[PIPELINE] Running semgrep SAST scan ......"
 
           semgrepFindings = runSemgrep(
             path: '.',            // scan root repo
@@ -115,7 +101,22 @@ Event      : ${params.EVENT_TYPE}
     stage('Build and Push Container Image [Docker Build]') {
       steps {
         script {
-          echo "[PIPELINE] Building and pushing container image"
+            buildAndPushImage(
+              image: "${params.REPOSITORY_NAME}",
+              context: ".",
+              dockerfile: "Dockerfile",
+              buildArgs: [
+                APP_ENV: "production",
+                VERSION: "${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.substring(0,7)}"
+              ],
+              tag: "${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.substring(0,7)}"
+              labels: [
+                "org.opencontainers.image.source"   : env.GIT_URL,
+                "org.opencontainers.image.revision" : env.GIT_COMMIT,
+                "org.opencontainers.image.version"  : env.BUILD_NUMBER,
+                "org.opencontainers.image.created"  : new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
+              ]
+            )
           }
         }
       }
