@@ -157,7 +157,7 @@ Event      : ${params.EVENT_TYPE}
           }
 
           // Send raw result to aggregator
-          securityAggregator.call(
+          def trivyAgg = securityAggregator.call(
             tool: 'trivy',
             data: trivyResult,
             metadata: [
@@ -165,6 +165,9 @@ Event      : ${params.EVENT_TYPE}
               scope: 'local'
             ]
           )
+          println "[DEBUG] Trivy aggregated findings: ${trivyAgg.findings.size()} items"
+          println "[DEBUG] Trivy aggregated summary: ${trivyAgg.summary}"
+          println "[DEBUG] Trivy raw result data: ${trivyAgg.findings}"
         }
       }
     }
