@@ -59,7 +59,8 @@ def call(Map config = [:]) {
         findings = readJSON file: "${workDir}/ruff.json"
     }
 
-    // sh "rm -rf ${workDir}"
+    // Cleanup
+    sh "rm -rf ${workDir}"
 
 
     return findings

@@ -136,6 +136,7 @@ Event      : ${params.EVENT_TYPE}
     stage('Container Security Scan [Trivy]') {
       steps {
         script {
+          echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
           echo "[PIPELINE] Scanning container image for vulnerabilities using Trivy"
           }
         }
