@@ -148,6 +148,14 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
+    stage('AI-Driven Security Advisory [n8n]') {
+      steps {
+        script {
+          echo "[PIPELINE] Generating AI-driven security advisory via n8n"
+          }
+        }
+      }
+      
     stage('Policy-as-Code Security Gate [Conftest]') {
       steps {
         script {
@@ -156,13 +164,6 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('AI-Driven Security Advisory [n8n]') {
-      steps {
-        script {
-          echo "[PIPELINE] Generating AI-driven security advisory via n8n"
-          }
-        }
-      }
 
     stage('Deploy to Kubernetes Production Cluster [GKE]') {
       steps {
