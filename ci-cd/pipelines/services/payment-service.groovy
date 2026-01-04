@@ -109,7 +109,7 @@ Event      : ${params.EVENT_TYPE}
                 APP_ENV: "production",
                 VERSION: "${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.substring(0,7)}"
               ],
-              tag: "${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.substring(0,7)}"
+              tag: "${params.TAG_NAME}-${params.COMMIT_HASH_AFTER.substring(0,7)}",
               labels: [
                 "org.opencontainers.image.source"   : env.GIT_URL,
                 "org.opencontainers.image.revision" : env.GIT_COMMIT,
