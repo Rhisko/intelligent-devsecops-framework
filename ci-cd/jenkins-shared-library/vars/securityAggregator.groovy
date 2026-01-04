@@ -93,6 +93,7 @@ def handleTrivy(def trivyResult, Map metadata) {
     }
 
     logSummary('Trivy', summary)
+    println("[DEBUG] Trivy findings collected: ${findings}")
     return [summary: summary, findings: findings]
 }
 
