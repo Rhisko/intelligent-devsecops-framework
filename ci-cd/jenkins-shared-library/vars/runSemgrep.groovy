@@ -68,7 +68,7 @@ def call(Map config = [:]) {
     def findings = []
     if (fileExists("${workDir}/semgrep.json")) {
         findings = readJSON file: "${workDir}/semgrep.json"
-        echo "Semgrep findings data: ${findings}"
+        // echo "Semgrep findings data: ${findings}"
     }
 
     // Cleanup

@@ -87,7 +87,7 @@ def call(Map config = [:]) {
 
     if (fileExists(outputFile)) {
         findings = readJSON file: outputFile
-        echo "Trivy findings data loaded"
+        // echo "Trivy findings data loaded"
     } else {
         echo "Trivy output not found (no findings or execution issue)"
     }

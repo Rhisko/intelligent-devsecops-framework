@@ -40,3 +40,9 @@ trivy:
     {target}
   output: json
   category: image_scan
+  severity_mapping:
+    CRITICAL: HIGH
+    HIGH: MEDIUM
+    MEDIUM: LOW
+    LOW: INFO
+    UNKNOWN: INFO

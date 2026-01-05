@@ -139,8 +139,8 @@ Event      : ${params.EVENT_TYPE}
 
           def localImage = env.LOCAL_IMAGE
 
-          echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
-          echo "[INFO] Local image     : ${localImage}"
+          // echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
+          // echo "[INFO] Local image     : ${localImage}"
           echo "[PIPELINE] Running Trivy container image security scan ......"
 
           def trivyResult = runTrivy(
