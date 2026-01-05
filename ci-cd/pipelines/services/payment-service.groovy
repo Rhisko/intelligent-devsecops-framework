@@ -52,20 +52,27 @@ Event      : ${params.EVENT_TYPE}
         script {
           retry(5) {
             sleep(1)
-            def branchRef = params.BASE_REF ? params.BASE_REF : "main"
+
+            def tagRef = params.TAG_NAME?.trim()
+            if (!tagRef) {
+              error "TAG_NAME is required for tag-based checkout"
+            }
+
             checkout([
               $class: 'GitSCM',
-              branches: [[name: branchRef]],
+              branches: [[name: "refs/tags/${tagRef}"]],
               userRemoteConfigs: [[
                 url: "git@github.com:${params.REPOSITORY_FULL_NAME}.git",
                 credentialsId: 'creds-github-ssh-access'
-                ]]
-              ])
-            }
-            workspaceBaseline = workspaceIntegrity.capture()
+              ]]
+            ])
           }
+
+          workspaceBaseline = workspaceIntegrity.capture()
         }
       }
+    }
+
     stage('Python Linting [Ruff]') {
       when {
         expression { params.LANGUAGE?.toLowerCase() == 'python' }
