@@ -21,6 +21,9 @@ def call(Map config = [:]) {
       mkdir -p "${workDir}" && \
       cp -R . "${workDir}/"
     """
+def commandWithOutput = """
+sh -c "${command} > ruff.json || true"
+""".trim()
 
     def runner = new devsecops.DockerRunner(this)
     def outputFile = "${workDir}/ruff.json"
@@ -28,7 +31,7 @@ def call(Map config = [:]) {
     runner.run(
         workDir,
         meta.image,
-        "${command} > ${outputFile} || true",
+        commandWithOutput,
         [:],
         [] 
     )
