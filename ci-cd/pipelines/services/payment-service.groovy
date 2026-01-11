@@ -90,6 +90,22 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
+    stage("Ruff → Sonar External Issues") {
+        steps {
+            publishRuffExternalIssues(
+                input: "ci-workspace/ruff/${JOB_NAME}-${BUILD_NUMBER}/ruff.json"
+            )
+        }
+    }
+
+    stage("SonarQube Scan") {
+        steps {
+            sh """
+              sonar-scanner \
+              -Dsonar.externalIssuesReportPaths=${SONAR_EXTERNAL_ISSUES}
+            """
+        }
+    }
     stage('Static Application Security Testing [Semgrep]') {
       steps {
         script {
