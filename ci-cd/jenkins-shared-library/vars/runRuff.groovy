@@ -36,6 +36,7 @@ def call(Map config = [:]) {
 
     def findings = []
     if (fileExists(outputFile)) {
+        println "[runRuff] Reading findings from ${outputFile}"
         findings = readJSON file: outputFile
     }
 
