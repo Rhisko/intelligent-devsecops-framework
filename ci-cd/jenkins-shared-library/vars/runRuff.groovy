@@ -27,7 +27,7 @@ def call(Map config = [:]) {
     runner.run(
         workDir,
         meta.image,
-        "sh -c '${command} > ruff.json || true'",
+        command,
         [:],
         [] 
     )

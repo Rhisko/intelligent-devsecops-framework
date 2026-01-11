@@ -69,7 +69,7 @@ class DockerRunner implements Serializable {
                 -w ${containerPath} \
                 ${image} ${command}
             """.stripIndent(),
-            returnStatus: true
+            returnStdout: true
         )
     }
 }

@@ -5,6 +5,7 @@ ruff:
     --no-cache
     --output-format {output_format}
     --select {select}
+    > ruff.json || true
   language: python
   defaults:
     target: .
