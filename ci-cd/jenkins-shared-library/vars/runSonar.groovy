@@ -53,7 +53,7 @@ def call(Map config = [:]) {
         workDir,          // isolated snapshot
         image,
         command,
-        [:],
+        [SONAR_TOKEN: token],
         [],
     )
 
