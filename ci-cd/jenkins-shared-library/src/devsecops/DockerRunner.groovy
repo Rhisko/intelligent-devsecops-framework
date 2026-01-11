@@ -52,6 +52,7 @@ class DockerRunner implements Serializable {
         def hostDir = "${dockerConfig.base_host_path}${workDir}"
 
         // === CONTAINER PATH ===
+        def networkName = dockerConfig.network ? "--network ${dockerConfig.network}" : "default"
         def containerPath = dockerConfig.workspace_mount.container_path
         def mountMode     = dockerConfig.workspace_mount.mode ?: "rw"
 
@@ -61,6 +62,7 @@ class DockerRunner implements Serializable {
         return steps.sh(
             script: """
               docker run --rm \
+                --network ${networkName} \
                 -v "${hostDir}:${containerPath}:${mountMode}" \
                 ${volArgs} \
                 ${envArgs} \
