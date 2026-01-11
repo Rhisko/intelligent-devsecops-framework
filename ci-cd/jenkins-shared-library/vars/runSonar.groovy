@@ -60,7 +60,7 @@ def call(Map config = [:]) {
     )
 
     // ===== CLEANUP SNAPSHOT =====
-    sh "rm -rf ${workDir}"
+    // sh "rm -rf ${workDir}"
 
     // Sonar result is server-side
     return [
