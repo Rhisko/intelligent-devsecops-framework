@@ -4,12 +4,12 @@ ruff:
     check {target}
     --no-cache
     --output-format {output_format}
-    --select {select}
     --output-file ruff.json
+    --show-files
   language: python
   defaults:
     target: .
-    select: "F,E,W,B,S"
+    # select: "F,E,W,B,S"
     output_format: json
   category: lint
   autofix: false
