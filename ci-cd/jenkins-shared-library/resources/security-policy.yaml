@@ -1,0 +1,59 @@
+# security-policy.yaml
+severity_levels:
+  - LOW
+  - MEDIUM
+  - HIGH
+  - CRITICAL
+
+environments:
+  dev:
+    ci_gate:
+      enforce_on:
+        CRITICAL: 0
+        HIGH: 0
+      warn_on:
+        MEDIUM: true
+        LOW: true
+      on_fail: fail_pipeline
+    legacy_findings:
+      mode: awareness_only
+    jira:
+      enabled: false
+
+  staging:
+    ci_gate:
+      enforce_on:
+        CRITICAL: 0
+        HIGH: 0
+      warn_on:
+        MEDIUM: true
+        LOW: true
+      on_fail: fail_pipeline
+    legacy_findings:
+      mode: warn_only
+    rescan:
+      enabled: true
+      scope: image_digest
+    jira:
+      enabled: false
+
+  prod:
+    ci_gate:
+      enforce_on:
+        CRITICAL: 0      # NEW only
+      on_fail: block_release
+
+    release_gate:
+      legacy_findings:
+        enforce_on:
+          CRITICAL: require_approval
+          HIGH: require_approval
+        warn_on:
+          MEDIUM: true
+          LOW: true
+      approval:
+        required: true
+        approver_role: HEAD
+        ticket_system: jira
+        bind_to: image_digest
+        expiry_days: 30

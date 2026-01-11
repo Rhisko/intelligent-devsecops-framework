@@ -184,6 +184,12 @@ Event      : ${params.EVENT_TYPE}
       steps {
         script {
           echo "[PIPELINE] Performing code quality analysis using SonarQube"
+          sonarFindings = runSonar(
+            projectKey: "payment-service"
+          )
+
+          echo "[PIPELINE] sonar findings count: ${sonarFindings.size()}"
+          echo "[PIPELINE] sonar findings as String : ${sonarFindings}"
           }
         }
       }

@@ -41,8 +41,23 @@ trivy:
   output: json
   category: image_scan
   severity_mapping:
-    CRITICAL: HIGH
-    HIGH: MEDIUM
-    MEDIUM: LOW
-    LOW: INFO
-    UNKNOWN: INFO
+    CRITICAL: CRITICAL
+    HIGH: HIGH
+    MEDIUM: MEDIUM
+    LOW: LOW
+
+sonarqube:
+  image: sonarsource/sonar-scanner-cli:12.0
+  command: >
+    sonar-scanner
+    -Dsonar.projectKey={projectKey}
+    -Dsonar.sources={sources}
+    -Dsonar.host.url={hostUrl}
+    -Dsonar.login={token}
+    -Dsonar.branch.name={branch}
+  defaults:
+    hostUrl: http://sonarqube:9000
+    sources: .
+    branch: main
+    token: CREDS-SONAR-TOKEN
+  category: code_quality

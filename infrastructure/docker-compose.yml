@@ -40,7 +40,7 @@ services:
     restart: unless-stopped
 
   sonarqube:
-    image: sonarqube:25.11.0.114957-community
+    image: sonarqube:26.1.0.118079-community
     container_name: sonarqube
     depends_on:
       - sonar-db
