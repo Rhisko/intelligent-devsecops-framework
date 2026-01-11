@@ -1,4 +1,5 @@
 @Library('devsecops-pipeline-library') _
+import groovy.json.JsonOutput
 
 pipeline {
   agent any
