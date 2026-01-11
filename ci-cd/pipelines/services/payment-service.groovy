@@ -93,7 +93,7 @@ Event      : ${params.EVENT_TYPE}
     stage("Ruff → Sonar External Issues") {
         steps {
             publishRuffExternalIssues(
-                input: "ci-workspace/ruff/${JOB_NAME}-${BUILD_NUMBER}/ruff.json"
+                input: "/ci-workspace/ruff/${JOB_NAME}-${BUILD_NUMBER}/ruff.json"
             )
         }
     }
