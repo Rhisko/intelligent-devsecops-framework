@@ -2,9 +2,6 @@ package devsecops
 
 class RuffExternalSonarMapper implements Serializable {
 
-    /**
-     * Severity & Type policy (SonarQube)
-     */
     static Map mapSeverity(String code) {
         if (code?.startsWith("S")) {
             return [severity: "CRITICAL", type: "VULNERABILITY"]
@@ -18,15 +15,9 @@ class RuffExternalSonarMapper implements Serializable {
         return [severity: "INFO", type: "CODE_SMELL"]
     }
 
-    /**
-     * Convert Ruff findings → Sonar Generic External Issues (NEW FORMAT)
-     */
     static Map toSonar(List findings, String stripPrefix = "/ci-workspace/") {
 
-        // RULES (deduplicated by ruleId)
         Map<String, Map> rulesIndex = [:]
-
-        // ISSUES
         List<Map> issues = []
 
         findings.each { f ->
@@ -35,39 +26,34 @@ class RuffExternalSonarMapper implements Serializable {
                 return
             }
 
-            def sev = mapSeverity(f.code)
-            def ruleId = f.code
+            String ruleId = f.code
+            def sev = mapSeverity(ruleId)
 
-            // ----------------------------
-            // RULE (defined once per ruleId)
-            // ----------------------------
+            // ===============================
+            // RULE (FIX: add mandatory `id`)
+            // ===============================
             if (!rulesIndex.containsKey(ruleId)) {
                 rulesIndex[ruleId] = [
-                    engineId   : "ruff",
-                    ruleId     : ruleId,
-                    name       : "Ruff rule ${ruleId}",
-                    description: f.message ?: "Ruff rule ${ruleId}",
-                    type       : sev.type,
-                    severity   : sev.severity
+                    id          : "ruff:${ruleId}",        // 🔥 FIX
+                    engineId    : "ruff",
+                    ruleId      : ruleId,
+                    name        : "Ruff rule ${ruleId}",
+                    description : f.message ?: "Ruff rule ${ruleId}",
+                    type        : sev.type,
+                    severity    : sev.severity
                 ]
             }
 
-            // ----------------------------
-            // LOCATION (Sonar strict fix)
-            // ----------------------------
             int startLine   = f.location?.row ?: 1
             int startColumn = f.location?.column ?: 1
             int endLine     = f.end_location?.row ?: startLine
             int endColumn   = f.end_location?.column ?: startColumn
 
-            // CRITICAL FIX: Sonar requires start < end
+            // Sonar strict requirement
             if (startLine == endLine && startColumn == endColumn) {
                 endColumn = startColumn + 1
             }
 
-            // ----------------------------
-            // ISSUE (no severity/type here!)
-            // ----------------------------
             issues << [
                 engineId: "ruff",
                 ruleId  : ruleId,
