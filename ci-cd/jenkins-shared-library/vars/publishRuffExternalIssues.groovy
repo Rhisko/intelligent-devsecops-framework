@@ -14,8 +14,8 @@ def call(Map args = [:]) {
     // 2. Normalize to Sonar format (IN-MEMORY)
     def sonarPayload = devsecops.RuffExternalSonarMapper.toSonar(ruffFindings)
 
-    echo "[publishRuffExternalIssues] Issues normalized (in-memory)"
     echo "[publishRuffExternalIssues] Issues count: ${sonarPayload.issues.size()}"
+    echo "[publishRuffExternalIssues] Sample All data: ${sonarPayload}"
 
     // env.RUFF_SONAR_PAYLOAD = groovy.json.JsonOutput.toJson(sonarPayload)
 
