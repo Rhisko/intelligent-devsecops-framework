@@ -21,4 +21,5 @@ def call(Map args = [:]) {
 
     // expose for sonar-scanner
     env.SONAR_EXTERNAL_ISSUES = outputFile
+    println "[publishRuffExternalIssues] Set SONAR_EXTERNAL_ISSUES=${env.SONAR_EXTERNAL_ISSUES}"
 }
