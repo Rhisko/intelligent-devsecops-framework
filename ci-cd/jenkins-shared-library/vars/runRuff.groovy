@@ -25,15 +25,14 @@ def call(Map config = [:]) {
     def runner = new devsecops.DockerRunner(this)
     def outputFile = "${workDir}/ruff.json"
 
-    def stdout = runner.run(
+    runner.run(
         workDir,
         meta.image,
-        command,
+        "${command} > ${outputFile} || true",
         [:],
         [] 
     )
 
-    writeFile file: outputFile, text: stdout
 
     def findings = []
     if (fileExists(outputFile)) {

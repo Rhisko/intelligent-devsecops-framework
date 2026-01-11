@@ -39,7 +39,7 @@ class DockerRunner implements Serializable {
      * @param env       Environment variables (optional)
      * @param volumes   Extra volume mounts (optional)
      */
-    String run(
+    int run(
         String workDir,
         String image,
         String command,
@@ -69,7 +69,7 @@ class DockerRunner implements Serializable {
                 -w ${containerPath} \
                 ${image} ${command}
             """.stripIndent(),
-            returnStdout: true
+            returnStatus: true
         )
     }
 }
