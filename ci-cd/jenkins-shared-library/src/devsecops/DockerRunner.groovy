@@ -52,7 +52,7 @@ class DockerRunner implements Serializable {
         def hostDir = "${dockerConfig.base_host_path}${workDir}"
 
         // === CONTAINER PATH ===
-        def networkName = dockerConfig.network ? "--network ${dockerConfig.network}" : "default"
+        def networkName = dockerConfig.network ?: "default"
         def containerPath = dockerConfig.workspace_mount.container_path
         def mountMode     = dockerConfig.workspace_mount.mode ?: "rw"
 
