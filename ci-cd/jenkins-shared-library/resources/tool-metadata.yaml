@@ -53,7 +53,7 @@ sonarqube:
     -Dsonar.projectKey={projectKey}
     -Dsonar.sources={sources}
     -Dsonar.host.url={hostUrl}
-    -Dsonar.token={token}
+    -SONAR_TOKEN={token}
     -Dsonar.branch.name={branch}
   defaults:
     hostUrl: http://sonarqube:9000
