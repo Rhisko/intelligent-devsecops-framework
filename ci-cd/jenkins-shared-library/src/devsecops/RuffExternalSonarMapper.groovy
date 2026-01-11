@@ -26,19 +26,20 @@ class RuffExternalSonarMapper implements Serializable {
                 return
             }
 
-            String ruleId = f.code
-            def sev = mapSeverity(ruleId)
+            String ruleKey = f.code
+            String sonarRuleId = "ruff:${ruleKey}"
+            def sev = mapSeverity(ruleKey)
 
             // ===============================
-            // RULE (FIX: add mandatory `id`)
+            // RULE (id is authoritative)
             // ===============================
-            if (!rulesIndex.containsKey(ruleId)) {
-                rulesIndex[ruleId] = [
-                    id          : "ruff:${ruleId}",        // 🔥 FIX
+            if (!rulesIndex.containsKey(ruleKey)) {
+                rulesIndex[ruleKey] = [
+                    id          : sonarRuleId,
                     engineId    : "ruff",
-                    ruleId      : ruleId,
-                    name        : "Ruff rule ${ruleId}",
-                    description : f.message ?: "Ruff rule ${ruleId}",
+                    ruleId      : ruleKey,
+                    name        : "Ruff rule ${ruleKey}",
+                    description : f.message ?: "Ruff rule ${ruleKey}",
                     type        : sev.type,
                     severity    : sev.severity
                 ]
@@ -54,9 +55,12 @@ class RuffExternalSonarMapper implements Serializable {
                 endColumn = startColumn + 1
             }
 
+            // ===============================
+            // ISSUE (ruleId MUST reference rules.id)
+            // ===============================
             issues << [
                 engineId: "ruff",
-                ruleId  : ruleId,
+                ruleId  : sonarRuleId,   // 🔥 FIX UTAMA DI SINI
                 primaryLocation: [
                     message  : f.message,
                     filePath : f.filename.replace(stripPrefix, ""),
