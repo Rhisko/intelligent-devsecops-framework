@@ -50,10 +50,10 @@ sonarqube:
   image: sonarsource/sonar-scanner-cli:12.0
   command: >
     sonar-scanner
+    -e SONAR_TOKEN={token}
     -Dsonar.projectKey={projectKey}
     -Dsonar.sources={sources}
     -Dsonar.host.url={hostUrl}
-    -SONAR_TOKEN={token}
     -Dsonar.branch.name={branch}
   defaults:
     hostUrl: http://sonarqube:9000
