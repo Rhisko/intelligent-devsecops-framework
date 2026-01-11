@@ -184,7 +184,7 @@ Event      : ${params.EVENT_TYPE}
       steps {
         script {
           withCredentials([
-            string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')
+            string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
           ]) {
 
             echo "[PIPELINE] Performing code quality analysis using SonarQube"
