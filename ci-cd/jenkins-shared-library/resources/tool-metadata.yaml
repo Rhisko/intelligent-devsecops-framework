@@ -1,5 +1,5 @@
 ruff:
-  image: ghcr.io/astral-sh/ruff:0.14.8
+  image: ghcr.io/astral-sh/ruff:0.14.11
   command: >
     check {target}
     --no-cache

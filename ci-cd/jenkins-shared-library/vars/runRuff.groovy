@@ -27,9 +27,9 @@ def call(Map config = [:]) {
     runner.run(
         workDir,
         meta.image,
-        command,
+        "sh -c '${command} > ruff.json || true'",
         [:],
-        []
+        [] 
     )
 
     def findings = []
@@ -38,6 +38,6 @@ def call(Map config = [:]) {
         findings = readJSON file: outputFile
     }
 
-    sh "rm -rf ${workDir}"
+    // sh "rm -rf ${workDir}"
     return findings
 }
