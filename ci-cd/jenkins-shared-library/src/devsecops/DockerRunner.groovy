@@ -39,7 +39,7 @@ class DockerRunner implements Serializable {
      * @param env       Environment variables (optional)
      * @param volumes   Extra volume mounts (optional)
      */
-    int run(
+    String run(
         String workDir,
         String image,
         String command,

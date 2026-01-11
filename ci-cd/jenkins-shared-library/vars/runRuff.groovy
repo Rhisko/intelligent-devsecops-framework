@@ -23,8 +23,9 @@ def call(Map config = [:]) {
     """
 
     def runner = new devsecops.DockerRunner(this)
+    def outputFile = "${workDir}/ruff.json"
 
-    def resultsScan = runner.run(
+    def stdout = runner.run(
         workDir,
         meta.image,
         command,
@@ -32,9 +33,9 @@ def call(Map config = [:]) {
         [] 
     )
 
-    println "[runRuff] Scan Results:\n${resultsScan}"
+    writeFile file: outputFile, text: stdout
+
     def findings = []
-    def outputFile = "${workDir}/ruff.json"
     if (fileExists(outputFile)) {
         findings = readJSON file: outputFile
     }
