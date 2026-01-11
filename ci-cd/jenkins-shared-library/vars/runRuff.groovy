@@ -24,7 +24,7 @@ def call(Map config = [:]) {
 
     def runner = new devsecops.DockerRunner(this)
 
-    runner.run(
+    def resultsScan = runner.run(
         workDir,
         meta.image,
         command,
@@ -32,12 +32,13 @@ def call(Map config = [:]) {
         [] 
     )
 
-    def findings = []
-    def outputFile = "${workDir}/ruff.json"
-    if (fileExists(outputFile)) {
-        findings = readJSON file: outputFile
-    }
+    println "[runRuff] Scan Results:\n${resultsScan}"
+    // def findings = []
+    // def outputFile = "${workDir}/ruff.json"
+    // if (fileExists(outputFile)) {
+    //     findings = readJSON file: outputFile
+    // }
 
-    // sh "rm -rf ${workDir}"
-    return findings
+    // // sh "rm -rf ${workDir}"
+    // return findings
 }
