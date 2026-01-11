@@ -58,5 +58,4 @@ sonarqube:
     hostUrl: http://sonarqube:9000
     sources: .
     branch: main
-    token: CREDS-SONAR-TOKEN
   category: code_quality

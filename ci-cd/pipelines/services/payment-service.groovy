@@ -183,16 +183,22 @@ Event      : ${params.EVENT_TYPE}
     stage('Code Quality Analysis [SonarQube]') {
       steps {
         script {
-          echo "[PIPELINE] Performing code quality analysis using SonarQube"
-          sonarFindings = runSonar(
-            projectKey: "payment-service"
-          )
+          withCredentials([
+            string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')
+          ]) {
 
-          echo "[PIPELINE] sonar findings count: ${sonarFindings.size()}"
-          echo "[PIPELINE] sonar findings as String : ${sonarFindings}"
+            echo "[PIPELINE] Performing code quality analysis using SonarQube"
+
+            sonarFindings = runSonar(
+              projectKey: "payment-service"
+            )
+
+            echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
           }
         }
       }
+    }
+
 
     stage('AI-Driven Security Advisory [n8n]') {
       steps {
