@@ -86,26 +86,13 @@ Event      : ${params.EVENT_TYPE}
           )
 
           echo "[PIPELINE] Ruff findings count: ${ruffFindings.size()}"
-          echo "[PIPELINE] Ruff findings as String : ${ruffFindings}"
-        }
-      }
-    }
-    stage("Ruff → Sonar External Issues") {
-        steps {
-            publishRuffExternalIssues(
+          // echo "[PIPELINE] Ruff findings as String : ${ruffFindings}"
+          ruffTosonarPayload = publishRuffExternalIssues(
                 input: "/ci-workspace/ruff/${JOB_NAME}-${BUILD_NUMBER}/ruff.json"
             )
         }
+      }
     }
-
-    // stage("SonarQube Scan") {
-    //     steps {
-    //         sh """
-    //           sonar-scanner \
-    //           -Dsonar.externalIssuesReportPaths=${SONAR_EXTERNAL_ISSUES}
-    //         """
-    //     }
-    // }
     stage('Static Application Security Testing [Semgrep]') {
       steps {
         script {
@@ -202,11 +189,15 @@ Event      : ${params.EVENT_TYPE}
           withCredentials([
             string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
           ]) {
-
+            writeFile(
+              file: "ruff-external.json",
+              text: JsonOutput.prettyPrint(JsonOutput.toJson(ruffTosonarPayload))
+            )
             echo "[PIPELINE] Performing code quality analysis using SonarQube"
 
             sonarFindings = runSonar(
-              projectKey: "payment-service"
+              projectKey: "payment-service",
+              externalIssuesReportPaths: "ruff-external.json",
             )
 
             echo "[PIPELINE] Sonar execution result: ${sonarFindings}"

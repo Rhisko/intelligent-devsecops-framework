@@ -24,6 +24,7 @@ def call(Map config = [:]) {
     def hostUrl = config.hostUrl ?: toolMeta.defaults.hostUrl
     def sources = config.sources ?: toolMeta.defaults.sources
     def image = toolMeta.image
+    def externalIssuesReportPaths = config.externalIssuesReportPaths ?: toolMeta.defaults.externalIssuesReportPaths ?: 'sonar-report.json'
 
     if (!token) {
         error "[runSonar] SONAR_TOKEN not provided"
@@ -44,6 +45,7 @@ def call(Map config = [:]) {
         .replace('{sources}', sources)
         .replace('{hostUrl}', hostUrl)
         .replace('{token}', token)
+        .replace('{externalIssuesReportPaths}', externalIssuesReportPaths)
         // .replace('{branch}', branch)
 
     def runner = new devsecops.DockerRunner(this)

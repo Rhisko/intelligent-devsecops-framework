@@ -17,12 +17,7 @@ def call(Map args = [:]) {
     echo "[publishRuffExternalIssues] Issues normalized (in-memory)"
     echo "[publishRuffExternalIssues] Issues count: ${sonarPayload.issues.size()}"
 
-    // 3. Simpan di memory (env) jika mau dipakai step lain
-    //    (stringify karena env hanya String)
-    env.RUFF_SONAR_PAYLOAD = groovy.json.JsonOutput.toJson(sonarPayload)
-    println("[publishRuffExternalIssues] Payload data: ${env.RUFF_SONAR_PAYLOAD}")
-    echo "[publishRuffExternalIssues] Stored payload in env.RUFF_SONAR_PAYLOAD"
+    // env.RUFF_SONAR_PAYLOAD = groovy.json.JsonOutput.toJson(sonarPayload)
 
-    // 4. RETURN payload agar bisa dipakai langsung
     return sonarPayload
 }

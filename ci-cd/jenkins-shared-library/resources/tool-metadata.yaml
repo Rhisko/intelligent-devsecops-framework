@@ -69,9 +69,11 @@ sonarqube:
     -Dsonar.projectKey={projectKey}
     -Dsonar.sources={sources}
     -Dsonar.host.url={hostUrl}
+    -Dsonar.externalIssuesReportPaths={externalIssuesReportPaths}
   # -Dsonar.branch.name={branch} // Only for enterprise edition
   defaults:
     hostUrl: http://sonarqube:9000
     sources: .
     branch: main
+    externalIssuesReportPaths: 'sonar-external-issues.json'
   category: code_quality
