@@ -3,9 +3,9 @@ ruff:
   command: >
     check {target}
     --no-cache
-    --format json
+    --output-format {output_format}
     --select {select}
-  output: json
+  output_format: json
   language: python
   defaults:
     target: .
