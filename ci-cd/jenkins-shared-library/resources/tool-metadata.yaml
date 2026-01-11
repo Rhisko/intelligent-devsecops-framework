@@ -5,11 +5,11 @@ ruff:
     --no-cache
     --output-format {output_format}
     --select {select}
-  output_format: json
   language: python
   defaults:
     target: .
     select: "F,E,W,B,S"
+    output_format: json
   category: lint
   autofix: false
   severity_mapping:
