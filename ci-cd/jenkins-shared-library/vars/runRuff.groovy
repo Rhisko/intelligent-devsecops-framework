@@ -7,6 +7,8 @@ def call(Map config = [:]) {
     def select = config.select ?: meta.defaults.select
     def format = config.output_format ?: meta.defaults.output_format
 
+    println "[DEBUG][runRuff] target=${target}, select=${select}, format=${format}"
+
     def command = meta.command
         .replace('{target}', target)
         .replace('{select}', select)
