@@ -19,7 +19,7 @@ def call(Map config = [:]) {
     }
 
     // ===== RUNTIME CONTEXT =====
-    def branch  = config.branch ?: toolMeta.defaults.branch ?: 'main'
+    // def branch  = config.branch ?: toolMeta.defaults.branch ?: 'main'
     def token   = config.token  ?: toolMeta.defaults.token ?: env.SONAR_TOKEN
     def hostUrl = config.hostUrl ?: toolMeta.defaults.hostUrl
     def sources = config.sources ?: toolMeta.defaults.sources
@@ -44,7 +44,7 @@ def call(Map config = [:]) {
         .replace('{sources}', sources)
         .replace('{hostUrl}', hostUrl)
         .replace('{token}', token)
-        .replace('{branch}', branch)
+        // .replace('{branch}', branch)
 
     def runner = new devsecops.DockerRunner(this)
 
