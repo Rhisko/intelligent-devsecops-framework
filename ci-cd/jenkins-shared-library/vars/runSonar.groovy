@@ -64,7 +64,7 @@ def call(Map config = [:]) {
     return [
         tool   : 'sonarqube',
         project: config.projectKey,
-        branch : branch,
+        // branch : branch, // This is only for enterprise edition
         host   : hostUrl
     ]
 }
