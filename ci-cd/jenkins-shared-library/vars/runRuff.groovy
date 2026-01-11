@@ -1,67 +1,41 @@
-/**
- * runRuff
- * - Ruff runs as ephemeral container
- * - Output written to private temp directory
- * - Parsed immediately to memory
- * - Temp artifact removed after use
- * - No dependency on workspace lifecycle
- */
-
-
-
 def call(Map config = [:]) {
 
-    def target = config.path ?: '.'
-
     def cfgLoader = new devsecops.ConfigLoader(this)
+    def meta      = cfgLoader.load("tool-metadata").ruff
 
-    // Load tool metadata dynamically
-    def toolMetaAll = cfgLoader.load("tool-metadata")
-    def toolMeta = toolMetaAll.ruff
+    def target = config.target ?: meta.defaults.target
+    def select = config.select ?: meta.defaults.select
+    def format = meta.defaults.output_format
 
-    if (!toolMeta?.image || !toolMeta?.command) {
-        error("tool-metadata.yaml missing ruff.image or ruff.command")
-    }
+    def command = meta.command
+        .replace('{target}', target)
+        .replace('{select}', select)
+        .replace('{output_format}', format)
 
-    // Load tool metadata from resources
-    // def toolMeta = readYaml(
-    //     text: libraryResource('tool-metadata.yaml')
-    // ).ruff
+    def workDir = "/ci-workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}"
+        .replaceAll('[^a-zA-Z0-9_./-]', '_')
 
-    def image   = toolMeta.image
-    def command = toolMeta.command.replace('{target}', target)
-    
-
-    // println "[DEBUG] Ruff toolMeta.command = ${toolMeta.command}"
-    // println "[DEBUG] Ruff target resolved = ${target}"
-    // println "[DEBUG] Ruff final command = ${command}"
-
-
-    def workDir = "/ci-workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_')
-    // def command = toolMeta.command.replace('{target}', "ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}".replaceAll('[^a-zA-Z0-9_./-]', '_'))
-    // Prepare isolated source snapshot
     sh """
-    mkdir -p "${workDir}" && \
-    cp -r . "${workDir}/"
+      mkdir -p "${workDir}" && \
+      cp -R . "${workDir}/"
     """
 
     def runner = new devsecops.DockerRunner(this)
-    
 
     runner.run(
         workDir,
-        image,
-        "${command} > ${workDir}/ruff.json || true"
+        meta.image,
+        command,
+        [:],
+        []
     )
 
     def findings = []
-    if (fileExists("${workDir}/ruff.json")) {
-        findings = readJSON file: "${workDir}/ruff.json"
+    def outputFile = "${workDir}/ruff.json"
+    if (fileExists(outputFile)) {
+        findings = readJSON file: outputFile
     }
 
-    // Cleanup
     sh "rm -rf ${workDir}"
-
-
     return findings
 }

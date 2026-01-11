@@ -1,9 +1,24 @@
 ruff:
   image: ghcr.io/astral-sh/ruff:0.14.8
-  command: "check {target} --no-cache --output-format json"
+  command: >
+    check {target}
+    --no-cache
+    --format json
+    --select {select}
   output: json
-  category: linter
   language: python
+  defaults:
+    target: .
+    select: "F,E,W,B,S"
+  category: lint
+  autofix: false
+  severity_mapping:
+    F401: LOW
+    F841: LOW
+    E: LOW
+    W: LOW
+    B: MEDIUM
+    S: HIGH
 
 horusec:
   image: horuszup/horusec-cli:2.8.0
