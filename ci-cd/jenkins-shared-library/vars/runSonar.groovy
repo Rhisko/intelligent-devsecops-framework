@@ -20,7 +20,7 @@ def call(Map config = [:]) {
 
     // ===== RUNTIME CONTEXT =====
     def branch  = config.branch ?: toolMeta.defaults.branch ?: 'main'
-    def token   = config.token  ?: toolMeta.defaults.token ?: System.getenv('SONAR_TOKEN')
+    def token   = config.token  ?: toolMeta.defaults.token ?: env.SONAR_TOKEN
     def hostUrl = config.hostUrl ?: toolMeta.defaults.hostUrl
     def sources = config.sources ?: toolMeta.defaults.sources
     def image = toolMeta.image
