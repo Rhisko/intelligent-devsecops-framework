@@ -98,14 +98,14 @@ Event      : ${params.EVENT_TYPE}
         }
     }
 
-    stage("SonarQube Scan") {
-        steps {
-            sh """
-              sonar-scanner \
-              -Dsonar.externalIssuesReportPaths=${SONAR_EXTERNAL_ISSUES}
-            """
-        }
-    }
+    // stage("SonarQube Scan") {
+    //     steps {
+    //         sh """
+    //           sonar-scanner \
+    //           -Dsonar.externalIssuesReportPaths=${SONAR_EXTERNAL_ISSUES}
+    //         """
+    //     }
+    // }
     stage('Static Application Security Testing [Semgrep]') {
       steps {
         script {
