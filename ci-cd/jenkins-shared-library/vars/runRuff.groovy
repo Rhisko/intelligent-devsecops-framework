@@ -5,7 +5,7 @@ def call(Map config = [:]) {
 
     def target = config.target ?: meta.defaults.target
     def select = config.select ?: meta.defaults.select
-    def format = meta.defaults.output_format
+    def format = config.output_format ?: meta.defaults.output_format
 
     def command = meta.command
         .replace('{target}', target)
