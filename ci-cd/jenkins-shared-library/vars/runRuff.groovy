@@ -33,12 +33,12 @@ def call(Map config = [:]) {
     )
 
     println "[runRuff] Scan Results:\n${resultsScan}"
-    // def findings = []
-    // def outputFile = "${workDir}/ruff.json"
-    // if (fileExists(outputFile)) {
-    //     findings = readJSON file: outputFile
-    // }
+    def findings = []
+    def outputFile = "${workDir}/ruff.json"
+    if (fileExists(outputFile)) {
+        findings = readJSON file: outputFile
+    }
 
-    // // sh "rm -rf ${workDir}"
-    // return findings
+    // sh "rm -rf ${workDir}"
+    return findings
 }
