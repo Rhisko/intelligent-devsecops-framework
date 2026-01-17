@@ -82,15 +82,14 @@ Event      : ${params.EVENT_TYPE}
         script {
           echo "[PIPELINE] Running Ruff Linting ......"
 
-          ruffFindings = runRuff(
+          ruffTosonarPayload = runRuff(
             path: '.',            // scan root repo
           )
 
-          echo "[PIPELINE] Ruff findings count: ${ruffFindings.size()}"
-          // echo "[PIPELINE] Ruff findings as String : ${ruffFindings}"
-          ruffTosonarPayload = publishRuffExternalIssues(
-                input: "/ci-workspace/ruff/${JOB_NAME}-${BUILD_NUMBER}/ruff.json"
-            )
+          echo "[PIPELINE] Ruff findings as String : ${ruffTosonarPayload}"
+          // ruffTosonarPayload = publishRuffExternalIssues(
+          //       input: "/ci-workspace/ruff/${JOB_NAME}-${BUILD_NUMBER}/ruff.json"
+          //   )
         }
       }
     }

@@ -35,12 +35,13 @@ def call(Map config = [:]) {
     )
 
 
-    def findings = []
     if (fileExists(outputFile)) {
-        println "[runRuff] Reading findings from ${outputFile}"
-        findings = readJSON file: outputFile
+        //Format to SonarQube External Issues format
+        ruffTosonarPayload = publishRuffExternalIssues(
+            input: outputFile
+        )
     }
 
-    // sh "rm -rf ${workDir}"
-    return findings
+    sh "rm -rf ${workDir}"
+    return ruffTosonarPayload
 }

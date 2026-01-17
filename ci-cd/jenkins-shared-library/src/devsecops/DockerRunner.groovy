@@ -29,15 +29,16 @@ class DockerRunner implements Serializable {
             steps.error("docker-config.yaml missing docker.workspace_mount.container_path")
         }
     }
-
     /**
-     * Generic container runner
+     * Run a command inside a Docker container
      *
-     * @param workDir   Relative directory under base_host_path
-     * @param image     Docker image
-     * @param command   Command executed inside container
-     * @param env       Environment variables (optional)
-     * @param volumes   Extra volume mounts (optional)
+     * @param workDir   Path inside host machine to mount into container
+     * @param image     Docker image to use
+     * @param command   Command to run inside container
+     * @param env       Map<String, String> of environment variables to set inside container
+     * @param volumes   List<String> of additional volume mounts (host_path:container_path:mode)
+     *
+     * @return Exit code of docker run command
      */
     int run(
         String workDir,
