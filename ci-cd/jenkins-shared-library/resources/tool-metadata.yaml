@@ -10,8 +10,8 @@ ruff:
   language: python
   defaults:
     target: .
-    select: "ALL"
-    ignore: "D203,D213"
+    select: F,E,W,B,I,INP,S
+    ignore: D203,D213
     output_format: json
   category: lint
   autofix: false

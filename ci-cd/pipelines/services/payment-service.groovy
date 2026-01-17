@@ -80,23 +80,15 @@ Event      : ${params.EVENT_TYPE}
       }
       steps {
         script {
-          echo "[PIPELINE] Running Ruff Linting ......"
-
           ruffTosonarPayload = runRuff(
             path: '.',            // scan root repo
           )
-
-          echo "[PIPELINE] Ruff findings as String : ${ruffTosonarPayload}"
-          // ruffTosonarPayload = publishRuffExternalIssues(
-          //       input: "/ci-workspace/ruff/${JOB_NAME}-${BUILD_NUMBER}/ruff.json"
-          //   )
         }
       }
     }
     stage('Static Application Security Testing [Semgrep]') {
       steps {
         script {
-          echo "[PIPELINE] Running semgrep SAST scan ......"
 
           semgrepFindings = runSemgrep(
             path: '.',            // scan root repo
