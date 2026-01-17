@@ -10,7 +10,7 @@ ruff:
   language: python
   defaults:
     target: .
-    select: F,E,W,B,I,INP,S
+    select: F,E,W,B,I,INP,S,F401
     ignore: D203,D213
     output_format: json
   category: lint
