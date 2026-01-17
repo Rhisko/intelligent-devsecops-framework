@@ -60,13 +60,14 @@ def call(Map config = [:]) {
     runner.run(
         workDir,
         image,
-        "${command}",
+        command,
         [:],  // env
         []    // extra volumes
     )
 
     def findings = []
     if (fileExists("${workDir}/semgrep.json")) {
+        sh "ls -la ${workDir} && cat ${outputFile}"
         findings = readJSON file: "${workDir}/semgrep.json"
         // echo "Semgrep findings data: ${findings}"
     }
