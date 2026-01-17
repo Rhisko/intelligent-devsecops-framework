@@ -5,11 +5,13 @@ ruff:
     --no-cache
     --output-format {output_format}
     --select {select}
+    --ignore {ignore}
     --output-file ruff.json
   language: python
   defaults:
     target: .
     select: "ALL"
+    ignore: "D203,D213"
     output_format: json
   category: lint
   autofix: false

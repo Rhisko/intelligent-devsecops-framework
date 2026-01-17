@@ -5,6 +5,7 @@ def call(Map config = [:]) {
 
     def target = config.target ?: meta.defaults.target
     def select = config.select ?: meta.defaults.select
+    def ignore = config.ignore ?: meta.defaults.ignore
     def format = config.output_format ?: meta.defaults.output_format
 
     // println "[DEBUG][runRuff] target=${target}, select=${select}, format=${format}"
@@ -12,6 +13,7 @@ def call(Map config = [:]) {
     def command = meta.command
         .replace('{target}', target)
         .replace('{select}', select)
+        .replace('{ignore}', ignore)
         .replace('{output_format}', format)
 
     def workDir = "/ci-workspace/ruff/${env.JOB_NAME}-${env.BUILD_NUMBER}"
