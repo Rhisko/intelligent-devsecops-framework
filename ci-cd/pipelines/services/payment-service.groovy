@@ -162,7 +162,7 @@ Event      : ${params.EVENT_TYPE}
           trivyToSonarPayload = runTrivy(
             scanType: 'image',
             target: localImage,
-            severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+            severity: 'LOW,MEDIUM,HIGH,CRITICAL'
           )
           echo "[PIPELINE] trivy to sonar payload: ${trivyToSonarPayload}"
 
