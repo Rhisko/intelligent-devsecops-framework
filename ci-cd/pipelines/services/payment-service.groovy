@@ -120,73 +120,73 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
-    // stage('Build and Push Container Image') {
-    //   steps {
-    //     script {
-    //       def shortSha = params.COMMIT_HASH_AFTER.take(7)
-    //       def version  = "${params.TAG_NAME}-${shortSha}"
+    stage('Build and Push Container Image') {
+      steps {
+        script {
+          def shortSha = params.COMMIT_HASH_AFTER.take(7)
+          def version  = "${params.TAG_NAME}-${shortSha}"
 
-    //       buildAndPushImage(
-    //         image: params.REPOSITORY_NAME,
-    //         context: ".",
-    //         dockerfile: "Dockerfile",
-    //         buildArgs: [
-    //           APP_ENV: "production",
-    //           VERSION: version
-    //         ],
-    //         tag: version,
-    //         labels: [
-    //           "org.opencontainers.image.source"  : env.GIT_URL,
-    //           "org.opencontainers.image.revision": env.GIT_COMMIT,
-    //           "org.opencontainers.image.version" : version,
-    //           "org.opencontainers.image.created" : new Date()
-    //             .format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
-    //         ],
-    //         registry: "dockerhub"  // specify registry defined in docker-build.yaml
-    //       )
-    //     }
-    //   }
-    // }
+          buildAndPushImage(
+            image: params.REPOSITORY_NAME,
+            context: ".",
+            dockerfile: "Dockerfile",
+            buildArgs: [
+              APP_ENV: "production",
+              VERSION: version
+            ],
+            tag: version,
+            labels: [
+              "org.opencontainers.image.source"  : env.GIT_URL,
+              "org.opencontainers.image.revision": env.GIT_COMMIT,
+              "org.opencontainers.image.version" : version,
+              "org.opencontainers.image.created" : new Date()
+                .format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
+            ],
+            registry: "dockerhub"  // specify registry defined in docker-build.yaml
+          )
+        }
+      }
+    }
 
 
-    // stage('Container Security Scan [Trivy]') {
-    //   steps {
-    //     script {
+    stage('Container Security Scan [Trivy]') {
+      steps {
+        script {
 
-    //       def localImage = env.LOCAL_IMAGE
+          def localImage = env.LOCAL_IMAGE
 
-    //       // echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
-    //       // echo "[INFO] Local image     : ${localImage}"
-    //       echo "[PIPELINE] Running Trivy container image security scan ......"
+          // echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
+          // echo "[INFO] Local image     : ${localImage}"
+          echo "[PIPELINE] Running Trivy container image security scan ......"
 
-    //       def trivyResult = runTrivy(
-    //         scanType: 'image',
-    //         target: localImage,
-    //         severity: 'HIGH,CRITICAL'
-    //       )
+          def trivyResult = runTrivy(
+            scanType: 'image',
+            target: localImage,
+            severity: 'HIGH,CRITICAL'
+          )
 
-    //       // Optional: log summary (do NOT parse deeply here)
-    //       if (trivyResult?.Results) {
-    //         echo "[INFO] Trivy scan completed with ${trivyResult.Results.size()} result blocks"
-    //       } else {
-    //         echo "[INFO] Trivy scan completed (no results or empty)"
-    //       }
+          // Optional: log summary (do NOT parse deeply here)
+          if (trivyResult?.Results) {
+            echo "[INFO] Trivy scan completed with ${trivyResult.Results.size()} result blocks"
+          } else {
+            echo "[INFO] Trivy scan completed (no results or empty)"
+          }
 
-    //       // Send raw result to aggregator
-    //       def trivyAgg = securityAggregator.call(
-    //         tool: 'trivy',
-    //         data: trivyResult,
-    //         metadata: [
-    //           image: localImage,
-    //           scope: 'local'
-    //         ]
-    //       )
-    //       println "[DEBUG] Trivy aggregated findings: ${trivyAgg.findings.size()} items"
-    //       println "[DEBUG] Trivy aggregated summary: ${trivyAgg.summary}"
-    //       println "[DEBUG] Trivy raw result data: ${trivyAgg.findings}"
-    //     }
-    //   }
-    // }
+          // Send raw result to aggregator
+          def trivyAgg = securityAggregator.call(
+            tool: 'trivy',
+            data: trivyResult,
+            metadata: [
+              image: localImage,
+              scope: 'local'
+            ]
+          )
+          println "[DEBUG] Trivy aggregated findings: ${trivyAgg.findings.size()} items"
+          println "[DEBUG] Trivy aggregated summary: ${trivyAgg.summary}"
+          println "[DEBUG] Trivy raw result data: ${trivyAgg.findings}"
+        }
+      }
+    }
 
     stage('Code Quality Analysis [SonarQube]') {
       steps {
@@ -221,28 +221,6 @@ Event      : ${params.EVENT_TYPE}
     }
 
 
-    // stage('Code Quality Analysis [SonarQube]') {
-    //   steps {
-    //     script {
-    //       withCredentials([
-    //         string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
-    //       ]) {
-    //         writeFile(
-    //           file: "ruff-external.json",
-    //           text: JsonOutput.prettyPrint(JsonOutput.toJson(ruffTosonarPayload))
-    //         )
-    //         echo "[PIPELINE] Performing code quality analysis using SonarQube"
-
-    //         sonarFindings = runSonar(
-    //           projectKey: "payment-service",
-    //           externalIssuesReportPaths: "ruff-external.json",
-    //         )
-
-    //         echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
-    //       }
-    //     }
-    //   }
-    // }
 
 
     stage('AI-Driven Security Advisory [n8n]') {
