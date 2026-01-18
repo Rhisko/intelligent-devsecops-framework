@@ -92,7 +92,7 @@ Event      : ${params.EVENT_TYPE}
 
           semgrepFindings = runSemgrep(
             path: '.',
-            lenguage: params.LANGUAGE?.toLowerCase()
+            lenguage: params.LANGUAGE?.toLowerCase(),
             ruleset: 'p/security-audit,p/owasp-top-ten,',
             extraArgs: '--exclude .git --exclude node_modules --exclude vendor --exclude .venv --exclude *.sample --exclude hooks'
           )
