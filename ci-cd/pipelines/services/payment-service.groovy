@@ -201,18 +201,19 @@ Event      : ${params.EVENT_TYPE}
 
           def mergedPayload = consolidateSonarPayload(payloads)
 
-            writeFile(
-              file: "sonar-external-issues.json",
-              text: mergedPayload
-            )
-            sh "cat sonar-external-issues.json"
-            echo "[PIPELINE] Performing code quality analysis using SonarQube"
-            sonarFindings = runSonar(
-              projectKey: "payment-service",
-              externalIssuesReportPaths: "sonar-external-issues.json"
-            )
+          def externalIssuesReportPathsName = "sonar-external-issues-${BUILD_NUMBER}.json"
+          writeFile(
+            file: externalIssuesReportPathsName,
+            text: mergedPayload
+          )
+          sh "cat ${externalIssuesReportPathsName}"
+          echo "[PIPELINE] Performing code quality analysis using SonarQube"
+          sonarFindings = runSonar(
+            projectKey: "payment-service",
+            externalIssuesReportPaths: externalIssuesReportPathsName
+          )
 
-            echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
+          echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
           }
         }
       }
