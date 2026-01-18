@@ -205,7 +205,7 @@ Event      : ${params.EVENT_TYPE}
 
           writeFile(
             file: externalIssuesReportPathsName,
-            text: mergedPayload
+            text: JsonOutput.prettyPrint(JsonOutput.toJson(mergedPayload))
           )
           sh "cat ${externalIssuesReportPathsName}"
           echo "[PIPELINE] Performing code quality analysis using SonarQube"
