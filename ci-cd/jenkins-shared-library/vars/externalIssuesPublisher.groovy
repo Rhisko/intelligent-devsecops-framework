@@ -33,7 +33,7 @@ def call(Map args = [:]) {
             break
 
         case "trivy":
-            findings = raw?.Results ?: []
+            findings = raw?.results ?: []
             break
 
         default:
