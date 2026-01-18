@@ -71,16 +71,17 @@ def call(Map config = [:]) {
         []    // extra volumes
     )
 
-    def findings = []
-    if (fileExists("${workDir}/semgrep.json")) {
-        sh "ls -la ${workDir} && cat ${outputFile}"
-        findings = readJSON file: "${workDir}/semgrep.json"
-        // echo "Semgrep findings data: ${findings}"
+    if (fileExists(outputFile)) {
+
+        semgrepToSonarPayload = externalIssuesPublisher(
+            tool: "semgrep",
+            input: outputFile
+        )   
     }
 
     // Cleanup
     sh "rm -rf ${workDir}"
 
-    return findings
+    return semgrepToSonarPayload
 }
 
