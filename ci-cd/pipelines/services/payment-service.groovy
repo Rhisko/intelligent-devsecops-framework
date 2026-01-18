@@ -92,9 +92,17 @@ Event      : ${params.EVENT_TYPE}
 
           semgrepFindings = runSemgrep(
             path: '.',
-            lenguage: params.LANGUAGE?.toLowerCase(),
+            language: params.LANGUAGE?.toLowerCase(),
             ruleset: 'p/security-audit,p/owasp-top-ten,',
-            extraArgs: '--exclude .git --exclude node_modules --exclude vendor --exclude .venv --exclude *.sample --exclude hooks'
+            extraArgs: [
+              '--exclude .git',
+              '--exclude node_modules',
+              '--exclude vendor',
+              '--exclude .venv',
+              '--exclude .env',
+              '--exclude *.sample',
+              '--exclude hooks'
+            ].join(' ')
           )
 
           echo "[PIPELINE] semgrep findings count: ${semgrepFindings.size()}"
