@@ -1,70 +1,114 @@
 package devsecops
 
 /**
- * Trivy Image Scan → SonarQube Generic External Issues
+ * Trivy → SonarQube Generic External Issues Mapper
  *
- * Supports:
- * - container image scan
- * - os-pkgs / language-pkgs
+ * SUPPORTED:
+ * - Container image scan
+ * - OS packages (os-pkgs)
+ * - Language packages (lang-pkgs)
+ *
+ * DESIGN PRINCIPLES:
+ * - Follow Trivy JSON v2 schema (SchemaVersion 2)
+ * - Defensive parsing (never assume fields exist)
+ * - Stable ruleId (CVE / GHSA)
+ * - Trivy severity is SOURCE OF TRUTH
  */
 class TrivyExternalSonarMapper implements Serializable {
 
+    /**
+     * Trivy severity → Sonar severity
+     */
     static Map mapSeverity(String sev) {
         switch (sev?.toUpperCase()) {
-            case "CRITICAL": return [severity: "CRITICAL", type: "VULNERABILITY"]
-            case "HIGH":     return [severity: "MAJOR",    type: "VULNERABILITY"]
-            case "MEDIUM":   return [severity: "MINOR",    type: "VULNERABILITY"]
-            case "LOW":      return [severity: "INFO",     type: "VULNERABILITY"]
-            default:         return [severity: "INFO",     type: "VULNERABILITY"]
+            case "CRITICAL":
+                return [severity: "CRITICAL", type: "VULNERABILITY"]
+            case "HIGH":
+                return [severity: "MAJOR", type: "VULNERABILITY"]
+            case "MEDIUM":
+                return [severity: "MINOR", type: "VULNERABILITY"]
+            case "LOW":
+                return [severity: "INFO", type: "VULNERABILITY"]
+            default:
+                return [severity: "INFO", type: "VULNERABILITY"]
         }
     }
 
+    /**
+     * Convert Trivy JSON → SonarQube External Issues format
+     *
+     * @param trivyJson Parsed JSON (Map) from trivy --format json
+     */
     static Map toSonar(Map trivyJson) {
 
         Map<String, Map> rulesIndex = [:]
         List<Map> issues = []
 
-        trivyJson?.Results?.each { result ->
+        // -------------------------------
+        // DEFENSIVE ROOT CHECK
+        // -------------------------------
+        if (!trivyJson?.Results || !(trivyJson.Results instanceof List)) {
+            return [rules: [], issues: []]
+        }
 
-            def target = result.Target ?: "container-image"
+        trivyJson.Results.each { result ->
 
-            result?.Vulnerabilities?.each { v ->
+            String target = result.Target ?: "container-image"
 
-                if (!v?.VulnerabilityID || !v?.Severity) {
-                    return
-                }
+            // ======================================================
+            // OS & LANGUAGE PACKAGE VULNERABILITIES
+            // ======================================================
+            result?.Packages?.each { pkg ->
 
-                String ruleId = "trivy:${v.VulnerabilityID}"
-                def sev = mapSeverity(v.Severity)
+                String componentName =
+                        pkg.Name ?:
+                        pkg.SrcName ?:
+                        target
 
-                // ---- RULE (once) ----
-                if (!rulesIndex.containsKey(ruleId)) {
-                    rulesIndex[ruleId] = [
-                        id          : ruleId,
-                        engineId    : "trivy",
-                        ruleId      : v.VulnerabilityID,
-                        name        : "Trivy ${v.VulnerabilityID}",
-                        description : v.Description ?: v.Title ?: "Trivy vulnerability",
-                        type        : sev.type,
-                        severity    : sev.severity
-                    ]
-                }
+                pkg?.Vulnerabilities?.each { v ->
 
-                // ---- ISSUE ----
-                issues << [
-                    engineId: "trivy",
-                    ruleId  : ruleId,
-                    primaryLocation: [
-                        message  : buildMessage(v),
-                        filePath : "dependency:${v.PkgName ?: target}",
-                        textRange: [
-                            startLine  : 1,
-                            endLine    : 1,
-                            startColumn: 1,
-                            endColumn  : 2
+                    if (!v?.VulnerabilityID || !v?.Severity) {
+                        return
+                    }
+
+                    String ruleId = "trivy:${v.VulnerabilityID}"
+                    def sev = mapSeverity(v.Severity)
+
+                    // -------------------------------
+                    // RULE (ONCE PER CVE / GHSA)
+                    // -------------------------------
+                    if (!rulesIndex.containsKey(ruleId)) {
+                        rulesIndex[ruleId] = [
+                            id          : ruleId,                     // REQUIRED
+                            engineId    : "trivy",
+                            ruleId      : v.VulnerabilityID,
+                            name        : "Trivy ${v.VulnerabilityID}",
+                            description : v.Description
+                                    ?: v.Title
+                                    ?: "Trivy detected vulnerability ${v.VulnerabilityID}",
+                            type        : sev.type,
+                            severity    : sev.severity
+                        ]
+                    }
+
+                    // -------------------------------
+                    // ISSUE INSTANCE
+                    // -------------------------------
+                    issues << [
+                        engineId: "trivy",
+                        ruleId  : ruleId,
+                        primaryLocation: [
+                            message  : buildMessage(v, pkg),
+                            filePath : "dependency:${componentName}",
+                            textRange: [
+                                startLine  : 1,
+                                endLine    : 1,
+                                startColumn: 1,
+                                endColumn  : 2
+                            ]
                         ]
                     ]
-                ]
+                }
             }
         }
 
@@ -74,11 +118,27 @@ class TrivyExternalSonarMapper implements Serializable {
         ]
     }
 
-    static String buildMessage(v) {
-        def msg = v.Title ?: v.Description ?: "Trivy vulnerability"
-        if (v.FixedVersion) {
+    /**
+     * Human-readable issue message
+     */
+    static String buildMessage(v, pkg) {
+        String msg =
+                v.Title ?:
+                v.Description ?:
+                "Trivy vulnerability ${v.VulnerabilityID}"
+
+        if (pkg?.InstalledVersion) {
+            msg += " | Installed: ${pkg.InstalledVersion}"
+        }
+
+        if (v.FixedVersion && v.FixedVersion != "N/A") {
             msg += " | Fixed in: ${v.FixedVersion}"
         }
+
+        if (v.PrimaryURL) {
+            msg += " | Ref: ${v.PrimaryURL}"
+        }
+
         return msg
     }
 }
