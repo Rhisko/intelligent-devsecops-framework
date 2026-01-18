@@ -38,9 +38,6 @@ def call(Map config = [:]) {
 
 
     if (fileExists(outputFile)) {
-        //Format to SonarQube External Issues format
-        // echo "[DEBUG][runRuff] Ruff output file found: ${outputFile}"
-        // sh "ls -la ${workDir} && cat ${outputFile}"
         ruffTosonarPayload = externalIssuesPublisher(
             tool: "ruff",
             input: outputFile
