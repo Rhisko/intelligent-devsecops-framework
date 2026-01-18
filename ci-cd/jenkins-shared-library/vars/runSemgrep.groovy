@@ -10,7 +10,10 @@ def call(Map config = [:]) {
 
     // Target path inside the snapshot (relative to /ci-workspace)
     def target = config.path ?: '.'
-    def language = config.language ?: 'auto'
+    def language = config.language ?: 'unknown'
+    if (language == 'unknown') {
+        error "[WARNING] Language not specified, defaulting to 'unknown'"
+    }
 
     // Optional: Semgrep ruleset selector (auto / specific packs / custom)
     // Examples:
