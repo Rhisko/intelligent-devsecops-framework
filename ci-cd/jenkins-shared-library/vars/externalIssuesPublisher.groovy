@@ -65,8 +65,8 @@ def call(Map args = [:]) {
             break
     }
 
-    echo "[ExternalIssuesPublisher] Sonar rules : ${sonarPayload.rules.size()}"
-    echo "[ExternalIssuesPublisher] Sonar issues: ${sonarPayload.issues.size()}"
+    // echo "[ExternalIssuesPublisher] Sonar rules : ${sonarPayload.rules.size()}"
+    // echo "[ExternalIssuesPublisher] Sonar issues: ${sonarPayload.issues.size()}"
 
     return sonarPayload
 }
