@@ -188,22 +188,35 @@ Event      : ${params.EVENT_TYPE}
       }
     }
 
-
     stage('Code Quality Analysis [SonarQube]') {
       steps {
         script {
           withCredentials([
             string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
           ]) {
+            def payloads = []
+            if (ruffTosonarPayload) {
+              payloads << ruffTosonarPayload
+            }
+            if (semgrepTosonarPayload) {
+              payloads << semgrepTosonarPayload
+            }
+
+            def mergedPayload = consolidateSonarPayload(payloads)
+
+            echo "[PIPELINE] Sonar rules  : ${mergedPayload.rules.size()}"
+            echo "[PIPELINE] Sonar issues : ${mergedPayload.issues.size()}"
+
             writeFile(
-              file: "ruff-external.json",
-              text: JsonOutput.prettyPrint(JsonOutput.toJson(ruffTosonarPayload))
+              file: "sonar-external-issues.json",
+              text: JsonOutput.prettyPrint(
+                JsonOutput.toJson(mergedPayload)
+              )
             )
             echo "[PIPELINE] Performing code quality analysis using SonarQube"
-
             sonarFindings = runSonar(
               projectKey: "payment-service",
-              externalIssuesReportPaths: "ruff-external.json",
+              externalIssuesReportPaths: "sonar-external-issues.json"
             )
 
             echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
@@ -211,6 +224,30 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
+
+
+    // stage('Code Quality Analysis [SonarQube]') {
+    //   steps {
+    //     script {
+    //       withCredentials([
+    //         string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
+    //       ]) {
+    //         writeFile(
+    //           file: "ruff-external.json",
+    //           text: JsonOutput.prettyPrint(JsonOutput.toJson(ruffTosonarPayload))
+    //         )
+    //         echo "[PIPELINE] Performing code quality analysis using SonarQube"
+
+    //         sonarFindings = runSonar(
+    //           projectKey: "payment-service",
+    //           externalIssuesReportPaths: "ruff-external.json",
+    //         )
+
+    //         echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
+    //       }
+    //     }
+    //   }
+    // }
 
 
     stage('AI-Driven Security Advisory [n8n]') {
