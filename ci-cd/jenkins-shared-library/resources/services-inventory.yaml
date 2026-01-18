@@ -4,22 +4,22 @@ services:
     owner: payments-team
     language: python
     criticality: high
-    routing: Intelligent_DevSecOps_Automation_Framework/services/payment-service
+    job: Intelligent_DevSecOps_Automation_Framework/services/payment-service
 
   Rhisko/product-service:
     owner: product-team
     language: python
     criticality: medium
-    routing: Intelligent_DevSecOps_Automation_Framework/services/product-service
+    job: Intelligent_DevSecOps_Automation_Framework/services/product-service
 
   Rhisko/transaction-service:
     owner: core-platform
     language: python
     criticality: critical
-    routing: Intelligent_DevSecOps_Automation_Framework/services/transaction-service
+    job: Intelligent_DevSecOps_Automation_Framework/services/transaction-service
 
   Rhisko/portal-dashboard:
     owner: frontend-team
     language: javascript
     criticality: low
-    routing: Intelligent_DevSecOps_Automation_Framework/services/portal-dashboard
+    job: Intelligent_DevSecOps_Automation_Framework/services/portal-dashboard
