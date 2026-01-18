@@ -70,7 +70,7 @@ def call(Map config = [:]) {
         [:],  // env
         []    // extra volumes
     )
-    echo "[DEBUG][runSemgrep] Semgrep scan completed : ${outputFile}"
+    sh "cat ${outputFile}"
     if (fileExists(outputFile)) {
         semgrepToSonarPayload = externalIssuesPublisher(
             tool: "semgrep",
