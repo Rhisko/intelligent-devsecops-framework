@@ -1,101 +1,84 @@
 package devsecops
 
 /**
- * Trivy → SonarQube Generic External Issues Mapper
+ * Trivy Image Scan → SonarQube Generic External Issues
  *
- * DESIGN PRINCIPLES:
- * - Trivy severity is authoritative (CVSS-based)
- * - Deterministic ruleId (CVE / GHSA)
- * - SonarQube Generic External Issues compliant
- * - Defensive offsets (Sonar strict)
+ * Supports:
+ * - container image scan
+ * - os-pkgs / language-pkgs
  */
 class TrivyExternalSonarMapper implements Serializable {
 
-    /**
-     * Map Trivy severity → Sonar severity
-     */
-    static Map mapSeverity(String trivySeverity) {
-        switch (trivySeverity?.toUpperCase()) {
-            case "CRITICAL":
-                return [severity: "CRITICAL", type: "VULNERABILITY"]
-            case "HIGH":
-                return [severity: "MAJOR", type: "VULNERABILITY"]
-            case "MEDIUM":
-                return [severity: "MINOR", type: "VULNERABILITY"]
-            case "LOW":
-                return [severity: "INFO", type: "VULNERABILITY"]
-            default:
-                return [severity: "INFO", type: "VULNERABILITY"]
+    static Map mapSeverity(String sev) {
+        switch (sev?.toUpperCase()) {
+            case "CRITICAL": return [severity: "CRITICAL", type: "VULNERABILITY"]
+            case "HIGH":     return [severity: "MAJOR",    type: "VULNERABILITY"]
+            case "MEDIUM":   return [severity: "MINOR",    type: "VULNERABILITY"]
+            case "LOW":      return [severity: "INFO",     type: "VULNERABILITY"]
+            default:         return [severity: "INFO",     type: "VULNERABILITY"]
         }
     }
 
-    /**
-     * Convert Trivy findings → SonarQube Generic External Issues
-     *
-     * @param findings  List<Map> (normalized Trivy findings)
-     * @param defaultPath fallback file path (Dockerfile / image)
-     */
-    static Map toSonar(List findings, String defaultPath = "Dockerfile") {
+    static Map toSonar(Map trivyJson) {
 
         Map<String, Map> rulesIndex = [:]
         List<Map> issues = []
 
-        findings.each { f ->
+        trivyJson?.Results?.each { result ->
 
-            // -------------------------------
-            // DEFENSIVE CHECKS
-            // -------------------------------
-            if (!f?.rule_id || !f?.severity) {
-                return
-            }
+            def target = result.Target ?: "container-image"
 
-            String vulnId      = f.rule_id
-            String sonarRuleId = "trivy:${vulnId}"
+            result?.Vulnerabilities?.each { v ->
 
-            def sev = mapSeverity(f.severity)
+                if (!v?.VulnerabilityID || !v?.Severity) {
+                    return
+                }
 
-            // -------------------------------
-            // RULE DEFINITION
-            // -------------------------------
-            if (!rulesIndex.containsKey(sonarRuleId)) {
-                rulesIndex[sonarRuleId] = [
-                    id          : sonarRuleId,          // REQUIRED
-                    engineId    : "trivy",
-                    ruleId      : vulnId,
-                    name        : "Trivy vulnerability ${vulnId}",
-                    description : f.message ?: "Trivy vulnerability ${vulnId}",
-                    type        : sev.type,
-                    severity    : sev.severity
-                ]
-            }
+                String ruleId = "trivy:${v.VulnerabilityID}"
+                def sev = mapSeverity(v.Severity)
 
-            // -------------------------------
-            // LOCATION (SONAR SAFE)
-            // -------------------------------
-            String filePath =
-                    f.component ? "dependency:${f.component}" :
-                    f.artifact  ? "image:${f.artifact}" :
-                    defaultPath
+                // ---- RULE (once) ----
+                if (!rulesIndex.containsKey(ruleId)) {
+                    rulesIndex[ruleId] = [
+                        id          : ruleId,
+                        engineId    : "trivy",
+                        ruleId      : v.VulnerabilityID,
+                        name        : "Trivy ${v.VulnerabilityID}",
+                        description : v.Description ?: v.Title ?: "Trivy vulnerability",
+                        type        : sev.type,
+                        severity    : sev.severity
+                    ]
+                }
 
-            issues << [
-                engineId: "trivy",
-                ruleId  : sonarRuleId,
-                primaryLocation: [
-                    message  : f.recommendation ?: f.message ?: "Trivy finding ${vulnId}",
-                    filePath : filePath,
-                    textRange: [
-                        startLine  : 1,
-                        endLine    : 1,
-                        startColumn: 1,
-                        endColumn  : 2
+                // ---- ISSUE ----
+                issues << [
+                    engineId: "trivy",
+                    ruleId  : ruleId,
+                    primaryLocation: [
+                        message  : buildMessage(v),
+                        filePath : "dependency:${v.PkgName ?: target}",
+                        textRange: [
+                            startLine  : 1,
+                            endLine    : 1,
+                            startColumn: 1,
+                            endColumn  : 2
+                        ]
                     ]
                 ]
-            ]
+            }
         }
 
         return [
             rules : rulesIndex.values().toList(),
             issues: issues
         ]
+    }
+
+    static String buildMessage(v) {
+        def msg = v.Title ?: v.Description ?: "Trivy vulnerability"
+        if (v.FixedVersion) {
+            msg += " | Fixed in: ${v.FixedVersion}"
+        }
+        return msg
     }
 }
