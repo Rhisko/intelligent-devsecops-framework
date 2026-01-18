@@ -209,9 +209,7 @@ Event      : ${params.EVENT_TYPE}
 
             writeFile(
               file: "sonar-external-issues.json",
-              text: JsonOutput.prettyPrint(
-                JsonOutput.toJson(mergedPayload)
-              )
+              text: mergedPayload
             )
             sh "cat /ci-workspace/sonar-external-issues.json"
             echo "[PIPELINE] Performing code quality analysis using SonarQube"
