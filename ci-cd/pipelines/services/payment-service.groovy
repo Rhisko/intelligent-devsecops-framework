@@ -109,7 +109,7 @@ Event      : ${params.EVENT_TYPE}
             ].join(' ')
           )
 
-          echo "[PIPELINE] semgrep findings : ${semgrepToSonarPayload}"
+          echo "[PIPELINE] semgrep to sonar payload: ${semgrepToSonarPayload}"
             }
           }
         }
@@ -199,6 +199,7 @@ Event      : ${params.EVENT_TYPE}
               payloads << ruffTosonarPayload
             }
             if (semgrepTosonarPayload) {
+              echo "[PIPELINE] Adding Semgrep payload with ${semgrepTosonarPayload.issues.size()} issues"
               payloads << semgrepTosonarPayload
             }
 
