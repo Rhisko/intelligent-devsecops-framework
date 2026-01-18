@@ -198,9 +198,9 @@ Event      : ${params.EVENT_TYPE}
             if (ruffTosonarPayload) {
               payloads << ruffTosonarPayload
             }
-            if (semgrepTosonarPayload) {
-              echo "[PIPELINE] Adding Semgrep payload with ${semgrepTosonarPayload.issues.size()} issues"
-              payloads << semgrepTosonarPayload
+            if (semgrepToSonarPayload) {
+              echo "[PIPELINE] Adding Semgrep payload with ${semgrepToSonarPayload.issues.size()} issues"
+              payloads << semgrepToSonarPayload
             }
 
             def mergedPayload = consolidateSonarPayload(payloads)
