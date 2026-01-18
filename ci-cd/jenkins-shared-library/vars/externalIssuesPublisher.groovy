@@ -17,7 +17,7 @@ def call(Map args = [:]) {
     // 2. Load raw JSON
     // --------------------------------------------------
     def raw = readJSON file: inputFile
-    echo "[ExternalIssuesPublisher] Raw data loaded ${raw.results}"
+
 
     // --------------------------------------------------
     // 3. Normalize findings (tool-specific)
