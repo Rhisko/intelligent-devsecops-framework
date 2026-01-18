@@ -32,15 +32,10 @@ horusec:
 semgrep:
   image: semgrep/semgrep:1.146.0
   command: >
-    semgrep scan 
-    --config p/security-audit
-    --config p/secrets
-    --exclude '.git'
-    --exclude 'node_modules'
-    --exclude 'vendor'
-    --exclude '.venv'
-    --exclude '*.sample'
-    --exclude 'hooks'
+    semgrep scan
+    --lang {language}
+    --config {ruleset}
+    --exclude {extraArgs}
     {target}
     --json
     --output semgrep.json

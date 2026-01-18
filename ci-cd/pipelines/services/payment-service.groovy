@@ -91,7 +91,9 @@ Event      : ${params.EVENT_TYPE}
         script {
 
           semgrepFindings = runSemgrep(
-            path: '.',            // scan root repo
+            path: '.',
+            ruleset: 'p/security-audit,p/owasp-top-ten,',
+            extraArgs: '--exclude .git --exclude node_modules --exclude vendor --exclude .venv --exclude *.sample --exclude hooks'
           )
 
           echo "[PIPELINE] semgrep findings count: ${semgrepFindings.size()}"
