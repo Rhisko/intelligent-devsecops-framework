@@ -5,9 +5,9 @@ def call(WebhookContext ctx) {
 
     // === LOAD ROUTING CONFIG VIA CONFIGLOADER ===
     def cfgLoader = new ConfigLoader(this)
-    def routingConfig = cfgLoader.load("routing")
+    def routingConfig = cfgLoader.load("services-inventory").services
 
-    def route = routingConfig?.routes?.get(ctx.repositoryFullName)
+    def route = routingConfig?.get(ctx.repositoryFullName)
 
     if (!route) {
         echo "[ROUTER] No routing defined for ${ctx.repositoryFullName}. Event ignored."
