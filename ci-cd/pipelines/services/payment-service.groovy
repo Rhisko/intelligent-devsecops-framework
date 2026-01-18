@@ -206,6 +206,7 @@ Event      : ${params.EVENT_TYPE}
 
             // echo "[PIPELINE] Sonar rules  : ${mergedPayload.rules.size()}"
             // echo "[PIPELINE] Sonar issues : ${mergedPayload.issues.size()}"
+            echo "[PIPELINE] Preparing SonarQube external issues report with ${payloads} payloads"
 
             writeFile(
               file: "sonar-external-issues.json",
@@ -213,7 +214,7 @@ Event      : ${params.EVENT_TYPE}
                 JsonOutput.toJson(payloads)
               )
             )
-            sh "cat /ci-workspace/sonarqube/${env.JOB_NAME}-${env.BUILD_NUMBER}/sonar-external-issues.json"
+            sh "cat sonar-external-issues.json"
             echo "[PIPELINE] Performing code quality analysis using SonarQube"
             sonarFindings = runSonar(
               projectKey: "payment-service",
