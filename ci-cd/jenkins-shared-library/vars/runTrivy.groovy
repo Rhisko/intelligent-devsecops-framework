@@ -86,7 +86,7 @@ def call(Map config = [:]) {
     def outputFile = "${workDir}/trivy.json"
 
     if (fileExists(outputFile)) {
-        echo "[DEBUG][runTrivy] Reading Trivy output from ${outputFile}"
+        sh "cat ${outputFile}"
         trivyToSonarPayload = externalIssuesPublisher(
             tool: "trivy",
             input: outputFile
