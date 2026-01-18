@@ -2,7 +2,7 @@
  * Consolidate multiple Sonar external payloads
  * Each payload must be: [rules: List, issues: List]
  */
-Map consolidateSonarPayload(List<Map> payloads) {
+Map call(List<Map> payloads) {
 
     Map<String, Map> rulesIndex = [:]
     List<Map> issues = []
