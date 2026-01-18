@@ -92,7 +92,11 @@ Event      : ${params.EVENT_TYPE}
 
           semgrepFindings = runSemgrep(
             path: '.',
-            ruleset: 'p/security-audit,p/owasp-top-ten,',
+            ruleset: [
+              '--config p/security-audit',
+              '--config p/owasp-top-ten',
+              '--config p/cwe-top-25'
+            ].join(' '),
             extraArgs: [
               '--exclude .git',
               '--exclude node_modules',
