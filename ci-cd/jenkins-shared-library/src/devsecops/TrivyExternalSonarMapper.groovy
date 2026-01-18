@@ -3,12 +3,9 @@ package devsecops
 /**
  * Trivy → SonarQube Generic External Issues Mapper
  *
- * Supports:
- * - OS packages (debian, alpine, etc.)
- * - Language packages (pip, npm, maven, etc.)
- * - CVE / GHSA
- *
- * Trivy severity is authoritative (CVSS-based)
+ * Jenkins-safe:
+ * - Accepts JSONObject / JSONArray / Map
+ * - No hard casting in method signature
  */
 class TrivyExternalSonarMapper implements Serializable {
 
@@ -23,30 +20,49 @@ class TrivyExternalSonarMapper implements Serializable {
     }
 
     /**
-     * Entry point
+     * ENTRY POINT (type-tolerant)
      */
-    static Map toSonar(Map trivyJson) {
+    static Map toSonar(def trivyJson) {
+
+        if (!trivyJson) {
+            return [rules: [], issues: []]
+        }
+
+        // Normalize Results safely
+        def results = trivyJson.Results
+        if (!(results instanceof List)) {
+            return [rules: [], issues: []]
+        }
 
         Map<String, Map> rulesIndex = [:]
         List<Map> issues = []
 
-        trivyJson?.Results?.each { result ->
+        results.each { result ->
 
-            String target = result.Target ?: "container-image"
+            String target = result?.Target ?: "container-image"
 
-            // ------------------------------
-            // 1. Direct vulnerabilities (OS)
-            // ------------------------------
-            result?.Vulnerabilities?.each { v ->
-                processVuln(v, target, rulesIndex, issues)
+            // -------------------------
+            // OS-level vulnerabilities
+            // -------------------------
+            def vulns = result?.Vulnerabilities
+            if (vulns instanceof List) {
+                vulns.each { v ->
+                    processVuln(v, target, rulesIndex, issues, null)
+                }
             }
 
-            // ------------------------------
-            // 2. Package-level vulnerabilities (Lang)
-            // ------------------------------
-            result?.Packages?.each { pkg ->
-                pkg?.Vulnerabilities?.each { v ->
-                    processVuln(v, "${pkg.Name}", rulesIndex, issues, pkg)
+            // -------------------------
+            // Package-level vulnerabilities
+            // -------------------------
+            def packages = result?.Packages
+            if (packages instanceof List) {
+                packages.each { pkg ->
+                    def pkgVulns = pkg?.Vulnerabilities
+                    if (pkgVulns instanceof List) {
+                        pkgVulns.each { v ->
+                            processVuln(v, target, rulesIndex, issues, pkg)
+                        }
+                    }
                 }
             }
         }
@@ -58,14 +74,14 @@ class TrivyExternalSonarMapper implements Serializable {
     }
 
     /**
-     * Normalize one Trivy vulnerability → Sonar rule + issue
+     * Process one vulnerability
      */
     static void processVuln(
-        Map v,
+        def v,
         String target,
         Map rulesIndex,
         List issues,
-        Map pkg = null
+        def pkg
     ) {
         if (!v?.VulnerabilityID || !v?.Severity) {
             return
@@ -74,7 +90,7 @@ class TrivyExternalSonarMapper implements Serializable {
         String sonarRuleId = "trivy:${v.VulnerabilityID}"
         def sev = mapSeverity(v.Severity)
 
-        // ---------- RULE ----------
+        // -------- RULE --------
         if (!rulesIndex.containsKey(sonarRuleId)) {
             rulesIndex[sonarRuleId] = [
                 id          : sonarRuleId,
@@ -87,7 +103,7 @@ class TrivyExternalSonarMapper implements Serializable {
             ]
         }
 
-        // ---------- ISSUE ----------
+        // -------- ISSUE --------
         issues << [
             engineId: "trivy",
             ruleId  : sonarRuleId,
@@ -104,7 +120,7 @@ class TrivyExternalSonarMapper implements Serializable {
         ]
     }
 
-    static String buildMessage(Map v, Map pkg) {
+    static String buildMessage(def v, def pkg) {
         String msg = v.Title ?: v.Description ?: "Trivy vulnerability"
         if (pkg?.InstalledVersion) {
             msg += " | Installed: ${pkg.InstalledVersion}"
@@ -115,11 +131,11 @@ class TrivyExternalSonarMapper implements Serializable {
         return msg
     }
 
-    static String buildFilePath(Map v, String target, Map pkg) {
+    static String buildFilePath(def v, String target, def pkg) {
         if (pkg?.Name) {
             return "dependency:${pkg.Name}"
         }
-        if (v.PkgName) {
+        if (v?.PkgName) {
             return "dependency:${v.PkgName}"
         }
         return "container:${target}"
