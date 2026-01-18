@@ -91,7 +91,7 @@ Event      : ${params.EVENT_TYPE}
       steps {
         script {
 
-          semgrepFindings = runSemgrep(
+          semgrepToSonarPayload = runSemgrep(
             path: '.',
             ruleset: [
               '--config p/security-audit',
@@ -109,8 +109,7 @@ Event      : ${params.EVENT_TYPE}
             ].join(' ')
           )
 
-          echo "[PIPELINE] semgrep findings count: ${semgrepFindings.size()}"
-          echo "[PIPELINE] semgrep findings as String : ${semgrepFindings}"
+          echo "[PIPELINE] semgrep findings : ${semgrepToSonarPayload}"
             }
           }
         }
