@@ -186,28 +186,34 @@ Event      : ${params.EVENT_TYPE}
         }
       }
     }
-
-    stage('Code Quality Analysis [SonarQube]') {
+    stage('Consolidate Trivy , Semgrep , Ruff Findings for SonarQube External Issues') {
       steps {
         script {
-          withCredentials([
-            string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
-          ]) {
+          echo "[PIPELINE] Consolidating SonarQube External Issues payloads ......"
           def payloads = [
-              ruffTosonarPayload,
+              ruffToSonarPayload,
               semgrepToSonarPayload,
               trivyToSonarPayload
           ]
 
           def mergedPayload = consolidateSonarPayload(payloads)
 
-          def externalIssuesReportPathsName = "sonar-external-issues-${BUILD_NUMBER}.json"
+          externalIssuesReportPathsName = "sonar-external-issues-${BUILD_NUMBER}.json"
 
           writeFile(
             file: externalIssuesReportPathsName,
             text: JsonOutput.prettyPrint(JsonOutput.toJson(mergedPayload))
           )
-          sh "cat ${externalIssuesReportPathsName}"
+
+        }
+      }
+    stage('Code Quality Analysis [SonarQube]') {
+      steps {
+        script {
+          withCredentials([
+            string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
+          ]) {
+          // sh "cat ${externalIssuesReportPathsName}"
           echo "[PIPELINE] Performing code quality analysis using SonarQube"
           sonarFindings = runSonar(
             projectKey: "payment-service",
