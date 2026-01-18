@@ -159,31 +159,30 @@ Event      : ${params.EVENT_TYPE}
           // echo "[INFO] Local image     : ${localImage}"
           echo "[PIPELINE] Running Trivy container image security scan ......"
 
-          def trivyResult = runTrivy(
+          trivyToSonarPayload = runTrivy(
             scanType: 'image',
             target: localImage,
             severity: 'HIGH,CRITICAL'
           )
+          echo "[PIPELINE] trivy to sonar payload: ${trivyToSonarPayload}"
 
           // Optional: log summary (do NOT parse deeply here)
-          if (trivyResult?.Results) {
-            echo "[INFO] Trivy scan completed with ${trivyResult.Results.size()} result blocks"
-          } else {
-            echo "[INFO] Trivy scan completed (no results or empty)"
-          }
+          // if (trivyResult?.Results) {
+          //   echo "[INFO] Trivy scan completed with ${trivyResult.Results.size()} result blocks"
+          // } else {
+          //   echo "[INFO] Trivy scan completed (no results or empty)"
+          // }
 
-          // Send raw result to aggregator
-          def trivyAgg = securityAggregator.call(
-            tool: 'trivy',
-            data: trivyResult,
-            metadata: [
-              image: localImage,
-              scope: 'local'
-            ]
-          )
-          println "[DEBUG] Trivy aggregated findings: ${trivyAgg.findings.size()} items"
-          println "[DEBUG] Trivy aggregated summary: ${trivyAgg.summary}"
-          println "[DEBUG] Trivy raw result data: ${trivyAgg.findings}"
+          // // Send raw result to aggregator
+          // def trivyAgg = securityAggregator.call(
+          //   tool: 'trivy',
+          //   data: trivyResult,
+          //   metadata: [
+          //     image: localImage,
+          //     scope: 'local'
+          //   ]
+          // )
+
         }
       }
     }
@@ -196,7 +195,8 @@ Event      : ${params.EVENT_TYPE}
           ]) {
           def payloads = [
               ruffTosonarPayload,
-              semgrepToSonarPayload
+              semgrepToSonarPayload,
+              trivyToSonarPayload
           ]
 
           def mergedPayload = consolidateSonarPayload(payloads)

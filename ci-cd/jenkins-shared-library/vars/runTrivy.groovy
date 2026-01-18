@@ -86,15 +86,15 @@ def call(Map config = [:]) {
     def outputFile = "${workDir}/trivy.json"
 
     if (fileExists(outputFile)) {
-        findings = readJSON file: outputFile
-        // echo "Trivy findings data loaded"
-    } else {
-        echo "Trivy output not found (no findings or execution issue)"
-    }
+        trivyToSonarPayload = externalIssuesPublisher(
+            tool: "trivy",
+            input: outputFile
+        )
+    } 
 
     // Cleanup 
     sh "rm -rf ${workDir} && docker rmi ${target} || true"
     // println "[DEBUG] Removed workDir ${workDir} and image ${target} findings data loaded ${findings}"
 
-    return findings
+    return trivyToSonarPayload
 }
