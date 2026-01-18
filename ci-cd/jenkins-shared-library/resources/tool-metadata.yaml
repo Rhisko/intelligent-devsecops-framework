@@ -35,7 +35,7 @@ semgrep:
     semgrep scan
     --lang {language}
     --config {ruleset}
-    --exclude {extraArgs}
+    {extraArgs}
     {target}
     --json
     --output semgrep.json
