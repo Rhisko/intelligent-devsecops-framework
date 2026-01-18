@@ -211,7 +211,6 @@ Event      : ${params.EVENT_TYPE}
               file: "sonar-external-issues.json",
               text: mergedPayload
             )
-            sh "cat /ci-workspace/sonar-external-issues.json"
             echo "[PIPELINE] Performing code quality analysis using SonarQube"
             sonarFindings = runSonar(
               projectKey: "payment-service",
