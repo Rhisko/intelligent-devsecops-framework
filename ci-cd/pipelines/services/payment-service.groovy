@@ -194,25 +194,16 @@ Event      : ${params.EVENT_TYPE}
           withCredentials([
             string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
           ]) {
-            def payloads = []
-            if (ruffTosonarPayload != null) {
-              payloads << ruffTosonarPayload
-            }
-            if (semgrepToSonarPayload != null) {
-              payloads << semgrepToSonarPayload
-            }
+          def payloads = [
+              ruffTosonarPayload,
+              semgrepTosonarPayload
+          ]
 
-            // def mergedPayload = consolidateSonarPayload(payloads)
-
-            // echo "[PIPELINE] Sonar rules  : ${mergedPayload.rules.size()}"
-            // echo "[PIPELINE] Sonar issues : ${mergedPayload.issues.size()}"
-            echo "[PIPELINE] Preparing SonarQube external issues report with ${payloads} payloads"
+          def mergedPayload = consolidateSonarPayload(payloads)
 
             writeFile(
               file: "sonar-external-issues.json",
-              text: JsonOutput.prettyPrint(
-                JsonOutput.toJson(payloads)
-              )
+              text: mergedPayload
             )
             sh "cat sonar-external-issues.json"
             echo "[PIPELINE] Performing code quality analysis using SonarQube"

@@ -1,12 +1,33 @@
-def call(List<Map> payloads) {
+/**
+ * Consolidate multiple Sonar external payloads
+ * Each payload must be: [rules: List, issues: List]
+ */
+Map consolidateSonarPayload(List<Map> payloads) {
 
-    def rules = payloads.collectMany { it.rules }
-        .unique { it.id }
+    Map<String, Map> rulesIndex = [:]
+    List<Map> issues = []
 
-    def issues = payloads.collectMany { it.issues }
+    payloads.each { payload ->
+
+        if (!payload?.rules || !payload?.issues) {
+            return
+        }
+
+        // ---- RULES (deduplicate by id) ----
+        payload.rules.each { r ->
+            if (r?.id && !rulesIndex.containsKey(r.id)) {
+                rulesIndex[r.id] = r
+            }
+        }
+
+        // ---- ISSUES (append as-is) ----
+        payload.issues.each { i ->
+            issues << i
+        }
+    }
 
     return [
-        rules : rules,
+        rules : rulesIndex.values().toList(),
         issues: issues
     ]
 }
