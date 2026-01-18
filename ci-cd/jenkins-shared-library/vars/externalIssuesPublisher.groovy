@@ -61,8 +61,7 @@ def call(Map args = [:]) {
             break
 
         case "trivy":
-            sonarPayload = devsecops.TrivyExternalSonarMapper
-                .toSonar(findings)
+            sonarPayload = findings
             break
     }
 
