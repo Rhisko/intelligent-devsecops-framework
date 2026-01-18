@@ -207,6 +207,7 @@ Event      : ${params.EVENT_TYPE}
 
         }
       }
+    }
     stage('Code Quality Analysis [SonarQube]') {
       steps {
         script {
