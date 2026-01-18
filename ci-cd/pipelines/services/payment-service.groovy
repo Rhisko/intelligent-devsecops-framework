@@ -195,11 +195,10 @@ Event      : ${params.EVENT_TYPE}
             string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
           ]) {
             def payloads = []
-            if (ruffTosonarPayload) {
+            if (ruffTosonarPayload != null) {
               payloads << ruffTosonarPayload
             }
-            if (semgrepToSonarPayload) {
-              echo "[PIPELINE] Adding Semgrep payload with ${semgrepToSonarPayload.issues.size()} issues"
+            if (semgrepToSonarPayload != null) {
               payloads << semgrepToSonarPayload
             }
 
