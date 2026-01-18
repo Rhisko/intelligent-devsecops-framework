@@ -92,7 +92,6 @@ Event      : ${params.EVENT_TYPE}
 
           semgrepFindings = runSemgrep(
             path: '.',
-            language: params.LANGUAGE?.toLowerCase(),
             ruleset: 'p/security-audit,p/owasp-top-ten,',
             extraArgs: [
               '--exclude .git',

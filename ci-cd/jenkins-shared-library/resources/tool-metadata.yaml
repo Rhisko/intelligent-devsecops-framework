@@ -33,7 +33,6 @@ semgrep:
   image: semgrep/semgrep:1.146.0
   command: >
     semgrep scan
-    --lang {language}
     --config {ruleset}
     {extraArgs}
     {target}

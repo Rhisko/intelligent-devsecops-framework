@@ -10,10 +10,11 @@ def call(Map config = [:]) {
 
     // Target path inside the snapshot (relative to /ci-workspace)
     def target = config.path ?: '.'
-    def language = config.language ?: 'unknown'
-    if (language == 'unknown') {
-        error "[WARNING] Language not specified, defaulting to 'unknown'"
-    }
+
+    // def language = config.language ?: 'unknown'
+    // if (language == 'unknown') {
+    //     error "[WARNING] Language not specified, defaulting to 'unknown'"
+    // }
 
     // Optional: Semgrep ruleset selector (auto / specific packs / custom)
     // Examples:
@@ -44,7 +45,7 @@ def call(Map config = [:]) {
         .replace('{target}', target)
         .replace('{ruleset}', ruleset)
         .replace('{extraArgs}', extraArgs)
-        .replace('{language}', language)
+
 
     // === RELATIVE WORKDIR UNDER base_host_path ===
     def workDir = "/ci-workspace/semgrep/${env.JOB_NAME}-${env.BUILD_NUMBER}"
