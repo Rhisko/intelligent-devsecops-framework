@@ -91,25 +91,25 @@ Event      : ${params.EVENT_TYPE}
       steps {
         script {
 
-          semgrepToSonarPayload = runSemgrep(
-            path: '.',
-            ruleset: [
-              '--config p/security-audit',
-              '--config p/owasp-top-ten',
-              '--config p/cwe-top-25'
-            ].join(' '),
-            extraArgs: [
-              '--exclude .git',
-              '--exclude node_modules',
-              '--exclude vendor',
-              '--exclude .venv',
-              '--exclude .env',
-              '--exclude *.sample',
-              '--exclude hooks'
-            ].join(' ')
-          )
+            semgrepToSonarPayload = runSemgrep(
+              path: '.',
+              ruleset: [
+                '--config p/security-audit',
+                '--config p/owasp-top-ten',
+                '--config p/cwe-top-25'
+              ].join(' '),
+              extraArgs: [
+                '--exclude .git',
+                '--exclude node_modules',
+                '--exclude vendor',
+                '--exclude .venv',
+                '--exclude .env',
+                '--exclude *.sample',
+                '--exclude hooks'
+              ].join(' ')
+            )
 
-          echo "[PIPELINE] semgrep to sonar payload: ${semgrepToSonarPayload}"
+            echo "[PIPELINE] semgrep to sonar payload: ${semgrepToSonarPayload}"
             }
           }
         }
@@ -196,12 +196,13 @@ Event      : ${params.EVENT_TYPE}
           ]) {
           def payloads = [
               ruffTosonarPayload,
-              semgrepTosonarPayload
+              semgrepToSonarPayload
           ]
 
           def mergedPayload = consolidateSonarPayload(payloads)
 
           def externalIssuesReportPathsName = "sonar-external-issues-${BUILD_NUMBER}.json"
+
           writeFile(
             file: externalIssuesReportPathsName,
             text: mergedPayload
