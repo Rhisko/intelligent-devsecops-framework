@@ -105,7 +105,8 @@ Event      : ${params.EVENT_TYPE}
                 '--exclude .venv',
                 '--exclude .env',
                 '--exclude *.sample',
-                '--exclude hooks'
+                '--exclu
+                de hooks'
               ].join(' ')
             )
 
@@ -229,7 +230,7 @@ Event      : ${params.EVENT_TYPE}
 
 
 
-
+o
     stage('AI-Driven Security Advisory [n8n]') {
       steps {
         script {

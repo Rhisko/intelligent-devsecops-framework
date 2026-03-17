@@ -1,14 +1,5 @@
 package devsecops
 
-/**
- * Semgrep → SonarQube Generic External Issues Mapper
- *
- * DESIGN GOALS:
- * - Stable ruleId (deterministic)
- * - Security-first (Semgrep = VULNERABILITY)
- * - Defensive against malformed offsets
- * - No overlap responsibility with Ruff
- */
 class SemgrepExternalSonarMapper implements Serializable {
 
     /**
