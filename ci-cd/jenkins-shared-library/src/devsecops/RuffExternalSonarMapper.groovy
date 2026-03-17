@@ -185,7 +185,6 @@ class RuffExternalSonarMapper implements Serializable {
     static Map buildSafeTextRange(String filePath, def startLoc, def endLoc) {
         File file = new File(filePath)
         if (!file.exists()) {
-            // fallback minimal safe
             int startLine = Math.max((startLoc?.row ?: 1) as int, 1)
             int endLine   = Math.max((endLoc?.row ?: startLine) as int, startLine)
 
@@ -212,12 +211,13 @@ class RuffExternalSonarMapper implements Serializable {
         int startLineLen = getLineLength(lines, startLine)
         int endLineLen   = getLineLength(lines, endLine)
 
-        // Ruff columns are typically 1-based; Sonar offset validation is strict against file content.
-        int startColumn = Math.max(((startLoc?.column ?: 1) as int) - 1, 0)
-        int endColumnRaw = ((endLoc?.column ?: ((startLoc?.column ?: 1) as int + 1)) as int) - 1
+        int startCol1 = (startLoc?.column ?: 1) as int
+        int endCol1   = (endLoc?.column ?: (startCol1 + 1)) as int
+
+        int startColumn = Math.max(startCol1 - 1, 0)
+        int endColumnRaw = endCol1 - 1
         int endColumn = Math.max(endColumnRaw, startColumn + 1)
 
-        // Empty line: do not specify columns
         if (startLineLen == 0) {
             return [
                 startLine: startLine,
@@ -225,7 +225,6 @@ class RuffExternalSonarMapper implements Serializable {
             ]
         }
 
-        // clamp start to valid char range
         startColumn = Math.min(startColumn, Math.max(startLineLen - 1, 0))
 
         if (startLine == endLine) {
@@ -243,7 +242,6 @@ class RuffExternalSonarMapper implements Serializable {
             ]
         }
 
-        // multiline: keep safe range
         if (endLineLen == 0) {
             return [
                 startLine  : startLine,
