@@ -105,8 +105,7 @@ Event      : ${params.EVENT_TYPE}
                 '--exclude .venv',
                 '--exclude .env',
                 '--exclude *.sample',
-                '--exclu
-                de hooks'
+                '--exclude hooks'
               ].join(' ')
             )
 
