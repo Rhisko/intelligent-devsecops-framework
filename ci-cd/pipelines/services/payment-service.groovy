@@ -227,9 +227,6 @@ Event      : ${params.EVENT_TYPE}
       }
     }
 
-
-
-o
     stage('AI-Driven Security Advisory [n8n]') {
       steps {
         script {
