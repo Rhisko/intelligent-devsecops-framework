@@ -80,7 +80,7 @@ Event      : ${params.EVENT_TYPE}
       }
       steps {
         script {
-          ruffTosonarPayload = runRuff(
+          ruffToSonarPayload = runRuff(
             path: '.',            // scan root repo
           )
           println "[PIPELINE] ruff to sonar payload: ${ruffTosonarPayload}"
