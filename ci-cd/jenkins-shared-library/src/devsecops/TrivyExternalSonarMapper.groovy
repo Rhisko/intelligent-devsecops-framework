@@ -14,7 +14,7 @@ class TrivyExternalSonarMapper implements Serializable {
             case "CRITICAL": return [severity: "CRITICAL", type: "VULNERABILITY"]
             case "HIGH":     return [severity: "MAJOR",    type: "VULNERABILITY"]
             case "MEDIUM":   return [severity: "MINOR",    type: "VULNERABILITY"]
-            case "LOW":      return [severity: "INFO",     type: "VULNERABILITY"]
+            case "LOW":      return [severity: "LOW",     type: "VULNERABILITY"]
             default:         return [severity: "INFO",     type: "VULNERABILITY"]
         }
     }
