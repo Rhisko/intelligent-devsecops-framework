@@ -204,7 +204,8 @@ Event      : ${params.EVENT_TYPE}
             file: externalIssuesReportPathsName,
             text: JsonOutput.prettyPrint(JsonOutput.toJson(mergedPayload))
           )
-          echo "[PIPELINE] Consolidated SonarQube External Issues payload written to ${externalIssuesReportPathsName}"
+          def fileContent = readFile(externalIssuesReportPathsName)
+          echo "[PIPELINE] Merged SonarQube External Issues payload content:\n${fileContent}"
         }
       }
     }
