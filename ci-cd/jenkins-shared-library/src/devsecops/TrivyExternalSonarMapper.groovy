@@ -12,8 +12,8 @@ class TrivyExternalSonarMapper implements Serializable {
     static Map mapSeverity(String sev) {
         switch (sev?.toUpperCase()) {
             case "CRITICAL": return [severity: "CRITICAL", type: "VULNERABILITY"]
-            case "HIGH":     return [severity: "MAJOR",    type: "VULNERABILITY"]
-            case "MEDIUM":   return [severity: "MINOR",    type: "VULNERABILITY"]
+            case "HIGH":     return [severity: "HIGH",    type: "VULNERABILITY"]
+            case "MEDIUM":   return [severity: "MEDIUM",    type: "VULNERABILITY"]
             case "LOW":      return [severity: "LOW",     type: "VULNERABILITY"]
             default:         return [severity: "INFO",     type: "VULNERABILITY"]
         }

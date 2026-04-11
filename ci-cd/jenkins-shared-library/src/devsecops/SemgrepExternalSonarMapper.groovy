@@ -123,11 +123,11 @@ class SemgrepExternalSonarMapper implements Serializable {
             case "ERROR":
                 return [severity: "CRITICAL", type: "VULNERABILITY"]
             case "WARNING":
-                return [severity: "MAJOR", type: "VULNERABILITY"]
+                return [severity: "HIGH", type: "VULNERABILITY"]
             case "INFO":
-                return [severity: "MINOR", type: "VULNERABILITY"]
+                return [severity: "INFO", type: "VULNERABILITY"]
             default:
-                return [severity: "MAJOR", type: "VULNERABILITY"]
+                return [severity: "INFO", type: "VULNERABILITY"]
         }
     }
 

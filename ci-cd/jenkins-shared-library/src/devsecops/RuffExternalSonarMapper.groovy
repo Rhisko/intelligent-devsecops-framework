@@ -118,10 +118,10 @@ class RuffExternalSonarMapper implements Serializable {
             return [severity: "CRITICAL", type: "VULNERABILITY"]
         }
         if (code?.startsWith("B") || code?.startsWith("F")) {
-            return [severity: "MAJOR", type: "BUG"]
+            return [severity: "HIGH", type: "BUG"]
         }
         if (code?.startsWith("E") || code?.startsWith("W") || code?.startsWith("I")) {
-            return [severity: "MINOR", type: "CODE_SMELL"]
+            return [severity: "MEDIUM", type: "CODE_SMELL"]
         }
         return [severity: "INFO", type: "CODE_SMELL"]
     }
