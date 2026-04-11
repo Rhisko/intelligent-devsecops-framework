@@ -218,7 +218,7 @@ Event      : ${params.EVENT_TYPE}
           // sh "cat ${externalIssuesReportPathsName}"
           echo "[PIPELINE] Performing code quality analysis using SonarQube"
           sonarFindings = runSonar(
-            projectKey: "payment-service-python",
+            projectKey: "payment-service",
             externalIssuesReportPaths: externalIssuesReportPathsName
           )
 
