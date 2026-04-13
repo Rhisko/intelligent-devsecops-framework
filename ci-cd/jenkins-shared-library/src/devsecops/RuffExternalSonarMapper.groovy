@@ -113,17 +113,38 @@ package devsecops
 
 class RuffExternalSonarMapper implements Serializable {
 
-    static Map mapSeverity(String code) {
-        if (code?.startsWith("S")) {
-            return [severity: "CRITICAL", type: "VULNERABILITY"]
+    static Map mapRuffRule(String code) {
+        if (!code) {
+            return [
+                severity: "INFO",
+                type: "CODE_SMELL"
+            ]
         }
-        if (code?.startsWith("B") || code?.startsWith("F")) {
-            return [severity: "HIGH", type: "BUG"]
+        if (code.startsWith("S")) {
+            return [
+                severity: "CRITICAL",
+                type: "VULNERABILITY"
+            ]
         }
-        if (code?.startsWith("E") || code?.startsWith("W") || code?.startsWith("I")) {
-            return [severity: "MEDIUM", type: "CODE_SMELL"]
+
+        if (code.startsWith("B") || code.startsWith("F")) {
+            return [
+                severity: "MAJOR",
+                type: "BUG"
+            ]
         }
-        return [severity: "INFO", type: "CODE_SMELL"]
+
+        if (code.startsWith("E") || code.startsWith("W") || code.startsWith("I")) {
+            return [
+                severity: "MINOR",
+                type: "CODE_SMELL"
+            ]
+        }
+
+        return [
+            severity: "INFO",
+            type: "CODE_SMELL"
+        ]
     }
 
     static Map toSonar(List findings, String stripPath = "/ci-workspace/") {
