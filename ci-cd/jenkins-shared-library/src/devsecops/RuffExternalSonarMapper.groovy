@@ -113,7 +113,7 @@ package devsecops
 
 class RuffExternalSonarMapper implements Serializable {
 
-    static Map mapRuffRule(String code) {
+    static Map mapSeverity(String code) {
         if (!code) {
             return [
                 severity: "INFO",
