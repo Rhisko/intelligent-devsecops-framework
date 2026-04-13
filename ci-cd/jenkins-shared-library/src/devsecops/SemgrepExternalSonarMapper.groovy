@@ -285,10 +285,15 @@ class SemgrepExternalSonarMapper implements Serializable {
                 ]
             }
 
-            int startLine   = (f?.start?.line ?: 1) as int
-            int startColumn = (f?.start?.col ?: 1) as int
-            int endLine     = (f?.end?.line ?: startLine) as int
-            int endColumn   = (f?.end?.col ?: startColumn) as int
+            // int startLine   = (f?.start?.line ?: 1) as int
+            // int startColumn = (f?.start?.col ?: 1) as int
+            // int endLine     = (f?.end?.line ?: startLine) as int
+            // int endColumn   = (f?.end?.col ?: startColumn) as int
+            int startLine = (f?.start?.line ?: 1) as int
+            int startColumn = Math.max(1, (f?.start?.col ?: 1) as int)
+
+            int endLine = startLine
+            int endColumn = startColumn + 1
 
             if (endLine == startLine && endColumn <= startColumn) {
                 endColumn = startColumn + 1
