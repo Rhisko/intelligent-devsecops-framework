@@ -36,7 +36,7 @@ def call(Map config = [:]) {
         [] 
     )
     def content = readFile(outputFile)
-    println "[DEBUG][runRuff] Raw Ruff output content:\n${content}"
+    // println "[DEBUG][runRuff] Raw Ruff output content:\n${content}"
 
     if (fileExists(outputFile)) {
         ruffTosonarPayload = externalIssuesPublisher(

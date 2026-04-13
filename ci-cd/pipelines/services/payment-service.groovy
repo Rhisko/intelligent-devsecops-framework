@@ -83,7 +83,7 @@ Event      : ${params.EVENT_TYPE}
           ruffToSonarPayload = runRuff(
             path: '.',            // scan root repo
           )
-          // println "[PIPELINE] ruff to sonar payload: ${ruffToSonarPayload}"
+          println "[PIPELINE] ruff to sonar payload: \n\n ${ruffToSonarPayload}"
         }
       }
     }
