@@ -48,8 +48,8 @@ def call(Map config = [:]) {
         .replace('{hostUrl}', hostUrl)
         .replace('{token}', token)
         .replace('{externalIssuesReportPaths}', externalIssuesReportPaths)
-        .replace('{qualitygateWait}', qualitygateWait)
-        .replace('{qualitygateTimeout}', qualitygateTimeout)
+        .replace('{qualitygateWait}', qualitygateWait.toString())
+        .replace('{qualitygateTimeout}', qualitygateTimeout.toString())
         // .replace('{branch}', branch)
 
     def runner = new devsecops.DockerRunner(this)
