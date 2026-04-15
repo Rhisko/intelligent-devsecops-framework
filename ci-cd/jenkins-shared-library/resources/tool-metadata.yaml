@@ -68,7 +68,7 @@ sonarqube:
     -Dsonar.host.url={hostUrl}
     -Dsonar.externalIssuesReportPaths={externalIssuesReportPaths}
     -Dsonar.qualitygate.wait={qualitygateWait}
-    --Dsonar.qualitygate.timeout={qualitygateTimeout}
+    -Dsonar.qualitygate.timeout={qualitygateTimeout}
   # -Dsonar.branch.name={branch} // Only for enterprise edition
   defaults:
     hostUrl: http://sonarqube:9000
