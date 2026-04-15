@@ -219,7 +219,9 @@ Event      : ${params.EVENT_TYPE}
           echo "[PIPELINE] Performing code quality analysis using SonarQube"
           sonarFindings = runSonar(
             projectKey: "payment-service",
-            externalIssuesReportPaths: externalIssuesReportPathsName
+            externalIssuesReportPaths: externalIssuesReportPathsName,
+            qualitygateWait: true,
+            qualitygateTimeout: 350
           )
 
           echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
