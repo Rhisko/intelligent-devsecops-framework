@@ -1,0 +1,12 @@
+summary:
+  primary_model: gpt-4.1-mini
+  fallback_model: gpt-4.1-mini
+critical_analysis:
+  primary_model: gpt-4.1
+  fallback_model: gpt-4.1-mini
+dependency_analysis:
+  primary_model: gpt-4.1
+  fallback_model: gpt-4.1-mini
+release_gate:
+  primary_model: gpt-4.1
+  fallback_model: gpt-4.1-mini

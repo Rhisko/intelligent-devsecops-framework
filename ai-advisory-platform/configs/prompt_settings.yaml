@@ -1,0 +1,2 @@
+include_duplicate_summary: true
+max_grouped_findings: 20

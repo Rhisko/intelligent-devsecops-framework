@@ -1,0 +1,6 @@
+critical_weight: 100
+major_weight: 70
+minor_weight: 30
+info_weight: 10
+multi_engine_bonus: 15
+dependency_issue_bonus: 20

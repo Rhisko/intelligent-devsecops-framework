@@ -1,0 +1,4 @@
+app_name: ai-advisory-platform
+output_format: json
+max_top_findings: 15
+http_timeout_seconds: 30

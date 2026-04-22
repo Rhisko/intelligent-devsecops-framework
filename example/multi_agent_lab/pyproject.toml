@@ -1,0 +1,5 @@
+[project]
+name = "multi_agent_lab"
+version = "0.1.0"
+description = "Multi-agent LangChain lab"
+requires-python = ">=3.11"

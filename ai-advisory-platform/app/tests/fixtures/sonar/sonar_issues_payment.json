@@ -1,0 +1,63 @@
+{
+  "paging": {
+    "pageIndex": 1,
+    "pageSize": 3,
+    "total": 3
+  },
+  "issues": [
+    {
+      "key": "1",
+      "rule": "external_ruff:ruff:S324",
+      "severity": "CRITICAL",
+      "component": "payment-service:app/crypto.py",
+      "project": "payment-service",
+      "line": 5,
+      "message": "Probable use of insecure hash functions in hashlib: md5",
+      "type": "VULNERABILITY",
+      "externalRuleEngine": "ruff",
+      "effort": "0min",
+      "impacts": [
+        {
+          "softwareQuality": "SECURITY",
+          "severity": "HIGH"
+        }
+      ]
+    },
+    {
+      "key": "2",
+      "rule": "external_semgrep:semgrep:python.lang.security.insecure-hash-algorithms-md5.insecure-hash-algorithm-md5",
+      "severity": "MAJOR",
+      "component": "payment-service:app/crypto.py",
+      "project": "payment-service",
+      "line": 5,
+      "message": "Detected MD5 hash algorithm which is considered insecure",
+      "type": "VULNERABILITY",
+      "externalRuleEngine": "semgrep",
+      "effort": "0min",
+      "impacts": [
+        {
+          "softwareQuality": "SECURITY",
+          "severity": "MEDIUM"
+        }
+      ]
+    },
+    {
+      "key": "3",
+      "rule": "external_trivy:trivy:CVE-2020-14343",
+      "severity": "CRITICAL",
+      "component": "payment-service:requirements.txt",
+      "project": "payment-service",
+      "line": 1,
+      "message": "PyYAML: incomplete fix for CVE-2020-1747 | Package: PyYAML | Installed: 5.3.1 | Fixed in: 5.4",
+      "type": "VULNERABILITY",
+      "externalRuleEngine": "trivy",
+      "effort": "2h",
+      "impacts": [
+        {
+          "softwareQuality": "SECURITY",
+          "severity": "HIGH"
+        }
+      ]
+    }
+  ]
+}

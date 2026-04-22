@@ -1,0 +1,5 @@
+default: generic
+python:
+  dependency_manifest: requirements.txt
+javascript:
+  dependency_manifest: package-lock.json
