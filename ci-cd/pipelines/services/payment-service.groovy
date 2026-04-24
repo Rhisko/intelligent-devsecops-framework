@@ -230,7 +230,7 @@ Event      : ${params.EVENT_TYPE}
       }
     }
 
-    stage('AI-Driven Security Advisory [n8n]') {
+    stage('AI-Driven Security Advisory') {
       steps {
         script {
           echo "[PIPELINE] Generating AI-driven security advisory via n8n"
@@ -238,16 +238,7 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('Policy-as-Code Security Gate [Conftest]') {
-      steps {
-        script {
-          echo "[PIPELINE] Evaluating security policies using Conftest"
-          }
-        }
-      }
-
-
-    stage('Deploy to Kubernetes Production Cluster [GKE]') {
+    stage('Deploy to Kubernetes Production Cluster [GKE] if Quality Gate Passed') {
       steps {
         script {
           echo "[PIPELINE] Deploying application to Kubernetes production cluster"
@@ -255,10 +246,10 @@ Event      : ${params.EVENT_TYPE}
         }
       }
 
-    stage('Publish Security Report and Notifications [Confluence & Telegram]') {
+    stage('Publish Security Report to web portal and send notifications To Telegram') {
       steps {
         script {
-          echo "[PIPELINE] Publishing security report to Confluence and sending notifications"
+          echo "[PIPELINE] Publishing security report to web portal and sending notifications to Telegram"
           }
         }
       }
