@@ -231,12 +231,24 @@ Event      : ${params.EVENT_TYPE}
     }
 
     stage('AI-Driven Security Advisory') {
-      steps {
-        script {
-          echo "[PIPELINE] Generating AI-driven security advisory via n8n"
-          }
+        steps {
+            script {
+                def timestamp = new Date().format("yyyyMMdd-HHmmss", TimeZone.getTimeZone("Asia/Jakarta"))
+                def reportBaseDir = "/var/jenkins_home/report-ai-advisory"
+                def reportDirName = "${params.REPOSITORY_NAME}-${params.TAG_NAME}-BUILD_NUMBER-${params.BUILD_NUMBER}-${timestamp}"
+                def advisoryContext = "${reportBaseDir}/${reportDirName}"
+                def safeRepoName = REPOSITORY_NAME.toLowerCase().replaceAll('[^a-z0-9_.-]', '-')
+                def containerName = "${timestamp}-ai-runner-${safeRepoName}"
+
+                sh """
+                    mkdir -p "${advisoryContext}"
+                """
+
+                echo "[PIPELINE] Advisory report directory: ${advisoryContext}"
+                echo "[PIPELINE] Running AI-driven security advisory generation in Docker container: ${containerName}"
+            }
         }
-      }
+    }
 
     stage('Deploy to Kubernetes Production Cluster [GKE] if Quality Gate Passed') {
       steps {

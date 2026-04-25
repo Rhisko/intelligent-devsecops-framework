@@ -65,7 +65,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /Users/risko/Data/tools/jenkins_data/report-ai-advisoty:/usr/share/nginx/html
+      - /Users/risko/Data/tools/jenkins_data/report-ai-advisory:/usr/share/nginx/html
       - /Users/risko/Data/Pasca_Sarjana/Thesis/Intelligent_DevSecOps_Framework/infrastructure/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - /Users/risko/Data/Pasca_Sarjana/Thesis/Intelligent_DevSecOps_Framework/infrastructure/nginx/generate-index.sh:/generate-index.sh:ro
     command: >
@@ -79,6 +79,19 @@ services:
           ) &
           nginx -g 'daemon off;'
           "
+    restart: unless-stopped
+  ai-advisory-renderer-service:
+    build:
+      dockerfile: ai-advisory/Dockerfile
+    image: ai-advisory-renderer:3.11.14
+    container_name: ai-advisory-renderer-service
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    volumes:
+      - /Users/risko/Data/Pasca_Sarjana/Thesis/Intelligent_DevSecOps_Framework/ai-advisory-platform:/ai-advisory-platform:ro
+      - /Users/risko/Data/tools/jenkins_data/report-ai-advisoty:/var/jenkins_home/report-ai-advisory
+    command: ["tail", "-f", "/dev/null"]
     restart: unless-stopped
   # nginx-report:
   #     image: nginx:stable-alpine
