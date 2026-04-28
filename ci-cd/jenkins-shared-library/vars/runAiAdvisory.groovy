@@ -27,7 +27,7 @@ def call(Map config = [:]) {
 
     def envs = []
 
-    def advisoryPayload = runner.runAndCapture(
+    def advisoryPayload = runner.run(
         "",
         meta.image,
         command,
