@@ -25,7 +25,7 @@ def call(Map config = [:]) {
 
     def runner = new devsecops.DockerRunner(this)
 
-    def envs = []
+    def envs = [:]
 
     def advisoryPayload = runner.run(
         "",
