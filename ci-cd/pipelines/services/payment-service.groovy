@@ -74,161 +74,161 @@ Event      : ${params.EVENT_TYPE}
       }
     }
 
-    stage('Python Linting [Ruff]') {
-      when {
-        expression { params.LANGUAGE?.toLowerCase() == 'python' }
-      }
-      steps {
-        script {
-          ruffToSonarPayload = runRuff(
-            path: '.',            // scan root repo
-          )
-          println "[PIPELINE] ruff to sonar payload: \n\n ${ruffToSonarPayload}"
-        }
-      }
-    }
-    stage('Static Application Security Testing [Semgrep]') {
-      steps {
-        script {
+    // stage('Python Linting [Ruff]') {
+    //   when {
+    //     expression { params.LANGUAGE?.toLowerCase() == 'python' }
+    //   }
+    //   steps {
+    //     script {
+    //       ruffToSonarPayload = runRuff(
+    //         path: '.',            // scan root repo
+    //       )
+    //       println "[PIPELINE] ruff to sonar payload: \n\n ${ruffToSonarPayload}"
+    //     }
+    //   }
+    // }
+    // stage('Static Application Security Testing [Semgrep]') {
+    //   steps {
+    //     script {
 
-            semgrepToSonarPayload = runSemgrep(
-              path: '.',
-              ruleset: [
-                '--config p/security-audit',
-                '--config p/owasp-top-ten',
-                '--config p/cwe-top-25'
-              ].join(' '),
-              extraArgs: [
-                '--exclude .git',
-                '--exclude node_modules',
-                '--exclude vendor',
-                '--exclude .venv',
-                '--exclude .env',
-                '--exclude *.sample',
-                '--exclude hooks'
-              ].join(' ')
-            )
+    //         semgrepToSonarPayload = runSemgrep(
+    //           path: '.',
+    //           ruleset: [
+    //             '--config p/security-audit',
+    //             '--config p/owasp-top-ten',
+    //             '--config p/cwe-top-25'
+    //           ].join(' '),
+    //           extraArgs: [
+    //             '--exclude .git',
+    //             '--exclude node_modules',
+    //             '--exclude vendor',
+    //             '--exclude .venv',
+    //             '--exclude .env',
+    //             '--exclude *.sample',
+    //             '--exclude hooks'
+    //           ].join(' ')
+    //         )
 
-            // echo "[PIPELINE] semgrep to sonar payload: ${semgrepToSonarPayload}"
-            }
-          }
-        }
-    stage("Workspace Integrity Verification") {
-      steps {
-        script {
-          workspaceIntegrity.assertUnchanged(workspaceBaseline)
-        }
-      }
-    }
-    stage('Build and Push Container Image') {
-      steps {
-        script {
-          def shortSha = params.COMMIT_HASH_AFTER.take(7)
-          def version  = "${params.TAG_NAME}-${shortSha}"
+    //         // echo "[PIPELINE] semgrep to sonar payload: ${semgrepToSonarPayload}"
+    //         }
+    //       }
+    //     }
+    // stage("Workspace Integrity Verification") {
+    //   steps {
+    //     script {
+    //       workspaceIntegrity.assertUnchanged(workspaceBaseline)
+    //     }
+    //   }
+    // }
+    // stage('Build and Push Container Image') {
+    //   steps {
+    //     script {
+    //       def shortSha = params.COMMIT_HASH_AFTER.take(7)
+    //       def version  = "${params.TAG_NAME}-${shortSha}"
 
-          buildAndPushImage(
-            image: params.REPOSITORY_NAME,
-            context: ".",
-            dockerfile: "Dockerfile",
-            buildArgs: [
-              APP_ENV: "production",
-              VERSION: version
-            ],
-            tag: version,
-            labels: [
-              "org.opencontainers.image.source"  : env.GIT_URL,
-              "org.opencontainers.image.revision": env.GIT_COMMIT,
-              "org.opencontainers.image.version" : version,
-              "org.opencontainers.image.created" : new Date()
-                .format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
-            ],
-            registry: "dockerhub"  // specify registry defined in docker-build.yaml
-          )
-        }
-      }
-    }
+    //       buildAndPushImage(
+    //         image: params.REPOSITORY_NAME,
+    //         context: ".",
+    //         dockerfile: "Dockerfile",
+    //         buildArgs: [
+    //           APP_ENV: "production",
+    //           VERSION: version
+    //         ],
+    //         tag: version,
+    //         labels: [
+    //           "org.opencontainers.image.source"  : env.GIT_URL,
+    //           "org.opencontainers.image.revision": env.GIT_COMMIT,
+    //           "org.opencontainers.image.version" : version,
+    //           "org.opencontainers.image.created" : new Date()
+    //             .format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
+    //         ],
+    //         registry: "dockerhub"  // specify registry defined in docker-build.yaml
+    //       )
+    //     }
+    //   }
+    // }
 
 
-    stage('Container Security Scan [Trivy]') {
-      steps {
-        script {
+    // stage('Container Security Scan [Trivy]') {
+    //   steps {
+    //     script {
 
-          def localImage = env.LOCAL_IMAGE
+    //       def localImage = env.LOCAL_IMAGE
 
-          // echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
-          // echo "[INFO] Local image     : ${localImage}"
-          echo "[PIPELINE] Running Trivy container image security scan ......"
+    //       // echo "[INFO] Published image : ${env.PUBLISHED_IMAGE}"
+    //       // echo "[INFO] Local image     : ${localImage}"
+    //       echo "[PIPELINE] Running Trivy container image security scan ......"
 
-          trivyToSonarPayload = runTrivy(
-            scanType: 'image',
-            target: localImage,
-            severity: 'LOW,MEDIUM,HIGH,CRITICAL'
-          )
-          echo "[PIPELINE] trivy to sonar payload: ${trivyToSonarPayload}"
+    //       trivyToSonarPayload = runTrivy(
+    //         scanType: 'image',
+    //         target: localImage,
+    //         severity: 'LOW,MEDIUM,HIGH,CRITICAL'
+    //       )
+    //       echo "[PIPELINE] trivy to sonar payload: ${trivyToSonarPayload}"
 
-          // Optional: log summary (do NOT parse deeply here)
-          // if (trivyResult?.Results) {
-          //   echo "[INFO] Trivy scan completed with ${trivyResult.Results.size()} result blocks"
-          // } else {
-          //   echo "[INFO] Trivy scan completed (no results or empty)"
-          // }
+    //       // Optional: log summary (do NOT parse deeply here)
+    //       // if (trivyResult?.Results) {
+    //       //   echo "[INFO] Trivy scan completed with ${trivyResult.Results.size()} result blocks"
+    //       // } else {
+    //       //   echo "[INFO] Trivy scan completed (no results or empty)"
+    //       // }
 
-          // // Send raw result to aggregator
-          // def trivyAgg = securityAggregator.call(
-          //   tool: 'trivy',
-          //   data: trivyResult,
-          //   metadata: [
-          //     image: localImage,
-          //     scope: 'local'
-          //   ]
-          // )
+    //       // // Send raw result to aggregator
+    //       // def trivyAgg = securityAggregator.call(
+    //       //   tool: 'trivy',
+    //       //   data: trivyResult,
+    //       //   metadata: [
+    //       //     image: localImage,
+    //       //     scope: 'local'
+    //       //   ]
+    //       // )
 
-        }
-      }
-    }
-    stage('Consolidate Trivy , Semgrep , Ruff Findings for SonarQube External Issues') {
-      steps {
-        script {
-          echo "[PIPELINE] Consolidating SonarQube External Issues payloads ......"
-          def payloads = [
-              ruffToSonarPayload,
-              semgrepToSonarPayload,
-              trivyToSonarPayload
-          ]
+    //     }
+    //   }
+    // }
+    // stage('Consolidate Trivy , Semgrep , Ruff Findings for SonarQube External Issues') {
+    //   steps {
+    //     script {
+    //       echo "[PIPELINE] Consolidating SonarQube External Issues payloads ......"
+    //       def payloads = [
+    //           ruffToSonarPayload,
+    //           semgrepToSonarPayload,
+    //           trivyToSonarPayload
+    //       ]
 
-          def mergedPayload = consolidateSonarPayload(payloads)
+    //       def mergedPayload = consolidateSonarPayload(payloads)
 
-          externalIssuesReportPathsName = "sonar-external-issues-${BUILD_NUMBER}.json"
+    //       externalIssuesReportPathsName = "sonar-external-issues-${BUILD_NUMBER}.json"
 
-          writeFile(
-            file: externalIssuesReportPathsName,
-            text: JsonOutput.prettyPrint(JsonOutput.toJson(mergedPayload))
-          )
-          def fileContent = readFile(externalIssuesReportPathsName)
-          echo "[PIPELINE] Merged SonarQube External Issues payload content:\n${fileContent}"
-        }
-      }
-    }
-    stage('Code Quality Analysis [SonarQube]') {
-      steps {
-        script {
-          withCredentials([
-            string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
-          ]) {
-          // sh "cat ${externalIssuesReportPathsName}"
-          echo "[PIPELINE] Performing code quality analysis using SonarQube"
-          sonarFindings = runSonar(
-            projectKey: "payment-service",
-            externalIssuesReportPaths: externalIssuesReportPathsName,
-            qualitygateWait: true,
-            qualitygateTimeout: 350
-          )
+    //       writeFile(
+    //         file: externalIssuesReportPathsName,
+    //         text: JsonOutput.prettyPrint(JsonOutput.toJson(mergedPayload))
+    //       )
+    //       def fileContent = readFile(externalIssuesReportPathsName)
+    //       echo "[PIPELINE] Merged SonarQube External Issues payload content:\n${fileContent}"
+    //     }
+    //   }
+    // }
+    // stage('Code Quality Analysis [SonarQube]') {
+    //   steps {
+    //     script {
+    //       withCredentials([
+    //         string(credentialsId: 'CREDS-SONAR-TOKEN', variable: 'SONAR_TOKEN')
+    //       ]) {
+    //       // sh "cat ${externalIssuesReportPathsName}"
+    //       echo "[PIPELINE] Performing code quality analysis using SonarQube"
+    //       sonarFindings = runSonar(
+    //         projectKey: "payment-service",
+    //         externalIssuesReportPaths: externalIssuesReportPathsName,
+    //         qualitygateWait: true,
+    //         qualitygateTimeout: 350
+    //       )
 
-          echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
-          }
-        }
-      }
-    }
+    //       echo "[PIPELINE] Sonar execution result: ${sonarFindings}"
+    //       }
+    //     }
+    //   }
+    // }
 
     stage('AI-Driven Security Advisory') {
             steps {

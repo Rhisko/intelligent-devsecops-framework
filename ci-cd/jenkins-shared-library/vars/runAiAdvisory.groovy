@@ -25,10 +25,7 @@ def call(Map config = [:]) {
 
     def runner = new devsecops.DockerRunner(this)
 
-    def envs = [
-        OPENAI_MODEL: openAiModel,
-        LOG_LEVEL   : logLevel
-    ]
+    def envs = []
 
     def advisoryPayload = runner.runAndCapture(
         "",
