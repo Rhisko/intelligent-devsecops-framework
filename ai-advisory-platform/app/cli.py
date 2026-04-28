@@ -15,3 +15,4 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument('--format', default=DEFAULT_OUTPUT_FORMAT, choices=['json'])
 
     return parser
+

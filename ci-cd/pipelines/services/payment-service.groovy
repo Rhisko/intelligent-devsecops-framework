@@ -236,10 +236,9 @@ Event      : ${params.EVENT_TYPE}
                 // For Create Directory naming convention, we can use a combination of repository name, tag, build number, and timestamp to ensure uniqueness and traceability. This way, each advisory report is clearly associated with the specific build and code state that generated it.
                 def timestamp = new Date().format("yyyyMMdd-HHmmss", TimeZone.getTimeZone("Asia/Jakarta"))
                 def reportBaseDir = "/var/jenkins_home/report-ai-advisory"
-                def reportDirName = "${params.REPOSITORY_NAME}-${params.TAG_NAME}-BUILD_NUMBER-${params.BUILD_NUMBER}-${timestamp}"
+                def advisoryContext = "${params.REPOSITORY_NAME}-${params.TAG_NAME}-BUILD_NUMBER-${env.BUILD_NUMBER}-${timestamp}"
 
                 // For creating a unique container name for the AI advisory generation, we can use a similar convention that includes the repository name, tag, build number, and timestamp. This ensures that each container instance is easily identifiable and traceable back to the specific build and code state that triggered it.
-                def advisoryContext = "${reportBaseDir}/${reportDirName}"
                 def safeRepoName = REPOSITORY_NAME.toLowerCase().replaceAll('[^a-z0-9_.-]', '-')
                 def containerName = "${timestamp}-ai-runner-${safeRepoName}"
 
