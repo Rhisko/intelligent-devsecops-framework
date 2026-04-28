@@ -15,13 +15,13 @@ def call(Map config = [:]) {
 
     def reportDir = "${env.BUILD_NUMBER}-${safeProjectKey}-${analysisMode}-${timestamp}"
         .replaceAll('[^a-zA-Z0-9_./-]', '_')
-    def reportPath = "/report/${reportDir}"
+
 
     def command = meta.command
         .replace('{project_key}', projectKey)
         .replace('{analysis_mode}', analysisMode)
         .replace('{sonar_url}', sonarUrl)
-        .replace('{report_dir}', reportPath)
+        .replace('{report_dir}', reportDir)
         .replace('{output_file}', outputFile)
 
     def runner = new devsecops.DockerRunner(this)
