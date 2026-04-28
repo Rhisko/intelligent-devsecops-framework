@@ -234,7 +234,7 @@ Event      : ${params.EVENT_TYPE}
             steps {
                 script {
                     def result = runAiAdvisory(
-                        project_key   : REPOSITORY_NAME,
+                        project_key   : "${params.REPOSITORY_NAME}",
                         analysis_mode : 'critical_analysis',
                         network       : 'infrastructure_default',
                         output_file   : 'advisory_report.json'
