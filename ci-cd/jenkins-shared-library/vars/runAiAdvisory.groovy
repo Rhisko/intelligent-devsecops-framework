@@ -13,7 +13,7 @@ def call(Map config = [:]) {
     def timestamp = new Date().format("yyyy-MM-dd_HH-mm-ss-SSS", TimeZone.getTimeZone("Asia/Jakarta"))
     def safeProjectKey = projectKey.replaceAll('[^a-zA-Z0-9_.-]', '-')
 
-    def reportDir = "/report-${env.BUILD_NUMBER}-${safeProjectKey}-${analysisMode}-${timestamp}"
+    def reportDir = "/report/${env.BUILD_NUMBER}-${safeProjectKey}-${analysisMode}-${timestamp}"
         .replaceAll('[^a-zA-Z0-9_./-]', '_')
 
     def command = meta.command
