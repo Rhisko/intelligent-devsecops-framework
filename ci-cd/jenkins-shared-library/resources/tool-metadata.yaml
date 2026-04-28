@@ -88,3 +88,7 @@ ai_advisory:
     --report-dir {report_dir}
   defaults:
     analysis_mode: "critical_analysis"
+    sonar_url: "http://sonarqube:9000"
+    report_dir: "report"
+    network: "infrastructure_default"
+    output_file: "advisory_report.json"

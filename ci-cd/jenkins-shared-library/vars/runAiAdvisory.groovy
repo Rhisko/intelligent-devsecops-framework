@@ -6,9 +6,6 @@ def call(Map config = [:]) {
     def projectKey    = config.project_key ?: error("[runAiAdvisory] project_key is required")
     def analysisMode  = config.analysis_mode ?: meta.defaults.analysis_mode
     def sonarUrl      = config.sonar_url ?: meta.defaults.sonar_url
-    def openAiModel   = config.openai_model ?: meta.defaults.openai_model
-    def logLevel      = config.log_level ?: meta.defaults.log_level
-    def reportBaseDir = config.report_base_dir ?: meta.defaults.report_base_dir
     def networkName   = config.network ?: meta.defaults.network
     def outputFile    = config.output_file ?: meta.defaults.output_file
 
