@@ -13,14 +13,15 @@ def call(Map config = [:]) {
     def timestamp = new Date().format("yyyy-MM-dd_HH-mm-ss-SSS", TimeZone.getTimeZone("Asia/Jakarta"))
     def safeProjectKey = projectKey.replaceAll('[^a-zA-Z0-9_.-]', '-')
 
-    def reportDir = "/report/${env.BUILD_NUMBER}-${safeProjectKey}-${analysisMode}-${timestamp}"
+    def reportDir = "${env.BUILD_NUMBER}-${safeProjectKey}-${analysisMode}-${timestamp}"
         .replaceAll('[^a-zA-Z0-9_./-]', '_')
+    def reportPath = "/report/${reportDir}"
 
     def command = meta.command
         .replace('{project_key}', projectKey)
         .replace('{analysis_mode}', analysisMode)
         .replace('{sonar_url}', sonarUrl)
-        .replace('{report_dir}', reportDir)
+        .replace('{report_dir}', reportPath)
         .replace('{output_file}', outputFile)
 
     def runner = new devsecops.DockerRunner(this)
