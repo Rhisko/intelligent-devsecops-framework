@@ -10,5 +10,3 @@ report-output
 dist
 build
 node_modules
-.env
-.env.*
