@@ -76,3 +76,15 @@ sonarqube:
     branch: main
     externalIssuesReportPaths: 'sonar-external-issues.json'
   category: code_quality
+
+ai_advisory:
+  image: "ai-runner-advisory:v1.0.0"
+  command: >
+    python -m app.main
+    --project-key {project_key}
+    --analysis-mode {analysis_mode}
+    --sonar-url {sonar_url}
+    --output-file advisory_report.json
+    --report-dir {report_dir}
+  defaults:
+    analysis_mode: "critical_analysis"

@@ -231,22 +231,27 @@ Event      : ${params.EVENT_TYPE}
     }
 
     stage('AI-Driven Security Advisory') {
-        steps {
-            script {
-                // For Create Directory naming convention, we can use a combination of repository name, tag, build number, and timestamp to ensure uniqueness and traceability. This way, each advisory report is clearly associated with the specific build and code state that generated it.
-                def timestamp = new Date().format("yyyyMMdd-HHmmss", TimeZone.getTimeZone("Asia/Jakarta"))
-                def reportBaseDir = "/var/jenkins_home/report-ai-advisory"
-                def advisoryContext = "${params.REPOSITORY_NAME}-${params.TAG_NAME}-BUILD_NUMBER-${env.BUILD_NUMBER}-${timestamp}"
+            steps {
+                script {
+                    def result = runAiAdvisory(
+                        project_key   : REPOSITORY_NAME,
+                        analysis_mode : 'critical_analysis',
+                        network       : 'infrastructure_default',
+                        output_file   : 'advisory_report.json'
+                    )
 
-                // For creating a unique container name for the AI advisory generation, we can use a similar convention that includes the repository name, tag, build number, and timestamp. This ensures that each container instance is easily identifiable and traceable back to the specific build and code state that triggered it.
-                def safeRepoName = REPOSITORY_NAME.toLowerCase().replaceAll('[^a-z0-9_.-]', '-')
-                def containerName = "${timestamp}-ai-runner-${safeRepoName}"
+                    echo "[PIPELINE] Report dir  : ${result.report_dir}"
+                    echo "[PIPELINE] Report path : ${result.report_path}"
+                    echo "[PIPELINE] Raw payload : ${result.payload}"
 
+                    def advisory = readJSON text: result.payload
 
-                echo "[PIPELINE] Advisory report directory: ${advisoryContext}"
-                echo "[PIPELINE] Running AI-driven security advisory generation in Docker container: ${containerName}"
-            }
-        }
+                    echo "[PIPELINE] Project              : ${advisory.project}"
+                    echo "[PIPELINE] Overall Risk         : ${advisory.overall_risk}"
+                    echo "[PIPELINE] Exploitation Risk    : ${advisory.exploitation_risk}"
+                    echo "[PIPELINE] Release Recommendation: ${advisory.release_recommendation}"
+          }
+      }
     }
 
     stage('Deploy to Kubernetes Production Cluster [GKE] if Quality Gate Passed') {
