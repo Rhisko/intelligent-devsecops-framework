@@ -92,3 +92,4 @@ ai_advisory:
     report_dir: "report"
     network: "infrastructure_default"
     output_file: "advisory_report.json"
+    report_base_dir: "/var/jenkins_home/report-ai-advisory"

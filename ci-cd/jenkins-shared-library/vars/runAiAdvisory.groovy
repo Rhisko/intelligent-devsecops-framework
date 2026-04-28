@@ -8,6 +8,7 @@ def call(Map config = [:]) {
     def sonarUrl      = config.sonar_url ?: meta.defaults.sonar_url
     def networkName   = config.network ?: meta.defaults.network
     def outputFile    = config.output_file ?: meta.defaults.output_file
+    def repoprtBaseDir  = config.report_base_dir ?: meta.defaults.report_base_dir
 
     def timestamp = new Date().format("yyyy-MM-dd_HH-mm-ss-SSS", TimeZone.getTimeZone("Asia/Jakarta"))
     def safeProjectKey = projectKey.replaceAll('[^a-zA-Z0-9_.-]', '-')
