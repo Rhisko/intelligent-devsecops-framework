@@ -243,7 +243,7 @@ Event      : ${params.EVENT_TYPE}
                     // echo "[PIPELINE] Report stdout  :   ${result.stdout}"
                     // echo "[PIPELINE] Payload Path   :   ${result.report_path_file}"
                     // def advisoryPayloadpath = "/report/${result.report_path_file}"
-                    def advisoryPayloadpath = "245-payment-service-critical_analysis-2026-04-30_06-05-56-583/advisory_report.json"
+                    def advisoryPayloadpath = "/report/245-payment-service-critical_analysis-2026-04-30_06-05-56-583/advisory_report.json"
   
                     def summary = parseAdvisorySummary(
                         file: advisoryPayloadpath
