@@ -233,18 +233,19 @@ Event      : ${params.EVENT_TYPE}
     stage('AI-Driven Security Advisory') {
             steps {
                 script {
-                    def result = runAiAdvisory(
-                        project_key   : "${params.REPOSITORY_NAME}",
-                        analysis_mode : 'critical_analysis',
-                        network       : 'infrastructure_default',
-                        output_file   : 'advisory_report.json'
-                    )
+                    // def result = runAiAdvisory(
+                    //     project_key   : "${params.REPOSITORY_NAME}",
+                    //     analysis_mode : 'critical_analysis',
+                    //     network       : 'infrastructure_default',
+                    //     output_file   : 'advisory_report.json'
+                    // )
 
-                    echo "[PIPELINE] Report stdout  :   ${result.stdout}"
-                    echo "[PIPELINE] Payload Path   :   ${result.report_path_file}"
-                    def advisoryPayloadpath = "/report/${result.report_path_file}"
+                    // echo "[PIPELINE] Report stdout  :   ${result.stdout}"
+                    // echo "[PIPELINE] Payload Path   :   ${result.report_path_file}"
+                    // def advisoryPayloadpath = "/report/${result.report_path_file}"
+                    def advisoryPayloadpath = "245-payment-service-critical_analysis-2026-04-30_06-05-56-583/advisory_report.json"
   
-                    def summary = parseAiAdvisorySummary(
+                    def summary = parseAdvisorySummary(
                         file: advisoryPayloadpath
                     )
 
