@@ -230,7 +230,7 @@ Event      : ${params.EVENT_TYPE}
     //   }
     // }
 
-    stage('AI-Driven Security Advisory') {
+    stage('AI-Driven Security Advisory , PUBLISH REPORT TO WEB PORTAL AND SEND NOTIFICATIONS TO TELEGRAM') {
             steps {
                 script {
                     // def result = runAiAdvisory(
@@ -249,11 +249,24 @@ Event      : ${params.EVENT_TYPE}
                         file: advisoryPayloadpath
                     )
 
-                    echo "Project               : ${summary.project}"
-                    echo "Overall Risk          : ${summary.overall_risk}"
-                    echo "Exploitation Risk     : ${summary.exploitation_risk}"
-                    echo "Release Recommendation: ${summary.release_recommendation}"
-                    echo "Executive Summary     : ${summary.executive_summary}"
+                    // def summary = parseAiAdvisorySummary(
+                    //     file: result.output_file
+                    // )
+
+                    sendToTelegram(
+                        chat_id: "807133387",
+                        credentials_id: "telegram-token-notification",
+                        project: summary.project,
+                        overall_risk: summary.overall_risk,
+                        exploitation_risk: summary.exploitation_risk,
+                        release_recommendation: summary.release_recommendation,
+                        executive_summary: summary.executive_summary,
+                        report_url: "http://localhost",
+                        job_name: env.JOB_NAME,
+                        build_number: env.BUILD_NUMBER,
+                        environment: env.ENVIRONMENT ?: "N/A",
+                        timestamp: new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("Asia/Jakarta"))
+                    )
 
           }
       }
