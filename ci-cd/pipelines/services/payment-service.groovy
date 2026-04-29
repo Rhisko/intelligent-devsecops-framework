@@ -253,7 +253,7 @@ Event      : ${params.EVENT_TYPE}
                     //     file: result.output_file
                     // )
 
-                    sendToTelegram(
+                    sendTelegramNotification(
                         chat_id: "807133387",
                         credentials_id: "telegram-token-notification",
                         project: summary.project,
