@@ -240,16 +240,20 @@ Event      : ${params.EVENT_TYPE}
                         output_file   : 'advisory_report.json'
                     )
 
-                    echo "[PIPELINE] Report dir  : ${result.report_dir}"
-                    echo "[PIPELINE] Report path : ${result.report_path}"
-                    echo "[PIPELINE] Raw payload : ${result.payload}"
+                    echo "[PIPELINE] Report stdout  :   "${result.stdout}"
+                    echo "[PIPELINE] Payload Path   :   "${result.report_path_file}"
+                    def advisoryPayloadpath = "/report/${result.report_path_file}"
+  
+                    def summary = parseAiAdvisorySummary(
+                        file: advisoryPayloadpath
+                    )
 
-                    def advisory = readJSON text: result.payload
+                    echo "Project               : ${summary.project}"
+                    echo "Overall Risk          : ${summary.overall_risk}"
+                    echo "Exploitation Risk     : ${summary.exploitation_risk}"
+                    echo "Release Recommendation: ${summary.release_recommendation}"
+                    echo "Executive Summary     : ${summary.executive_summary}"
 
-                    echo "[PIPELINE] Project              : ${advisory.project}"
-                    echo "[PIPELINE] Overall Risk         : ${advisory.overall_risk}"
-                    echo "[PIPELINE] Exploitation Risk    : ${advisory.exploitation_risk}"
-                    echo "[PIPELINE] Release Recommendation: ${advisory.release_recommendation}"
           }
       }
     }

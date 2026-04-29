@@ -53,7 +53,7 @@ def render_report(
     output_path: str | Path,
     template_dir: str | Path = "./configs",
     template_name: str = "security_advisory_report.html.j2",
-    logo_filename: str = "logo.png",
+    logo_filename: str = "../logo.png",
 ) -> Path:
     env = Environment(
         loader=FileSystemLoader(str(template_dir)),

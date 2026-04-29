@@ -28,7 +28,7 @@ def call(Map config = [:]) {
 
     def envs = [:]
 
-    def advisoryPayload = runner.run(
+    def advisoryStdout = runner.run(
         "",
         meta.image,
         command,
@@ -39,14 +39,13 @@ def call(Map config = [:]) {
         networkName
     )
 
-    if (!advisoryPayload?.trim()) {
+    if (!advisoryStdout?.trim()) {
         error("[runAiAdvisory] Empty stdout received from AI advisory container")
     }
 
     return [
-        payload    : advisoryPayload.trim(),
+        stdout    : advisoryStdout.trim(),
         report_dir : reportDir,
-        report_path: "${reportBaseDir}/${reportDir}",
-        output_file: "${reportBaseDir}/${reportDir}/${outputFile}"
+        report_path_file: "${reportDir}/${outputFile}",
     ]
 }
