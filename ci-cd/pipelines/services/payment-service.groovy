@@ -240,8 +240,8 @@ Event      : ${params.EVENT_TYPE}
                         output_file   : 'advisory_report.json'
                     )
 
-                    echo "[PIPELINE] Report stdout  :   "${result.stdout}"
-                    echo "[PIPELINE] Payload Path   :   "${result.report_path_file}"
+                    echo "[PIPELINE] Report stdout  :   ${result.stdout}"
+                    echo "[PIPELINE] Payload Path   :   ${result.report_path_file}"
                     def advisoryPayloadpath = "/report/${result.report_path_file}"
   
                     def summary = parseAiAdvisorySummary(
