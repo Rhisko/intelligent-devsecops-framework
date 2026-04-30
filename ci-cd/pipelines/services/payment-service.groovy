@@ -244,15 +244,12 @@ Event      : ${params.EVENT_TYPE}
                     echo "[PIPELINE] Payload Path   :   ${result.report_path_file}"
                     def advisoryPayloadpath = "/report/${result.report_path_file}"
                     
-                    // def advisoryPayloadpath = "/report/245-payment-service-critical_analysis-2026-04-30_06-05-56-583/advisory_report.json"
   
                     def summary = parseAdvisorySummary(
                         file: advisoryPayloadpath
                     )
 
-                    // def summary = parseAiAdvisorySummary(
-                    //     file: result.output_file
-                    // )
+
 
                     sendTelegramNotification(
                         chat_id: "807133387",
@@ -268,6 +265,7 @@ Event      : ${params.EVENT_TYPE}
                         environment: env.ENVIRONMENT ?: "PRODUCTION",
                         timestamp: new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("Asia/Jakarta"))
                     )
+                    env.STATUS_DEPLOYMENT = summary.release_recommendation
 
           }
       }
@@ -277,10 +275,23 @@ Event      : ${params.EVENT_TYPE}
       steps {
         script {
           echo "[PIPELINE] Deploying application to Kubernetes production cluster"
+          if (env.STATUS_DEPLOYMENT == "SAFE_TO_DEPLOY") {
+            deployToGKE(
+              clusterName: "gke-cluster-1",
+              clusterZone: "us-central1-a",
+              namespace: "payment-service",
+              image: env.PUBLISHED_IMAGE,
+              deploymentName: "payment-service-deployment",
+              containerName: "payment-service-container"
+            )
+          } else {
+            echo "[PIPELINE] Deployment skipped due to advisory recommendation: ${env.STATUS_DEPLOYMENT}"
+
+
           }
         }
       }
-
+    }
     stage('Publish Security Report to web portal and send notifications To Telegram') {
       steps {
         script {
