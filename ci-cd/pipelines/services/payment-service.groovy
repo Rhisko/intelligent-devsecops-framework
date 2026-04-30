@@ -264,7 +264,7 @@ Event      : ${params.EVENT_TYPE}
                         report_url: "http://localhost",
                         job_name: env.JOB_NAME,
                         build_number: env.BUILD_NUMBER,
-                        environment: env.ENVIRONMENT ?: "N/A",
+                        environment: env.ENVIRONMENT ?: "PRODUCTION",
                         timestamp: new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("Asia/Jakarta"))
                     )
 
