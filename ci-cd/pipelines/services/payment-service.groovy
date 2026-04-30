@@ -274,20 +274,28 @@ Event      : ${params.EVENT_TYPE}
     stage('Deploy to Kubernetes Production Cluster [GKE] if Quality Gate Passed') {
       steps {
         script {
-          echo "[PIPELINE] Deploying application to Kubernetes production cluster"
-          if (env.STATUS_DEPLOYMENT == "SAFE_TO_DEPLOY") {
-            deployToGKE(
-              clusterName: "gke-cluster-1",
-              clusterZone: "us-central1-a",
-              namespace: "payment-service",
-              image: env.PUBLISHED_IMAGE,
-              deploymentName: "payment-service-deployment",
-              containerName: "payment-service-container"
-            )
-          } else {
-            echo "[PIPELINE] Deployment skipped due to advisory recommendation: ${env.STATUS_DEPLOYMENT}"
+          catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            def deploymentStatus = env.STATUS_DEPLOYMENT ?: "UNKNOWN"
 
+            echo "[PIPELINE] Deployment status: ${deploymentStatus}"
 
+            if (deploymentStatus == "SAFE_TO_DEPLOY") {
+              echo "[PIPELINE] Deploying application to Kubernetes production cluster"
+
+              deployToGKE(
+                clusterName: "gke-cluster-1",
+                clusterZone: "us-central1-a",
+                namespace: "payment-service",
+                image: env.PUBLISHED_IMAGE,
+                deploymentName: "payment-service-deployment",
+                containerName: "payment-service-container"
+              )
+
+            } else {
+              echo "[PIPELINE] Deployment blocked due to advisory recommendation: ${deploymentStatus}"
+
+              error("[PIPELINE] Production deployment rejected. Expected SAFE_TO_DEPLOY, but got: ${deploymentStatus}")
+            }
           }
         }
       }
