@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-default-quota
+  namespace: dbank-app-01-dev
+spec:
+  hard:
+    requests.cpu: "2"
+    requests.memory: 4Gi
+    limits.cpu: "4"
+    limits.memory: 8Gi
+    pods: "30"
+    services: "10"
+    configmaps: "30"
+    secrets: "30"
+    persistentvolumeclaims: "5"
+

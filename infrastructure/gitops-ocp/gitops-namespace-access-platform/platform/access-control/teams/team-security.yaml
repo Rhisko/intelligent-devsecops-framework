@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-security
+spec:
+  group: ocp-team-security
+  domain: security
+  description: Security engineering team.
+

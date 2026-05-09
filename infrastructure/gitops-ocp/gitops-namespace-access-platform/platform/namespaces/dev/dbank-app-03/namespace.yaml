@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dbank-app-03-dev
+  labels:
+    app.kubernetes.io/name: dbank-app-03
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/managed-by: platform-team
+    platform.company.io/application: dbank-app-03
+    platform.company.io/environment: dev
+    platform.company.io/domain: loan-management
+

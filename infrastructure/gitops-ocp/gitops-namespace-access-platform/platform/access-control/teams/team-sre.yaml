@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-sre
+spec:
+  group: ocp-team-sre
+  domain: reliability
+  description: Site reliability engineering team.
+

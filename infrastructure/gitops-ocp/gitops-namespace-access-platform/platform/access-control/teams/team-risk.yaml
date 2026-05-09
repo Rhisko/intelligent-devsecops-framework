@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-risk
+spec:
+  group: ocp-team-risk
+  domain: risk-management
+  description: Risk management application team.
+

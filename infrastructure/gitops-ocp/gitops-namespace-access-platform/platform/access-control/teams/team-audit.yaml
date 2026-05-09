@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-audit
+spec:
+  group: ocp-team-audit
+  domain: audit
+  description: Audit and compliance team.
+

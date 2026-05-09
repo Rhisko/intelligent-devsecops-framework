@@ -13,7 +13,7 @@ from app.domain.rules.prioritization_rules import sort_findings
 class PreprocessingService:
     def preprocess(self, issues: list[Issue]) -> tuple[list, RiskProfile, dict[str, list]]:
         findings = merge_issues_to_findings(issues)
-        print(f'Total findings after preprocessing: {len(findings)}')
+        print(f'Total findings after Merged : {len(findings)}')
         findings = sort_findings(findings)
         print(f'Top findings after sorting: {len(findings)}')
         grouped = group_findings_by_path(findings)
@@ -22,7 +22,6 @@ class PreprocessingService:
         counts = Counter(f.severity for f in findings)
         file_scores = Counter()
         for finding in findings:
-            # print(f"Finding: {finding.path} - Severity: {finding.severity} - Score: {finding.score}")
             file_scores[finding.path] += finding.score
         top_risk_files = [path for path, _ in file_scores.most_common(5)]
 

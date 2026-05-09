@@ -16,8 +16,9 @@ For each finding, determine:
 
 Rules:
 - do not merge unrelated findings
-- do not omit any critical finding from the provided input
+- do not omit any finding from payload.critical_findings
+- return exactly payload.input_counts.critical_findings rows in the findings array
+- do not limit the output to 10 findings
 - keep each field concise and operational
 - if the same root cause appears multiple times, keep the findings separate unless the input already groups them
 - if the evidence is insufficient, say so explicitly and reduce confidence
-

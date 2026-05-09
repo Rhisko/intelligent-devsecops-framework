@@ -33,4 +33,8 @@ class Bootstrap:
             timeout_seconds=app_config.get('http_timeout_seconds', 30),
         )
         model_router = ModelRouter(str(self.project_root / 'configs' / 'model_routing.yaml'))
-        return AnalyzeSonarProjectUseCase(sonar_client=sonar_client, model_router=model_router)
+        return AnalyzeSonarProjectUseCase(
+            sonar_client=sonar_client,
+            model_router=model_router,
+            max_top_findings=app_config.get('max_top_findings', 10),
+        )

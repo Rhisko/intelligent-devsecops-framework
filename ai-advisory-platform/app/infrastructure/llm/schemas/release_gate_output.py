@@ -8,5 +8,8 @@ class ReleaseGateOutput(BaseModel):
     overall_risk: str
     release_recommendation: str
     release_rationale: str
-    top_findings: list[str] = Field(default_factory=list)
+    top_findings: list[str] = Field(
+        default_factory=list,
+        description="One concise evidence entry for every item in payload.top_findings; do not cap the list at 10.",
+    )
     recommended_actions: list[str] = Field(default_factory=list)

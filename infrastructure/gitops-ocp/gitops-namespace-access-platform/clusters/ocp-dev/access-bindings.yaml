@@ -1,0 +1,10 @@
+apiVersion: platform.company.io/v1alpha1
+kind: ClusterEntrypoint
+metadata:
+  name: access-bindings
+spec:
+  cluster: ocp-dev
+  path: platform/access-control/bindings/dev
+  managedResources:
+    - RoleBinding
+

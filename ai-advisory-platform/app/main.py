@@ -18,7 +18,7 @@ def main() -> int:
 
     use_case = Bootstrap().build_analyze_sonar_project_use_case(sonar_url_override=args.sonar_url)
     result = use_case.execute(project_key=args.project_key, analysis_mode=args.analysis_mode)
-    report_dir = ensure_directory(f"/report/{args.report_dir}")
+    report_dir = ensure_directory(f"./report/{args.report_dir}")
    
     render_report(
         report=result,

@@ -8,11 +8,11 @@ from app.infrastructure.llm.langchain.model_router import ModelRouter
 
 
 class BuildReleaseGateAdvisoryUseCase:
-    def __init__(self, model_router: ModelRouter):
+    def __init__(self, model_router: ModelRouter, max_top_findings: int = 10):
         self.preprocessing_service = PreprocessingService()
         self.risk_scoring_service = RiskScoringService()
         self.routing_service = RoutingService()
-        self.advisory_service = AdvisoryService()
+        self.advisory_service = AdvisoryService(max_findings=max_top_findings)
         self.model_router = model_router
 
     def execute(self, project_key: str, issues: list):

@@ -1,0 +1,17 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: ApplicationAccess
+metadata:
+  name: dbank-app-05
+spec:
+  namespace: dbank-app-05-dev
+  environment: dev
+  domain: integration
+  repository: https://git.example.com/apps/dbank-app-05.git
+  owners:
+    - ocp-team-integration
+  operators:
+    - ocp-team-platform
+  viewers:
+    - ocp-team-security
+    - ocp-team-digital-banking
+

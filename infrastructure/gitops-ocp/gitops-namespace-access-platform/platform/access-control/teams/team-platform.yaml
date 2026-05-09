@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-platform
+spec:
+  group: ocp-team-platform
+  domain: platform
+  description: Platform engineering team.
+

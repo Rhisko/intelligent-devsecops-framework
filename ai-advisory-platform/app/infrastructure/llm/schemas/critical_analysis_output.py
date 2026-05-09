@@ -36,5 +36,8 @@ class CriticalAnalysisOutput(BaseModel):
     exploitation_risk: Literal["CRITICAL", "HIGH", "MEDIUM", "LOW"]
     release_recommendation: Literal["HOLD", "REVIEW", "GO"]
     executive_summary: str = Field(description="Short summary for security lead or manager")
-    findings: list[CriticalFindingRow] = Field(default_factory=list)
+    findings: list[CriticalFindingRow] = Field(
+        default_factory=list,
+        description="One row for every item in payload.critical_findings; do not cap the list at 10.",
+    )
     immediate_actions: list[str] = Field(default_factory=list)

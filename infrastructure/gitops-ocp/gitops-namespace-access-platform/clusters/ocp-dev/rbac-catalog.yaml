@@ -1,0 +1,10 @@
+apiVersion: platform.company.io/v1alpha1
+kind: ClusterEntrypoint
+metadata:
+  name: rbac-catalog
+spec:
+  cluster: ocp-dev
+  path: platform/rbac-catalog
+  managedResources:
+    - ClusterRole
+

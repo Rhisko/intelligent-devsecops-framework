@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../platform/namespaces/dev
+  - ../../platform/rbac-catalog
+  - ../../platform/access-control/bindings/dev
+  - ../../platform/argocd-guardrails
+

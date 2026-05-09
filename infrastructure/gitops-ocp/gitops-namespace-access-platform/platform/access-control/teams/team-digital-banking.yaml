@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-digital-banking
+spec:
+  group: ocp-team-digital-banking
+  domain: digital-banking
+  description: Digital banking application team.
+

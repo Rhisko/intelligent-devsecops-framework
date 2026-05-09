@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-integration
+spec:
+  group: ocp-team-integration
+  domain: integration
+  description: Integration application team.
+

@@ -1,0 +1,45 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dbank-app-05-owners
+  namespace: dbank-app-05-dev
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-team-integration
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: namespace-owner-limited
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dbank-app-05-operators
+  namespace: dbank-app-05-dev
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-team-platform
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: namespace-operator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dbank-app-05-viewers
+  namespace: dbank-app-05-dev
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-team-security
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-team-digital-banking
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: namespace-readonly
+

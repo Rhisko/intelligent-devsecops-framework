@@ -1,0 +1,13 @@
+apiVersion: platform.company.io/v1alpha1
+kind: ClusterEntrypoint
+metadata:
+  name: namespace-baseline
+spec:
+  cluster: ocp-dev
+  path: platform/namespaces/dev
+  managedResources:
+    - Namespace
+    - ResourceQuota
+    - LimitRange
+    - NetworkPolicy
+

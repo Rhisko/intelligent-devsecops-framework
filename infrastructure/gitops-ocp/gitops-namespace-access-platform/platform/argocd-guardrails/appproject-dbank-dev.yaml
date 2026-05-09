@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dbank-dev
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: dbank-dev
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/managed-by: platform-team
+spec:
+  description: Guardrails for dbank application repositories in dev namespaces.
+  sourceRepos:
+    - https://git.example.com/apps/dbank-app-01.git
+    - https://git.example.com/apps/dbank-app-02.git
+    - https://git.example.com/apps/dbank-app-03.git
+    - https://git.example.com/apps/dbank-app-04.git
+    - https://git.example.com/apps/dbank-app-05.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-01-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-02-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-03-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-04-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-05-dev
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: ""
+      kind: ServiceAccount
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: Secret
+    - group: ""
+      kind: Service
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: StatefulSet
+    - group: batch
+      kind: Job
+    - group: batch
+      kind: CronJob
+    - group: route.openshift.io
+      kind: Route
+    - group: networking.k8s.io
+      kind: Ingress
+  orphanedResources:
+    warn: true
+

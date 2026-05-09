@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dbank-app-05-dev
+  labels:
+    app.kubernetes.io/name: dbank-app-05
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/managed-by: platform-team
+    platform.company.io/application: dbank-app-05
+    platform.company.io/environment: dev
+    platform.company.io/domain: integration
+

@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-loan
+spec:
+  group: ocp-team-loan
+  domain: loan-management
+  description: Loan management application team.
+

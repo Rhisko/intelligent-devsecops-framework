@@ -1,0 +1,9 @@
+apiVersion: access.platform.company.io/v1alpha1
+kind: AccessTeam
+metadata:
+  name: team-card
+spec:
+  group: ocp-team-card
+  domain: card-management
+  description: Card management application team.
+

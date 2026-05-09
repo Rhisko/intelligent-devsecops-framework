@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>payment-service - Security Advisory Report</title>
+  <style>
+    :root {
+      --bg: #ece8d4;
+      --panel: #ffffff;
+      --panel-2: #f8f6ee;
+      --text: #23232c;
+      --muted: #666a75;
+      --border: #ddd6cb;
+      --accent: #4a2dff;
+      --critical: #c62839;
+      --high: #d97706;
+      --medium: #b28a00;
+      --low: #21885a;
+      --white: #ffffff;
+      --shadow: 0 14px 34px rgba(38, 16, 77, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(74,45,255,.08), transparent 24%),
+        radial-gradient(circle at top left, rgba(193,0,28,.08), transparent 22%),
+        linear-gradient(180deg, #ece8d4 0%, #f5f5ee 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "Pamulang University";
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: clamp(64px, 8vw, 120px);
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: rgba(74, 45, 255, 0.045);
+      transform: rotate(-24deg);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      white-space: nowrap;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 20px 20px 36px;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(100deg, #c0001b 0%, #a50046 42%, #3559c7 100%);
+      border: 1px solid var(--border);
+      border-bottom: 4px solid #d7d21c;
+      border-radius: 22px;
+      padding: 32px 36px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "PU";
+      position: absolute;
+      right: 28px;
+      top: 18px;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 34px;
+      font-weight: 900;
+      color: rgba(255,255,255,.18);
+      border: 2px solid rgba(255,255,255,.14);
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.05);
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 16px;
+      padding-right: 110px;
+    }
+
+    .hero-logo {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      border: 2px solid rgba(255,255,255,0.22);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.16);
+      padding: 6px;
+      flex: 0 0 auto;
+    }
+
+    .hero-text { min-width: 0; }
+
+    .eyebrow {
+      color: rgba(255,255,255,0.96);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 3vw, 40px);
+      line-height: 1.12;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    }
+
+    .subtitle {
+      color: rgba(255,255,255,0.97);
+      max-width: 1200px;
+      font-size: 15px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0 8px;
+    }
+
+    .metric-card {
+      background: rgba(255,255,255,.90);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px 18px;
+      position: relative;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .metric-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #d62828 0%, #e6d11f 50%, #4a2dff 100%);
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+      padding-left: 8px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      padding-left: 8px;
+      word-break: break-word;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,.97), rgba(249,248,242,.99));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .panel-head {
+      padding: 18px 22px 8px;
+      border-bottom: 1px solid #ece6dc;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .panel-body {
+      padding: 18px 22px 22px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      background: #7a8190;
+    }
+
+    .badge-critical { background: #fde7eb; border: 1px solid #efb2be; color: #c62839; }
+    .badge-high { background: #fff0df; border: 1px solid #efc490; color: #d97706; }
+    .badge-medium { background: #fff7d9; border: 1px solid #e5d087; color: #b28a00; }
+    .badge-low { background: #e4f6ed; border: 1px solid #a6d7bb; color: #21885a; }
+    .badge-neutral { background: #eef1f6; border: 1px solid #cfd5de; color: #6f7480; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid #dad58a;
+      background: #f3efcf;
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+
+    .chip-label {
+      color: #6b661f;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .chip-value {
+      font-weight: 700;
+      color: #4d4909;
+    }
+
+    .actions {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .actions li {
+      margin: 0 0 10px;
+      color: var(--text);
+    }
+
+    .table-wrap {
+      overflow: auto;
+      width: 100%;
+      border-radius: 0 0 22px 22px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1800px;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #f4f1e6;
+      color: #393d45;
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 14px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(120,120,120,.08);
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(249,248,242,.96);
+    }
+
+    tbody tr:hover {
+      background: rgba(232, 223, 172, .34);
+    }
+
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; }
+    .small { font-size: 12px; }
+    .muted { color: var(--muted); }
+    .center { text-align: center; }
+
+    .title-cell {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .type-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #f4f4ef;
+      border: 1px solid #ddd8cf;
+      color: #5f6470;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .engine-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .mini-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #efeaff;
+      border: 1px solid #d5c9ff;
+      color: #4a2dff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .footer {
+      color: #6f7280;
+      font-size: 12px;
+      margin-top: 16px;
+      padding: 0 4px;
+    }
+
+    @media (max-width: 1400px) {
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 24px;
+      }
+
+      .hero-brand {
+        padding-right: 0;
+      }
+
+      .hero::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        padding: 12px;
+      }
+
+      .hero-brand {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-brand">
+        <img class="hero-logo" src="../logo.png" alt="Pamulang University logo" />
+        <div class="hero-text">
+          <div class="eyebrow">Security Advisory Report</div>
+          <h1>payment-service — Critical Findings Review</h1>
+          <div class="subtitle">The project has 14 critical findings including high-risk vulnerabilities such as unsafe use of eval(), SQL injection vectors, hardcoded secrets, insecure hashing, container running as root, and multiple critical dependency vulnerabilities. Immediate remediation is required to prevent potential code execution, data compromise, and privilege escalation.</div>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="metric-card">
+          <div class="metric-label">Project</div>
+          <div class="metric-value">payment-service</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Overall Risk</div>
+          <div class="metric-value"><span class="badge badge-critical">CRITICAL</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Exploitation Risk</div>
+          <div class="metric-value"><span class="badge badge-critical">CRITICAL</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Release Recommendation</div>
+          <div class="metric-value"><span class="badge badge-critical">HOLD</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Critical Findings</div>
+          <div class="metric-value">10</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Release Blockers</div>
+          <div class="metric-value">10</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">Risk Distribution</h2>
+        </div>
+        <div class="panel-body">
+          <div class="muted small" style="margin-bottom:10px;">Severity</div>
+          <div class="chips" style="margin-bottom:18px;">
+            <div class="chip">
+              <span class="chip-label">CRITICAL</span>
+              <span class="chip-value">10</span>
+            </div>
+          </div>
+
+          <div class="muted small" style="margin-bottom:10px;">Detection Engines</div>
+          <div class="chips">
+            <div class="chip">
+              <span class="chip-label">ruff</span>
+              <span class="chip-value">7</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">semgrep</span>
+              <span class="chip-value">3</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">trivy</span>
+              <span class="chip-value">2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">Immediate Actions</h2>
+        </div>
+        <div class="panel-body">
+          <ol class="actions">
+            <li>Replace all uses of MD5 with SHA256 or stronger hash functions in app/crypto.py.</li>
+            <li>Refactor eval() usage in app/payment.py to use safe parsing methods like ast.literal_eval().</li>
+            <li>Update OpenSSL package in Dockerfile to fixed version 3.5.4-1~deb13u2 or later.</li>
+            <li>Upgrade jaraco.context and other vulnerable dependencies in requirements.txt to secure versions.</li>
+            <li>Modify Dockerfile to specify a non-root user with USER directive to avoid running container as root.</li>
+            <li>Refactor SQL query construction in app/auth.py and app/db_data.py to use parameterized queries or ORM methods.</li>
+            <li>Remove hardcoded secrets from app/db_data.py and app/request.py; use environment variables or secret management.</li>
+            <li>Add timeout parameters to all requests calls in app/request.py to prevent indefinite hangs.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Detailed Findings Table</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Finding ID</th>
+              <th>Title & Risk Summary</th>
+              <th>Component</th>
+              <th>Line</th>
+              <th>Severity</th>
+              <th>Type</th>
+              <th>Engine</th>
+              <th>Exploitability</th>
+              <th>Blast Radius</th>
+              <th>Priority</th>
+              <th>Release Blocker</th>
+              <th>Recommended Fix</th>
+              <th>Developer Action</th>
+              <th>Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">insecure_hash:app/crypto.py:5</td>
+              <td>
+                <div class="title-cell">Insecure Hash</div>
+                <div class="muted small">Use of MD5 hash which is cryptographically broken and vulnerable to collisions.</div>
+              </td>
+              <td class="mono">app/crypto.py</td>
+              <td class="center">5</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">ruff</span>
+                  <span class="mini-pill">semgrep</span>
+                </div>
+              </td>
+              <td><span class="badge badge-medium">MEDIUM</span></td>
+              <td><span class="badge badge-medium">MEDIUM</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Replace MD5 with a secure hash function like SHA256 or SHA3.</td>
+              <td>Refactor code to use hashlib.sha256() or hashlib.sha3_256() instead of md5().</td>
+              <td>MD5 is insecure for cryptographic purposes and can lead to signature forgery or data integrity issues.</td>
+            </tr>
+            <tr>
+              <td class="mono">unsafe_eval:app/payment.py:6</td>
+              <td>
+                <div class="title-cell">Unsafe Eval</div>
+                <div class="muted small">Use of eval() on dynamic content can lead to arbitrary code execution if input is attacker-controlled.</div>
+              </td>
+              <td class="mono">app/payment.py</td>
+              <td class="center">6</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">ruff</span>
+                  <span class="mini-pill">semgrep</span>
+                </div>
+              </td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Replace eval() with safer alternatives like ast.literal_eval() or explicit parsing.</td>
+              <td>Audit the source of evaluated content; if external input is possible, refactor to avoid eval().</td>
+              <td>Eval can execute arbitrary code leading to full system compromise if misused.</td>
+            </tr>
+            <tr>
+              <td class="mono">dependency_vulnerability:Dockerfile:1</td>
+              <td>
+                <div class="title-cell">Dependency Vulnerability</div>
+                <div class="muted small">Outdated OpenSSL version with multiple critical vulnerabilities including arbitrary code execution.</div>
+              </td>
+              <td class="mono">Dockerfile</td>
+              <td class="center">1</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">trivy</span>
+                </div>
+              </td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Update OpenSSL package to version 3.5.4-1~deb13u2 or later in the Dockerfile base image.</td>
+              <td>Modify Dockerfile to use updated base image or explicitly upgrade OpenSSL during build.</td>
+              <td>Exploitable OpenSSL vulnerabilities can lead to remote code execution or denial of service.</td>
+            </tr>
+            <tr>
+              <td class="mono">dependency_vulnerability:requirements.txt:1</td>
+              <td>
+                <div class="title-cell">Dependency Vulnerability</div>
+                <div class="muted small">jaraco.context package version 5.3.0 vulnerable to path traversal via malicious tar archives.</div>
+              </td>
+              <td class="mono">requirements.txt</td>
+              <td class="center">1</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">trivy</span>
+                </div>
+              </td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-medium">MEDIUM</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Upgrade jaraco.context to version 6.1.0 or later.</td>
+              <td>Update requirements.txt to specify jaraco.context>=6.1.0 and run dependency update.</td>
+              <td>Path traversal can lead to arbitrary file overwrite or disclosure during archive extraction.</td>
+            </tr>
+            <tr>
+              <td class="mono">container_runs_as_root:Dockerfile:13</td>
+              <td>
+                <div class="title-cell">Container Runs As Root</div>
+                <div class="muted small">Container processes run as root user, increasing risk of container escape and privilege escalation.</div>
+              </td>
+              <td class="mono">Dockerfile</td>
+              <td class="center">13</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">semgrep</span>
+                </div>
+              </td>
+              <td><span class="badge badge-medium">MEDIUM</span></td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Add a non-root USER directive at the end of the Dockerfile to run container as non-root user.</td>
+              <td>Define and switch to a non-root user in Dockerfile using USER instruction.</td>
+              <td>Running as root inside container increases impact of any compromise.</td>
+            </tr>
+            <tr>
+              <td class="mono">sql_injection:app/auth.py:6</td>
+              <td>
+                <div class="title-cell">Sql Injection</div>
+                <div class="muted small">String-based SQL query construction may allow injection of malicious SQL commands.</div>
+              </td>
+              <td class="mono">app/auth.py</td>
+              <td class="center">6</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">ruff</span>
+                </div>
+              </td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Use parameterized queries or ORM query builders to construct SQL statements safely.</td>
+              <td>Refactor code to use parameterized queries with placeholders instead of string concatenation.</td>
+              <td>SQL injection can lead to data leakage, modification, or deletion.</td>
+            </tr>
+            <tr>
+              <td class="mono">sql_injection:app/db_data.py:28</td>
+              <td>
+                <div class="title-cell">Sql Injection</div>
+                <div class="muted small">String-based SQL query construction may allow injection of malicious SQL commands.</div>
+              </td>
+              <td class="mono">app/db_data.py</td>
+              <td class="center">28</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">ruff</span>
+                </div>
+              </td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Use parameterized queries or ORM query builders to construct SQL statements safely.</td>
+              <td>Refactor code to use parameterized queries with placeholders instead of string concatenation.</td>
+              <td>SQL injection can lead to data leakage, modification, or deletion.</td>
+            </tr>
+            <tr>
+              <td class="mono">hardcoded_secret:app/db_data.py:45</td>
+              <td>
+                <div class="title-cell">Hardcoded Secret</div>
+                <div class="muted small">Hardcoded password found in source code, risking credential exposure.</div>
+              </td>
+              <td class="mono">app/db_data.py</td>
+              <td class="center">45</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">ruff</span>
+                </div>
+              </td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Remove hardcoded secrets and use environment variables or secure vaults for secret management.</td>
+              <td>Refactor code to load passwords from secure configuration or environment variables.</td>
+              <td>Hardcoded secrets can be extracted and abused by attackers.</td>
+            </tr>
+            <tr>
+              <td class="mono">hardcoded_secret:app/request.py:3</td>
+              <td>
+                <div class="title-cell">Hardcoded Secret</div>
+                <div class="muted small">Hardcoded API token found in source code, risking credential exposure.</div>
+              </td>
+              <td class="mono">app/request.py</td>
+              <td class="center">3</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">ruff</span>
+                </div>
+              </td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">HIGH</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Remove hardcoded API tokens and use environment variables or secret management solutions.</td>
+              <td>Refactor code to load API tokens from environment or secure vault.</td>
+              <td>Hardcoded tokens can be leaked and used to impersonate the service.</td>
+            </tr>
+            <tr>
+              <td class="mono">request_without_timeout:app/request.py:7</td>
+              <td>
+                <div class="title-cell">Request Without Timeout</div>
+                <div class="muted small">HTTP requests without timeout can hang indefinitely, causing resource exhaustion or denial of service.</div>
+              </td>
+              <td class="mono">app/request.py</td>
+              <td class="center">7</td>
+              <td><span class="badge badge-critical">CRITICAL</span></td>
+              <td><span class="type-pill">VULNERABILITY</span></td>
+              <td>
+                <div class="engine-list">
+                  <span class="mini-pill">ruff</span>
+                </div>
+              </td>
+              <td><span class="badge badge-medium">MEDIUM</span></td>
+              <td><span class="badge badge-medium">MEDIUM</span></td>
+              <td><span class="badge badge-high">P1</span></td>
+              <td>
+                <span class="badge badge-critical">
+                  YES
+                </span>
+              </td>
+              <td>Add explicit timeout parameters to all requests calls.</td>
+              <td>Update requests calls to include a reasonable timeout value, e.g., timeout=5.</td>
+              <td>Lack of timeout can degrade service availability under network issues.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="footer">
+      Generated on 2026-05-03 06:08 WIB • Designed for web server publishing, engineering triage, and alert downstream processing.
+    </div>
+  </div>
+</body>
+</html>
