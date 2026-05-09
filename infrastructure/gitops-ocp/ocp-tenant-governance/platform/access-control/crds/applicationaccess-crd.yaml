@@ -35,8 +35,6 @@ spec:
                 namespaces:
                   type: object
                   description: Namespace names keyed by environment.
-                  additionalProperties:
-                    type: string
                   properties:
                     dev:
                       type: string
@@ -94,4 +92,3 @@ spec:
         - name: Repository
           type: string
           jsonPath: .spec.repository
-
