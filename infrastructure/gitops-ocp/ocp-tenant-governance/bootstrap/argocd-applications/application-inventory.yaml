@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tenant-application-inventory
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: tenant-application-inventory
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/managed-by: platform-team
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:Rhisko/intelligent-devsecops-framework.git
+    targetRevision: main
+    path: infrastructure/gitops-ocp/ocp-tenant-governance/platform/access-control/application-inventory
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+

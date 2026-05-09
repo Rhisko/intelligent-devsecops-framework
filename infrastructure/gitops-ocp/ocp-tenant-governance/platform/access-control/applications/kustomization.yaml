@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - dbank-app-01.yaml
+  - dbank-app-02.yaml
+  - dbank-app-03.yaml
+  - dbank-app-04.yaml
+  - dbank-app-05.yaml
+
