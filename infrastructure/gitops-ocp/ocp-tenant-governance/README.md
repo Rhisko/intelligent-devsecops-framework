@@ -12,6 +12,7 @@ Platform team manages:
 - `ResourceQuota`
 - `LimitRange`
 - baseline `NetworkPolicy`
+- `ApplicationAccess` CRD inventory for tenant ownership and access intent
 - reusable RBAC `ClusterRole` catalog
 - namespace-local `RoleBinding` access grants
 - Argo CD AppProject guardrails
@@ -111,6 +112,28 @@ oc get groups
 oc describe group ocp-team-security
 ```
 
+## Application Inventory CRD
+
+The repository defines a lightweight `ApplicationAccess` CRD for inventory and audit:
+
+```text
+platform/access-control/crds/applicationaccess-crd.yaml
+platform/access-control/applications/
+```
+
+`ApplicationAccess` records application namespaces, domain, repository, owners, operators, viewers, auditors, and deployers. It does not create RoleBindings by itself. RoleBindings remain explicit under:
+
+```text
+platform/access-control/bindings/
+```
+
+This keeps cluster state queryable:
+
+```bash
+oc get applicationaccesses
+oc get applicationaccess dbank-app-01 -o yaml
+```
+
 ## Onboard `dbank-app-06`
 
 1. Create `platform/namespaces/dev/dbank-app-06/` with namespace baseline manifests.
@@ -196,6 +219,7 @@ infrastructure/gitops-ocp/ocp-tenant-governance/
 
 This creates Argo CD `Application` resources at platform and namespace granularity:
 
+- `tenant-application-inventory` -> `platform/access-control/application-inventory`
 - `namespace-access-rbac-catalog` -> `platform/rbac-catalog`
 - `dbank-dev-argocd-guardrails` -> `platform/argocd-guardrails/dev`
 - `dbank-staging-argocd-guardrails` -> `platform/argocd-guardrails/staging`

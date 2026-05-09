@@ -2,6 +2,8 @@ apiVersion: access.platform.company.io/v1alpha1
 kind: ApplicationAccess
 metadata:
   name: dbank-app-05
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   namespaces:
     dev: dbank-app-05-dev
