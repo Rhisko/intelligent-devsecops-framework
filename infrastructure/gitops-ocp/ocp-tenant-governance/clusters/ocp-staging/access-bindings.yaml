@@ -4,7 +4,7 @@ metadata:
   name: access-bindings
 spec:
   cluster: ocp-staging
-  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/access-control/bindings/staging
+  path: infrastructure/gitops-ocp/ocp-tenant-governance/platform/access-control/bindings/staging
   managedResources:
     - RoleBinding
 

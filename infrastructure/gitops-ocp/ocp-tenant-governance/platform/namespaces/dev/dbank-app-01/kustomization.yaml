@@ -6,4 +6,5 @@ resources:
   - limitrange.yaml
   - networkpolicy-default-deny.yaml
   - networkpolicy-allow-same-namespace.yaml
-
+  - networkpolicy-allow-egress-dns.yaml
+  - networkpolicy-allow-frontend-egress-to-dbank-app-03-04-backend.yaml

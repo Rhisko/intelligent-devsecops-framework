@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: git@github.com:Rhisko/intelligent-devsecops-framework.git
     targetRevision: main
-    path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/namespace-access/dev/dbank-app-03
+    path: infrastructure/gitops-ocp/ocp-tenant-governance/platform/namespace-access/dev/dbank-app-03
   destination:
     server: https://kubernetes.default.svc
     namespace: dbank-app-03-dev

@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-egress-to-dbank-app-03-04-backend
+  namespace: dbank-app-01-dev
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: frontend
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              platform.company.io/application: dbank-app-03
+              platform.company.io/environment: dev
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: backend
+        - namespaceSelector:
+            matchLabels:
+              platform.company.io/application: dbank-app-04
+              platform.company.io/environment: dev
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: backend
+      ports:
+        - protocol: TCP
+          port: 8080
+

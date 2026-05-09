@@ -4,7 +4,7 @@ metadata:
   name: access-bindings
 spec:
   cluster: ocp-prod
-  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/access-control/bindings/prod
+  path: infrastructure/gitops-ocp/ocp-tenant-governance/platform/access-control/bindings/prod
   managedResources:
     - RoleBinding
 

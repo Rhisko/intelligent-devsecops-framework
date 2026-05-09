@@ -4,7 +4,7 @@ metadata:
   name: namespace-baseline
 spec:
   cluster: ocp-staging
-  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/namespaces/staging
+  path: infrastructure/gitops-ocp/ocp-tenant-governance/platform/namespaces/staging
   managedResources:
     - Namespace
     - ResourceQuota

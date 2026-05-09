@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: git@github.com:Rhisko/intelligent-devsecops-framework.git
     targetRevision: main
-    path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/argocd-guardrails/prod
+    path: infrastructure/gitops-ocp/ocp-tenant-governance/platform/argocd-guardrails/prod
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

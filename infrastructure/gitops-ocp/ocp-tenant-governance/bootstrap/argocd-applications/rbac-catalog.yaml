@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: git@github.com:Rhisko/intelligent-devsecops-framework.git
     targetRevision: main
-    path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/rbac-catalog
+    path: infrastructure/gitops-ocp/ocp-tenant-governance/platform/rbac-catalog
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

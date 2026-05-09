@@ -191,7 +191,7 @@ git@github.com:Rhisko/intelligent-devsecops-framework.git
 Because this repository lives inside a monorepo, Argo CD source paths use:
 
 ```text
-infrastructure/gitops-ocp/gitops-namespace-access-platform/
+infrastructure/gitops-ocp/ocp-tenant-governance/
 ```
 
 This creates Argo CD `Application` resources at platform and namespace granularity:
