@@ -1,0 +1,10 @@
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: ocp-team-card
+  labels:
+    platform.company.io/managed-by: platform-team
+    platform.company.io/domain: card-management
+users:
+  - user-card-01
+

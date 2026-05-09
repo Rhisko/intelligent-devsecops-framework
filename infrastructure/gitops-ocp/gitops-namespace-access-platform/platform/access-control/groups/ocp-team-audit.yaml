@@ -1,0 +1,10 @@
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: ocp-team-audit
+  labels:
+    platform.company.io/managed-by: platform-team
+    platform.company.io/domain: audit
+users:
+  - user-audit-01
+

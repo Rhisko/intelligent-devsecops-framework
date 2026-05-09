@@ -1,0 +1,10 @@
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: ocp-team-sre
+  labels:
+    platform.company.io/managed-by: platform-team
+    platform.company.io/domain: reliability
+users:
+  - user-sre-01
+

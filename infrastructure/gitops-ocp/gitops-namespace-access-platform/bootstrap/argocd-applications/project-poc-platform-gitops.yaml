@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: poc-platform-gitops
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: poc-platform-gitops
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/managed-by: platform-team
+spec:
+  description: Platform GitOps project for namespace access bootstrap, RBAC catalog, and guardrails.
+  sourceRepos:
+    - git@github.com:Rhisko/intelligent-devsecops-framework.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: argocd
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-01-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-02-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-03-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-04-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-05-dev
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-01-staging
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-02-staging
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-03-staging
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-04-staging
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-05-staging
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-01-prod
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-02-prod
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-03-prod
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-04-prod
+    - server: https://kubernetes.default.svc
+      namespace: dbank-app-05-prod
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+  namespaceResourceWhitelist:
+    - group: argoproj.io
+      kind: AppProject
+    - group: ""
+      kind: ResourceQuota
+    - group: ""
+      kind: LimitRange
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+  orphanedResources:
+    warn: true
+

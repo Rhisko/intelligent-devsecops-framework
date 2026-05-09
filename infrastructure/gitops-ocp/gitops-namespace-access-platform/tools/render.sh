@@ -21,6 +21,7 @@ paths=(
   "platform/namespace-access/staging"
   "platform/namespace-access/prod"
   "platform/rbac-catalog"
+  "platform/access-control/groups"
   "platform/access-control/bindings/dev"
   "platform/access-control/bindings/staging"
   "platform/access-control/bindings/prod"

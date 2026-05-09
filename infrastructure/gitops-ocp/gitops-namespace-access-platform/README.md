@@ -12,6 +12,7 @@ Platform team manages:
 - `ResourceQuota`
 - `LimitRange`
 - baseline `NetworkPolicy`
+- OpenShift `Group` membership inventory when Git is the source of truth
 - reusable RBAC `ClusterRole` catalog
 - namespace-local `RoleBinding` access grants
 - Argo CD AppProject guardrails
@@ -87,6 +88,29 @@ The repository defines reusable `ClusterRole` profiles and binds them into names
 This pattern keeps one central RBAC catalog while preserving namespace-scoped access. A `RoleBinding` that references a `ClusterRole` grants only namespaced permissions in the target namespace.
 
 `ClusterRoleBinding` is avoided because it grants access cluster-wide and is too broad for application team access. This repository also does not use `cluster-admin`.
+
+## User Inventory
+
+When Git is the source of truth for OpenShift group membership, users are tracked under:
+
+```text
+platform/access-control/groups/
+```
+
+Example:
+
+```yaml
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: ocp-team-security
+users:
+  - user-security-01
+```
+
+To add a user, edit the matching group file and open a pull request. To remove access, remove the user from the group file. Git history then records who changed membership, when, and through which review.
+
+Do not also sync the same groups from LDAP/AD/Keycloak at the same time. Choose one source of truth for group membership.
 
 ## Onboard `dbank-app-06`
 
@@ -173,6 +197,7 @@ infrastructure/gitops-ocp/gitops-namespace-access-platform/
 
 This creates Argo CD `Application` resources at platform and namespace granularity:
 
+- `namespace-access-identity-groups` -> `platform/access-control/groups`
 - `namespace-access-rbac-catalog` -> `platform/rbac-catalog`
 - `dbank-dev-argocd-guardrails` -> `platform/argocd-guardrails/dev`
 - `dbank-staging-argocd-guardrails` -> `platform/argocd-guardrails/staging`

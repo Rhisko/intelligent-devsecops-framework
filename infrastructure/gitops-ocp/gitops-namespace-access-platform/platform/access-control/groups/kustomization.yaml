@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ocp-team-digital-banking.yaml
+  - ocp-team-card.yaml
+  - ocp-team-loan.yaml
+  - ocp-team-risk.yaml
+  - ocp-team-integration.yaml
+  - ocp-team-platform.yaml
+  - ocp-team-sre.yaml
+  - ocp-team-security.yaml
+  - ocp-team-audit.yaml
+

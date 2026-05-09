@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - identity-groups.yaml
   - rbac-catalog.yaml
   - guardrails-dev.yaml
   - guardrails-staging.yaml
@@ -20,4 +21,3 @@ resources:
   - dbank-app-03-prod-access.yaml
   - dbank-app-04-prod-access.yaml
   - dbank-app-05-prod-access.yaml
-

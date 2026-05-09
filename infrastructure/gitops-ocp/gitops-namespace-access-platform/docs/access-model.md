@@ -4,6 +4,18 @@ Access is granted through namespace-local `RoleBinding` resources that reference
 
 This enables a central RBAC catalog without granting teams cluster-wide access.
 
+## User Membership Inventory
+
+OpenShift `Group` resources are stored in Git under:
+
+```text
+platform/access-control/groups/
+```
+
+This makes membership changes auditable in Git. For example, adding `user-a` to `ocp-team-security` is a normal pull request against `platform/access-control/groups/ocp-team-security.yaml`.
+
+If enterprise identity is synced from LDAP, Active Directory, Keycloak, or another IdP, that IdP should remain the source of truth instead. Do not let both GitOps and IdP sync own the same group membership.
+
 ## Access Matrix
 
 The same team ownership pattern is applied to dev, staging, and prod namespaces unless a production-specific exception is approved.
