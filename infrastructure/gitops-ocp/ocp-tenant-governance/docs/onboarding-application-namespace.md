@@ -6,7 +6,7 @@ To onboard a new application namespace:
 2. Add `Namespace`, `ResourceQuota`, `LimitRange`, and baseline `NetworkPolicy` manifests.
 3. Add the folder to `platform/namespaces/<environment>/kustomization.yaml`.
 4. Create an application access record under `platform/access-control/applications/`.
-5. Add or update OpenShift group membership under `platform/access-control/groups/`.
+5. Confirm required LDAP groups exist and are synced into OpenShift.
 6. Create namespace RoleBindings under `platform/access-control/bindings/<environment>/<app-name>/access.yaml`.
 7. Create `platform/namespace-access/<environment>/<app-name>/kustomization.yaml` to compose namespace baseline and access binding.
 8. Add the namespace access entrypoint to `platform/namespace-access/<environment>/kustomization.yaml`.

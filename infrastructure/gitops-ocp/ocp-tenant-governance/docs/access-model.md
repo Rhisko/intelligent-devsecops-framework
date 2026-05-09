@@ -6,15 +6,20 @@ This enables a central RBAC catalog without granting teams cluster-wide access.
 
 ## User Membership Inventory
 
-OpenShift `Group` resources are stored in Git under:
+LDAP is the source of truth for user lifecycle and group membership.
+
+This GitOps repository is the source of truth for namespace access binding:
 
 ```text
-platform/access-control/groups/
+LDAP group ocp-team-security -> RoleBinding -> ClusterRole namespace-readonly
 ```
 
-This makes membership changes auditable in Git. For example, adding `user-a` to `ocp-team-security` is a normal pull request against `platform/access-control/groups/ocp-team-security.yaml`.
+To inventory users, query LDAP or the synced OpenShift groups:
 
-If enterprise identity is synced from LDAP, Active Directory, Keycloak, or another IdP, that IdP should remain the source of truth instead. Do not let both GitOps and IdP sync own the same group membership.
+```bash
+oc get groups
+oc describe group ocp-team-security
+```
 
 ## Access Matrix
 

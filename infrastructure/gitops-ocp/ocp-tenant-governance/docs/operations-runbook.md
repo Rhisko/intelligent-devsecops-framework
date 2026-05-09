@@ -17,7 +17,7 @@ oc apply -k bootstrap/argocd-applications
 oc get applications -n argocd
 ```
 
-The bootstrap creates a group inventory Application, a shared RBAC catalog Application, one guardrail Application per environment, and one `*-access` Application per application namespace.
+The bootstrap creates a shared RBAC catalog Application, one guardrail Application per environment, and one `*-access` Application per application namespace.
 
 ## Inventory Users
 
@@ -26,11 +26,7 @@ oc get groups
 oc describe group ocp-team-security
 ```
 
-Git source:
-
-```text
-platform/access-control/groups/ocp-team-security.yaml
-```
+LDAP is the source of truth for user membership. GitOps is the source of truth for namespace RoleBindings to those groups.
 
 Direct apply option:
 

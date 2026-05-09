@@ -12,7 +12,6 @@ Platform team manages:
 - `ResourceQuota`
 - `LimitRange`
 - baseline `NetworkPolicy`
-- OpenShift `Group` membership inventory when Git is the source of truth
 - reusable RBAC `ClusterRole` catalog
 - namespace-local `RoleBinding` access grants
 - Argo CD AppProject guardrails
@@ -23,6 +22,12 @@ Application teams manage:
 - image tags and release promotion
 - application runtime configuration
 - service-specific routes, ingress, jobs, scaling, and deployment settings
+
+LDAP manages:
+
+- user lifecycle
+- user-to-group membership
+- offboarding and disabled accounts
 
 ## Namespace Creation
 
@@ -91,26 +96,20 @@ This pattern keeps one central RBAC catalog while preserving namespace-scoped ac
 
 ## User Inventory
 
-When Git is the source of truth for OpenShift group membership, users are tracked under:
+User membership is managed in LDAP, not in this GitOps repository.
+
+This repository records which LDAP/OpenShift group gets which namespace role. LDAP records which users belong to each group.
 
 ```text
-platform/access-control/groups/
+LDAP user -> LDAP group -> OpenShift group -> RoleBinding -> ClusterRole
 ```
 
-Example:
+To inventory users, query LDAP or the synced OpenShift group:
 
-```yaml
-apiVersion: user.openshift.io/v1
-kind: Group
-metadata:
-  name: ocp-team-security
-users:
-  - user-security-01
+```bash
+oc get groups
+oc describe group ocp-team-security
 ```
-
-To add a user, edit the matching group file and open a pull request. To remove access, remove the user from the group file. Git history then records who changed membership, when, and through which review.
-
-Do not also sync the same groups from LDAP/AD/Keycloak at the same time. Choose one source of truth for group membership.
 
 ## Onboard `dbank-app-06`
 
@@ -197,7 +196,6 @@ infrastructure/gitops-ocp/gitops-namespace-access-platform/
 
 This creates Argo CD `Application` resources at platform and namespace granularity:
 
-- `namespace-access-identity-groups` -> `platform/access-control/groups`
 - `namespace-access-rbac-catalog` -> `platform/rbac-catalog`
 - `dbank-dev-argocd-guardrails` -> `platform/argocd-guardrails/dev`
 - `dbank-staging-argocd-guardrails` -> `platform/argocd-guardrails/staging`
