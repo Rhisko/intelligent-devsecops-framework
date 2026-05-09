@@ -3,10 +3,16 @@ kind: ApplicationAccess
 metadata:
   name: dbank-app-02
 spec:
-  namespace: dbank-app-02-dev
-  environment: dev
+  namespaces:
+    dev: dbank-app-02-dev
+    staging: dbank-app-02-staging
+    prod: dbank-app-02-prod
+  environments:
+    - dev
+    - staging
+    - prod
   domain: card-management
-  repository: https://git.example.com/apps/dbank-app-02.git
+  repository: git@github.com:Rhisko/intelligent-devsecops-framework.git
   owners:
     - ocp-team-card
   operators:
@@ -14,4 +20,3 @@ spec:
   viewers:
     - ocp-team-security
     - ocp-team-digital-banking
-

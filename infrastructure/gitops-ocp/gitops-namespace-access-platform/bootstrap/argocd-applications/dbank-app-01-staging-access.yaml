@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dbank-app-01-staging-access
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: dbank-app-01
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/environment: staging
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:Rhisko/intelligent-devsecops-framework.git
+    targetRevision: main
+    path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/namespace-access/staging/dbank-app-01
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dbank-app-01-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+

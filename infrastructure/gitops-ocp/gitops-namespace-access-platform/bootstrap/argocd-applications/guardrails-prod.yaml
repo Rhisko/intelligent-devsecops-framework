@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dbank-prod-argocd-guardrails
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: dbank-prod-argocd-guardrails
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/environment: prod
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:Rhisko/intelligent-devsecops-framework.git
+    targetRevision: main
+    path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/argocd-guardrails/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+

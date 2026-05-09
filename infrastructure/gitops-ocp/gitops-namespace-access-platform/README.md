@@ -28,16 +28,32 @@ Application teams manage:
 Namespaces are defined under:
 
 ```text
-platform/namespaces/dev/<application>/
+platform/namespaces/<environment>/<application>/
 ```
 
-The dev cluster entrypoint is:
+Each application gets one namespace per environment:
+
+```text
+dbank-app-01-dev
+dbank-app-01-staging
+dbank-app-01-prod
+```
+
+Cluster entrypoints are:
 
 ```text
 clusters/ocp-dev/kustomization.yaml
+clusters/ocp-staging/kustomization.yaml
+clusters/ocp-prod/kustomization.yaml
 ```
 
-It includes namespace baselines, the RBAC catalog, access bindings, and Argo CD guardrails.
+Each entrypoint includes that environment's namespace baselines, the shared RBAC catalog, that environment's access bindings, and the matching Argo CD guardrail.
+
+For Argo CD visibility, the bootstrap uses smaller Applications:
+
+- one shared `namespace-access-rbac-catalog` Application
+- one guardrail Application per environment
+- one access Application per application namespace, such as `dbank-app-01-dev-access`
 
 ## Quota And Limits
 
@@ -75,19 +91,22 @@ This pattern keeps one central RBAC catalog while preserving namespace-scoped ac
 ## Onboard `dbank-app-06`
 
 1. Create `platform/namespaces/dev/dbank-app-06/` with namespace baseline manifests.
-2. Add `dbank-app-06` to `platform/namespaces/dev/kustomization.yaml`.
-3. Add `platform/access-control/applications/dbank-app-06.yaml` describing the owner, domain, namespace, and app repo.
-4. Add `platform/access-control/bindings/dev/dbank-app-06-access.yaml`.
-5. Add the binding file to `platform/access-control/bindings/dev/kustomization.yaml`.
-6. Add the app repo and destination namespace to `platform/argocd-guardrails/appproject-dbank-dev.yaml`.
-7. Run `./tools/validate.sh`.
+2. Create matching `staging` and `prod` namespace folders if the application is approved for those environments.
+3. Add `dbank-app-06` to each environment `kustomization.yaml`.
+4. Add `platform/access-control/applications/dbank-app-06.yaml` describing owner, domain, namespaces, and app repo.
+5. Add environment RoleBindings such as `platform/access-control/bindings/dev/dbank-app-06/access.yaml`.
+6. Add a namespace access entrypoint such as `platform/namespace-access/dev/dbank-app-06/kustomization.yaml`.
+7. Add the namespace access entrypoint to `platform/namespace-access/dev/kustomization.yaml`.
+8. Add a bootstrap Argo CD Application such as `bootstrap/argocd-applications/dbank-app-06-dev-access.yaml`.
+9. Add the app repo and destination namespaces to the relevant `platform/argocd-guardrails/<environment>/appproject-dbank-<environment>.yaml`.
+10. Run `./tools/validate.sh`.
 
 ## Change Team Access
 
 Update the relevant file under:
 
 ```text
-platform/access-control/bindings/dev/
+platform/access-control/bindings/<environment>/
 ```
 
 RoleBinding mapping:
@@ -134,6 +153,37 @@ Expected result for the final command is `no`; application owners cannot create 
 
 ## Apply To OpenShift
 
+Register the namespace access platform in Argo CD:
+
+```bash
+oc apply -k bootstrap/argocd-applications
+```
+
+All bootstrap Applications use this Git source:
+
+```text
+git@github.com:Rhisko/intelligent-devsecops-framework.git
+```
+
+Because this repository lives inside a monorepo, Argo CD source paths use:
+
+```text
+infrastructure/gitops-ocp/gitops-namespace-access-platform/
+```
+
+This creates Argo CD `Application` resources at platform and namespace granularity:
+
+- `namespace-access-rbac-catalog` -> `platform/rbac-catalog`
+- `dbank-dev-argocd-guardrails` -> `platform/argocd-guardrails/dev`
+- `dbank-staging-argocd-guardrails` -> `platform/argocd-guardrails/staging`
+- `dbank-prod-argocd-guardrails` -> `platform/argocd-guardrails/prod`
+- `dbank-app-01-dev-access` -> `platform/namespace-access/dev/dbank-app-01`
+- one matching `*-access` Application for every other application namespace
+
+For direct apply without Argo CD:
+
 ```bash
 oc apply -k clusters/ocp-dev
+oc apply -k clusters/ocp-staging
+oc apply -k clusters/ocp-prod
 ```

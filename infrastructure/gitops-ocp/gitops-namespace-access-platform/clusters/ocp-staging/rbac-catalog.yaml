@@ -1,0 +1,10 @@
+apiVersion: platform.company.io/v1alpha1
+kind: ClusterEntrypoint
+metadata:
+  name: rbac-catalog
+spec:
+  cluster: ocp-staging
+  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/rbac-catalog
+  managedResources:
+    - ClusterRole
+

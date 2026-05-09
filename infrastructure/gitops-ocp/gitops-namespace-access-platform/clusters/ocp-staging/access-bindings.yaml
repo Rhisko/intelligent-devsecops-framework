@@ -1,0 +1,10 @@
+apiVersion: platform.company.io/v1alpha1
+kind: ClusterEntrypoint
+metadata:
+  name: access-bindings
+spec:
+  cluster: ocp-staging
+  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/access-control/bindings/staging
+  managedResources:
+    - RoleBinding
+

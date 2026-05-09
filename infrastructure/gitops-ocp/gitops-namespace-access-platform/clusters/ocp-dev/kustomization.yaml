@@ -4,5 +4,4 @@ resources:
   - ../../platform/namespaces/dev
   - ../../platform/rbac-catalog
   - ../../platform/access-control/bindings/dev
-  - ../../platform/argocd-guardrails
-
+  - ../../platform/argocd-guardrails/dev

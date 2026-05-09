@@ -1,0 +1,10 @@
+apiVersion: platform.company.io/v1alpha1
+kind: ClusterEntrypoint
+metadata:
+  name: access-bindings
+spec:
+  cluster: ocp-prod
+  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/access-control/bindings/prod
+  managedResources:
+    - RoleBinding
+

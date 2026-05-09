@@ -1,31 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: dbank-dev
+  name: dbank-staging
   namespace: argocd
   labels:
-    app.kubernetes.io/name: dbank-dev
+    app.kubernetes.io/name: dbank-staging
     app.kubernetes.io/managed-by: argocd
     platform.company.io/managed-by: platform-team
 spec:
-  description: Guardrails for dbank application repositories in dev namespaces.
+  description: Guardrails for dbank application repositories in staging namespaces.
   sourceRepos:
-    - https://git.example.com/apps/dbank-app-01.git
-    - https://git.example.com/apps/dbank-app-02.git
-    - https://git.example.com/apps/dbank-app-03.git
-    - https://git.example.com/apps/dbank-app-04.git
-    - https://git.example.com/apps/dbank-app-05.git
+    - git@github.com:Rhisko/intelligent-devsecops-framework.git
   destinations:
     - server: https://kubernetes.default.svc
-      namespace: dbank-app-01-dev
+      namespace: dbank-app-01-staging
     - server: https://kubernetes.default.svc
-      namespace: dbank-app-02-dev
+      namespace: dbank-app-02-staging
     - server: https://kubernetes.default.svc
-      namespace: dbank-app-03-dev
+      namespace: dbank-app-03-staging
     - server: https://kubernetes.default.svc
-      namespace: dbank-app-04-dev
+      namespace: dbank-app-04-staging
     - server: https://kubernetes.default.svc
-      namespace: dbank-app-05-dev
+      namespace: dbank-app-05-staging
   clusterResourceWhitelist: []
   namespaceResourceWhitelist:
     - group: ""

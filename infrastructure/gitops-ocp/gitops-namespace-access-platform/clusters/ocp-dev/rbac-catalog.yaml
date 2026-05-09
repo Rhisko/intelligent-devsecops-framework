@@ -4,7 +4,7 @@ metadata:
   name: rbac-catalog
 spec:
   cluster: ocp-dev
-  path: platform/rbac-catalog
+  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/rbac-catalog
   managedResources:
     - ClusterRole
 

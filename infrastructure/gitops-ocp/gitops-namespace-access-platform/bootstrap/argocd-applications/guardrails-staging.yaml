@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dbank-staging-argocd-guardrails
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: dbank-staging-argocd-guardrails
+    app.kubernetes.io/managed-by: argocd
+    platform.company.io/environment: staging
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:Rhisko/intelligent-devsecops-framework.git
+    targetRevision: main
+    path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/argocd-guardrails/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+

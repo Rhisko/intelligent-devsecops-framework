@@ -3,14 +3,19 @@ kind: ApplicationAccess
 metadata:
   name: dbank-app-03
 spec:
-  namespace: dbank-app-03-dev
-  environment: dev
+  namespaces:
+    dev: dbank-app-03-dev
+    staging: dbank-app-03-staging
+    prod: dbank-app-03-prod
+  environments:
+    - dev
+    - staging
+    - prod
   domain: loan-management
-  repository: https://git.example.com/apps/dbank-app-03.git
+  repository: git@github.com:Rhisko/intelligent-devsecops-framework.git
   owners:
     - ocp-team-loan
   operators:
     - ocp-team-sre
   viewers:
     - ocp-team-security
-

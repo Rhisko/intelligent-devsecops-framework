@@ -1,0 +1,13 @@
+apiVersion: platform.company.io/v1alpha1
+kind: ClusterEntrypoint
+metadata:
+  name: namespace-baseline
+spec:
+  cluster: ocp-staging
+  path: infrastructure/gitops-ocp/gitops-namespace-access-platform/platform/namespaces/staging
+  managedResources:
+    - Namespace
+    - ResourceQuota
+    - LimitRange
+    - NetworkPolicy
+

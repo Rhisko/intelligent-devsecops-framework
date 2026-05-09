@@ -3,10 +3,16 @@ kind: ApplicationAccess
 metadata:
   name: dbank-app-04
 spec:
-  namespace: dbank-app-04-dev
-  environment: dev
+  namespaces:
+    dev: dbank-app-04-dev
+    staging: dbank-app-04-staging
+    prod: dbank-app-04-prod
+  environments:
+    - dev
+    - staging
+    - prod
   domain: risk-management
-  repository: https://git.example.com/apps/dbank-app-04.git
+  repository: git@github.com:Rhisko/intelligent-devsecops-framework.git
   owners:
     - ocp-team-risk
   operators:
@@ -16,4 +22,3 @@ spec:
     - ocp-team-security
   auditors:
     - ocp-team-audit
-
