@@ -260,6 +260,7 @@ Event      : ${params.EVENT_TYPE}
                         release_recommendation: summary.release_recommendation,
                         executive_summary: summary.executive_summary,
                         report_url: "http://localhost",
+                        report_path: "${result.report_dir}/",
                         job_name: env.JOB_NAME,
                         build_number: env.BUILD_NUMBER,
                         environment: env.ENVIRONMENT ?: "PRODUCTION",

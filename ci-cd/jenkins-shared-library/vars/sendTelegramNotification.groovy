@@ -46,7 +46,7 @@ private String buildAiAdvisoryMessage(Map config) {
     def exploitationRisk = "${riskEmoji(exploitationRiskRaw)} ${escapeHtml(exploitationRiskRaw)}"
     def releaseRecommendation = "${releaseEmoji(releaseRecommendationRaw)} ${escapeHtml(releaseRecommendationRaw)}"
 
-    def reportUrl = normalizeUrl(config.report_url)
+    def reportUrl = resolveReportUrl(config)
     def jobName = escapeHtml(config.job_name ?: "")
     def buildNumber = escapeHtml(config.build_number ?: "")
     def environment = escapeHtml(config.environment ?: "")
@@ -122,6 +122,44 @@ private String normalizeUrl(Object value) {
     }
 
     return raw.replace(" ", "%20")
+}
+
+private String resolveReportUrl(Map config) {
+    def reportUrl = normalizeUrl(config.report_url)
+    def reportPath = normalizeReportPath(config.report_path ?: config.report_path_file)
+
+    if (reportUrl && reportPath) {
+        return joinUrl(reportUrl, reportPath)
+    }
+
+    if (reportUrl) {
+        return reportUrl
+    }
+
+    if (reportPath) {
+        return joinUrl("http://localhost", reportPath)
+    }
+
+    return ""
+}
+
+private String normalizeReportPath(Object value) {
+    def raw = String.valueOf(value ?: "").trim()
+    if (!raw) {
+        return ""
+    }
+
+    return raw
+        .replaceFirst('^/report/', '')
+        .replaceFirst('^report/', '')
+        .replace(" ", "%20")
+}
+
+private String joinUrl(String baseUrl, String path) {
+    def cleanBase = String.valueOf(baseUrl ?: "").replaceAll('/+$', '')
+    def cleanPath = String.valueOf(path ?: "").replaceAll('^/+', '')
+
+    return "${cleanBase}/${cleanPath}"
 }
 
 private String riskEmoji(String value) {
