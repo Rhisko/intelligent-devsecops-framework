@@ -94,7 +94,7 @@ private String buildReportSection(String reportUrl) {
 ━━━━━━━━━━━━━━━━━━
 <b>🔗 REPORT ACCESS</b>
 ━━━━━━━━━━━━━━━━━━
-<a href="${escapeHtmlAttribute(reportUrl)}">Open Full Advisory Report</a>
+<a href="${escapeHtmlAttribute(reportUrl)}">${escapeHtml(reportUrl)}</a>
 """.trim()
 }
 
