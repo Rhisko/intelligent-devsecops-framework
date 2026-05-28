@@ -259,7 +259,7 @@ Event      : ${params.EVENT_TYPE}
                         exploitation_risk: summary.exploitation_risk,
                         release_recommendation: summary.release_recommendation,
                         executive_summary: summary.executive_summary,
-                        report_url: "http://192.168.18.42",
+                        report_url: "http://127.0.0.1",
                         report_path: "${result.report_dir}/",
                         job_name: env.JOB_NAME,
                         build_number: env.BUILD_NUMBER,
