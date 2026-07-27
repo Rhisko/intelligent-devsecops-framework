@@ -1,6 +1,6 @@
 docker:
   network: infrastructure_default
-  base_host_path: /Users/risko/Data/tools/jenkins_data
+  base_host_path: /Users/risko/Workspace/04_tools/00_docker/volumes/jenkins_data
   workspace_mount:
     container_path: /ci-workspace
     mode: rw

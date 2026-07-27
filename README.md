@@ -130,14 +130,134 @@ Required environment values, including LLM credentials and SonarQube connectivit
 
 ## Infrastructure
 
-The infrastructure folder contains Docker-based services for the research prototype, including Jenkins, SonarQube, PostgreSQL, and an Nginx report portal.
+The infrastructure folder contains Docker-based services for running the local research prototype. This README only covers the Docker runtime assets under `infrastructure/` and intentionally excludes the OpenShift GitOps manifests under `infrastructure/gitops-ocp/`.
+
+The active Docker Compose stack currently includes:
+
+| Service | Purpose | Default Access |
+| --- | --- | --- |
+| `jenkins` | CI/CD orchestrator for the DevSecOps pipeline. | `http://localhost:${JENKINS_HTTP_PORT}` |
+| `sonar-db` | PostgreSQL database for SonarQube. | Internal Docker network only |
+| `sonarqube` | Static analysis, external issue aggregation, and quality gate. | `http://localhost:${SONARQUBE_PORT}` |
+| `nginx-report` | Static web portal for generated advisory reports. | `http://localhost` |
+
+### Prerequisites
+
+- Docker Engine or Docker Desktop.
+- Docker Compose v2.
+- Access to the Docker socket from Jenkins, because the pipeline runs scanner and advisory containers with `docker run`.
+- Enough memory for SonarQube. Allocate at least 4 GB to Docker for a smoother local run.
+- Valid environment values in `infrastructure/.env`.
+- LLM/API credentials configured for `ai-advisory-platform` before running AI advisory analysis.
+
+### Environment Configuration
+
+The Compose file reads runtime values from `infrastructure/.env`. At minimum, review these keys:
+
+```text
+TZ
+JENKINS_HTTP_PORT
+SONARQUBE_PORT
+SONARQUBE_JDBC_URL
+SONARQUBE_JDBC_USERNAME
+SONARQUBE_JDBC_PASSWORD
+SONARQUBE_JAVA_XMX
+```
+
+The current Compose file also contains workstation-specific volume paths, for example Jenkins workspace and report directories. Adjust them before running on another machine:
+
+```yaml
+volumes:
+  - /path/to/jenkins_data/ci-workspace:/ci-workspace
+  - /path/to/jenkins_data/report-ai-advisory:/report:ro
+```
+
+The Jenkins shared library also uses `ci-cd/jenkins-shared-library/resources/docker-config.yaml` to resolve Docker workspace mounts:
+
+```yaml
+docker:
+  network: infrastructure_default
+  base_host_path: /Users/risko/Data/tools/jenkins_data
+  workspace_mount:
+    container_path: /ci-workspace
+    mode: rw
+```
+
+Keep `base_host_path`, the Compose Jenkins workspace volume, and the report volume aligned. If these paths point to different host directories, Jenkins may run but scanner/advisory containers will not see the expected workspace or report files.
+
+### Build the AI Advisory Runtime Image
+
+The Jenkins shared library expects this image name:
+
+```text
+ai-runner-advisory:v1.0.0
+```
+
+Build it from the AI advisory platform directory:
+
+```bash
+cd ai-advisory-platform
+docker build -f docker/Dockerfile -t ai-runner-advisory:v1.0.0 .
+```
+
+The Dockerfile copies the application source, prompts, configs, and local `.env` into the image. For shared or production environments, prefer injecting secrets at runtime instead of baking sensitive values into an image.
+
+### Start the Docker Compose Stack
 
 ```bash
 cd infrastructure
 docker compose --env-file .env up -d --build
 ```
 
-Before running, review `infrastructure/docker-compose.yml` and `infrastructure/.env`. Several volume paths are environment-specific and may need to be adjusted for a different workstation or server.
+Check container status:
+
+```bash
+docker compose --env-file .env ps
+```
+
+Follow logs during startup:
+
+```bash
+docker compose --env-file .env logs -f jenkins sonarqube sonar-db nginx-report
+```
+
+### Access the Local Services
+
+After startup, use the configured ports:
+
+- Jenkins: `http://localhost:${JENKINS_HTTP_PORT}`
+- SonarQube: `http://localhost:${SONARQUBE_PORT}`
+- Report portal: `http://localhost`
+
+SonarQube can take several minutes to become ready on the first run. Jenkins depends on SonarQube in Compose, but successful container startup does not always mean SonarQube is immediately ready for scanner requests.
+
+### Runtime Notes
+
+- The Jenkins container mounts `/var/run/docker.sock`, so pipeline stages can execute scanner containers.
+- Scanner tool images are defined in `ci-cd/jenkins-shared-library/resources/tool-metadata.yaml`.
+- The AI advisory container runs on the `infrastructure_default` Docker network so it can reach SonarQube at `http://sonarqube:9000`.
+- Generated advisory reports are written to the configured report directory and served by `nginx-report`.
+- The current `nginx-report` service calls `infrastructure/nginx/generate-index.sh`; make sure that script is active if an auto-generated report index is required.
+
+### Stop and Clean Up
+
+Stop the stack without deleting named volumes:
+
+```bash
+cd infrastructure
+docker compose --env-file .env down
+```
+
+Remove containers and named volumes only when you intentionally want to reset Jenkins and SonarQube state:
+
+```bash
+cd infrastructure
+docker compose --env-file .env down -v
+```
+
+### Out of Scope for Local Docker Run
+
+The OpenShift GitOps manifests under `infrastructure/gitops-ocp/` are not required for this Docker Compose workflow. They can be ignored when running the local Jenkins, SonarQube, AI advisory, and report portal stack.
 
 ## Security Policies and Gate Logic
 
