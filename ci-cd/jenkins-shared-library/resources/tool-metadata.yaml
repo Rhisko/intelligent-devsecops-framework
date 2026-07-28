@@ -92,4 +92,4 @@ ai_advisory:
     report_dir: "report"
     network: "infrastructure_default"
     output_file: "advisory_report.json"
-    report_base_dir: "/Users/risko/Data/tools/jenkins_data/report-ai-advisory"
+    report_base_dir: "/Users/risko/Workspace/04_tools/00_docker/volumes/jenkins_data/report-ai-advisory"
