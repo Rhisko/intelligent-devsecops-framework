@@ -88,5 +88,3 @@ volumes:
   sonar_data:
   sonar_logs:
   sonar_extensions:
-  n8n_db_data:
-  n8n_data:
